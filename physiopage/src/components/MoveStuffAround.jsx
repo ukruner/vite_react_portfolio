@@ -8,10 +8,9 @@ const MoveStuffAround = () => {
 
 
    return <Marquee className=' bg-gradient-to-r from-sky-300 to-sky-600' autoFill='true'>
-    TestText
-        {marquee === "admin" && <img src='./public/phone.webp' style={{background: 'transparent'}} width='50rem' height='auto' alt="animated gif"></img>}
-       {marquee === "exercise" && <img src='./public/exercise.gif' width='50rem' height='50rem' alt="animated gif"></img>}
-       {marquee === "info" && <img src='./public/info.jpg' width='50rem' height='50rem' alt="animated gif"></img>}
+        {marquee === "admin" && <img src='./public/phone.webp' style={{background: 'transparent'}} width='35rem' height='auto' alt="animated gif"></img>}
+       {marquee === "exercise" && <img src='./public/exercise.gif' width='35rem' height='auto' alt="animated gif"></img>}
+       {marquee === "info" && <img src='./public/info.jpg' width='35rem' height='auto' alt="animated gif"></img>}
     </Marquee>
 }
 
