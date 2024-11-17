@@ -7,8 +7,10 @@ export default {
     
   ],
   theme: {
-    extend: {},
-  },
-  plugins: [],
+    extend: {
+      fontFamily: {
+        sans: 
+      ["Open Sans", "sans-serif"],}}},
+  plugins: [require("@xpd/tailwind-3dtransforms")],
 }
 

@@ -5,21 +5,25 @@ import Footer from './components/Footer';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import MoveStuffAround from './components/MoveStuffAround';
+import Navbar from './components/Navbar';
+import { Fragment } from 'react';
 
 function App() {
 
   const router = createBrowserRouter([{
     path: '/',
-    element: (<>
-    <section ><MoveStuffAround></MoveStuffAround></section>
-      <Header></Header>
+    element: (<Fragment>
+      <main >
+    <section ><MoveStuffAround></MoveStuffAround>
+      <Header ></Header></section>
+      <div className='h-full py-1'><Navbar></Navbar></div>
       <Layout>
 
       </Layout>
-      <Footer>
-      </Footer>
-
-    </>),
+      {/* <Footer>
+      </Footer> */}
+</main>
+    </Fragment>),
   }])
   return <RouterProvider router={router}></RouterProvider>
     

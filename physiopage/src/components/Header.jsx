@@ -1,15 +1,16 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
-import MoveStuffAround from './MoveStuffAround'
+
 
 export default function Header() {
   return (
 
-    <main className='bg-gradient-to-r from-sky-300 to-sky-600 h-300rem'>
-      <div className='flex flex-row'>
-    <div className='p-4 '>
-    <Link >NavBar placeholder</Link>
-    </div>
+    <main className='custom-header flex flex-row'>
+     
+      <div className='p-4'>
+    <Link>NavBar placeholder</Link></div>
+    <div className='md:ml-72 fixed'>
+    <nav className='flex flex-row'>
     <div className='p-4'>
     <Link >Why us</Link>
     </div>
@@ -25,7 +26,9 @@ export default function Header() {
     <div className='p-4'>
     <Link >Resources</Link>
     </div>
+    </nav>
     </div>
+    
     </main>
   )
 }

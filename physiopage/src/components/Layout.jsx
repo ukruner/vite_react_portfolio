@@ -15,10 +15,11 @@ export default function Layout() {
 
 
   return (
-    <>Layout
-    <button onClick={()=>changeMarquee("exercise")}>Dumbbell</button>
-    <button onClick={()=>changeMarquee("info")}>Info</button>
-    <button onClick={()=>changeMarquee("admin")}>Admin</button>
-    </>
+    <div className='inline-block'>
+      <p className='mx-7 my-2'>Layoutdesfsdgd</p>
+    <button className='light-button' onClick={()=>changeMarquee("exercise")}>Dumbbell</button>
+    <button className='light-button' onClick={()=>changeMarquee("info")}>Info</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    </div>
   )
 }
