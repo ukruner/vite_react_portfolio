@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import MoveStuffAround from './components/MoveStuffAround';
-import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 import { Fragment } from 'react';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
       <main >
     <section ><MoveStuffAround></MoveStuffAround>
       <Header ></Header></section>
-      <div className='h-full py-1'><Navbar></Navbar></div>
+      <div className='h-full py-1'><Sidebar></Sidebar></div>
       <Layout>
 
       </Layout>

@@ -19,6 +19,9 @@ export default {
       'blue-4': '#b3e3ff',
       'blue-5': '#cdecff',
       'blue-6': '#e6f6ff'
+    },
+    boxShadow: {
+      'right-side': '0 0px 30px 0px rgba(0, 0, 0, 0.3)',
     }}},
   plugins: [require("@xpd/tailwind-3dtransforms")],
 }
