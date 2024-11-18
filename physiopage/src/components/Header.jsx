@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
-
+import AuthBox from './AuthBox';
 
 export default function Header() {
   return (
@@ -9,7 +9,7 @@ export default function Header() {
      
       <div className='p-4'>
     <Link>NavBar placeholder</Link></div>
-    <div className='md:ml-72 fixed'>
+    <div className='md:ml-72 absolute'>
     <nav className='flex flex-row'>
     <div className='p-4'>
     <Link >Why us</Link>
@@ -28,6 +28,7 @@ export default function Header() {
     </div>
     </nav>
     </div>
+    <AuthBox>Account</AuthBox>
     
     </main>
   )
