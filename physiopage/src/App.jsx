@@ -8,6 +8,8 @@ import MoveStuffAround from './components/MoveStuffAround';
 import Sidebar from './components/Sidebar';
 import { Fragment } from 'react';
 
+// parallax scrolling, link up with navbar title switches - background switches
+
 function App() {
 
   const router = createBrowserRouter([{

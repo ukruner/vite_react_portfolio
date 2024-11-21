@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import AuthBox from './AuthBox';
 import { switcherActions } from '../store/slices/switchers';
 import mainStore from '../store';
+import ReactFreezeframe from 'react-freezeframe';
 
 export default function Header() {
 
@@ -11,11 +12,14 @@ export default function Header() {
   }
 
   return (
-
+    
     <main className='custom-header flex flex-row'>
-     
+      <ReactFreezeframe className='object-scale-down h-20 w-20' src='./public/whale2.gif' alt='moving whale'></ReactFreezeframe>
+
       <div className='p-4 absolute'>
-    <button onClick={openSidebar}>NavBar placeholder</button></div>
+
+      </div>
+    {/* <button onClick={openSidebar}>NavBar placeholder</button></div> */}
     <div className='md:ml-80 static'>
     <nav className='flex flex-row'>
     <div className='p-4'>

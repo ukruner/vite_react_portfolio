@@ -38,7 +38,7 @@ button:focus {
 
 
 .custom-header {
-  @apply bg-gradient-to-r from-30% from-blue-3 to-blue-6 drop-shadow-md
+  @apply bg-gradient-to-r w-full h-24 from-30% from-blue-3 to-blue-6 drop-shadow-md
 }
 
 .light-button {
