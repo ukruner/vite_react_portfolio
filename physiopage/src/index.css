@@ -89,7 +89,7 @@ button:focus {
 }
 
 .custom-header {
-  @apply w-full h-20 bg-gradient-to-r from-blue-4 to-blue-6 drop-shadow-md z-[10];
+  @apply w-full h-20 bg-gradient-to-r from-blue-4 to-blue-6 drop-shadow-md z-[100];
 }
 
 .light-button {
@@ -107,7 +107,7 @@ button:focus {
 
 
 .sidebar-button {
-  @apply transition-all duration-100 px-2 py-2 self-center w-auto h-auto shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px]  bg-blue-2 rounded-r-xl z-20
+  @apply transition-all duration-100 px-2 py-2 self-center w-auto h-auto shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px]  bg-blue-2 rounded-r-xl z-[100]
 }
 
 .toggler {

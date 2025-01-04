@@ -3,7 +3,7 @@ import Header from './components/Header';
 import Layout from './components/Layout';
 import Footer from './components/Footer';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import Background from './components/Background';
 import MoveStuffAround from './components/MoveStuffAround';
 import Sidebar from './components/Sidebar';
 import { Fragment } from 'react';
@@ -14,12 +14,18 @@ function App() {
 
   const router = createBrowserRouter([{
     path: '/',
-    element: (<Fragment>
-      <main >
-    <section ><MoveStuffAround></MoveStuffAround>
-      <Header ></Header></section>
-     <Sidebar></Sidebar>
-      <div><Layout>
+    element: (
+      <main>
+
+
+<header className='fixed z-[200]'><MoveStuffAround></MoveStuffAround>
+<Header ></Header></header>
+<div className='relative top-[5rem]'>
+
+      <Background></Background>
+      
+      
+      <div className='z-50 w-[35rem] relative'><Layout>
 
       </Layout>
       <Layout>
@@ -28,10 +34,12 @@ function App() {
       <Layout>
 
       </Layout></div>
-      {/* <Footer>
-      </Footer> */}
+      <Sidebar></Sidebar>
+      </div>
+      
+    
 </main>
-    </Fragment>),
+    ),
   }])
   return <RouterProvider router={router}></RouterProvider>
     

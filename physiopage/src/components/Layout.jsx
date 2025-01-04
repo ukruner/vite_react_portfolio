@@ -15,7 +15,7 @@ export default function Layout() {
 
 
   return (
-    <div className='inline-block'>
+    <div className='relative inline-block z-50 left-10 '>
       <p className='mx-7 my-2'>Layoutdesfsdgd</p>
     <button className='light-button' onClick={()=>changeMarquee("exercise")}>Dumbbell</button>
     <button className='light-button' onClick={()=>changeMarquee("info")}>Info</button>

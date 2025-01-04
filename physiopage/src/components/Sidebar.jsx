@@ -14,7 +14,7 @@ export default function Sidebar() {
   }
   
   return (
- <div id='container' className='fixed sidebar-height flex top-20 z-10'><aside className={` ${isSidebarClicked ? 'w-72' : 'w-0' } sidebar`}>
+ <div id='container' className='fixed sidebar-height flex top-20 z-[100]'><aside className={` ${isSidebarClicked ? 'w-72' : 'w-0' } sidebar`}>
       {isSidebarClicked && <div className='text-stone-50 px-8 py-20'>Sidebar</div>}
     
       </aside>
