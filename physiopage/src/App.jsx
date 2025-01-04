@@ -18,10 +18,16 @@ function App() {
       <main >
     <section ><MoveStuffAround></MoveStuffAround>
       <Header ></Header></section>
-      <div className='h-full py-1'><Sidebar></Sidebar></div>
+     <Sidebar></Sidebar>
+      <div><Layout>
+
+      </Layout>
       <Layout>
 
       </Layout>
+      <Layout>
+
+      </Layout></div>
       {/* <Footer>
       </Footer> */}
 </main>

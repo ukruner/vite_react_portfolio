@@ -20,6 +20,55 @@ export default function Layout() {
     <button className='light-button' onClick={()=>changeMarquee("exercise")}>Dumbbell</button>
     <button className='light-button' onClick={()=>changeMarquee("info")}>Info</button>
     <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+    <button className='light-button' onClick={()=>changeMarquee("admin")}>Admin</button>
+
     </div>
   )
 }
