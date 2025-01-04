@@ -1,10 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useSelector } from 'react-redux';
 
-
-
-
-const initialState = {isAuth: false, isSidebarOpen: false}
-const SwitcherSlice = createSlice({
+const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false}
+const switcherSlice = createSlice({
 name: "switchers",
 initialState,
 reducers:
@@ -13,10 +11,14 @@ reducers:
 },
 setIsSidebarOpen(state){
     state.isSidebarOpen = !state.isSidebarOpen;
+},
+setMarqueeActive(state){
+    state.isMarqueeActive = !state.isMarqueeActive;
+
 }
 }
 })
 
-export const switcherActions = SwitcherSlice.actions;
+export const switcherActions = switcherSlice.actions;
 
-export default SwitcherSlice.reducer;
+export default switcherSlice.reducer;

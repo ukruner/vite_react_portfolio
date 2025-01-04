@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {marqueeSign: undefined}
-const marqueeSlice = createSlice({
+const marqueeSign = createSlice({
 name: "marquee",
 initialState,
 reducers:
@@ -13,6 +13,6 @@ reducers:
 }}
 })
 
-export const marqueeActions = marqueeSlice.actions;
+export const marqueeActions = marqueeSign.actions;
 
-export default marqueeSlice.reducer;
+export default marqueeSign.reducer;

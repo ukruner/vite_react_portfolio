@@ -6,11 +6,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Background from './components/Background';
 import MoveStuffAround from './components/MoveStuffAround';
 import Sidebar from './components/Sidebar';
-import { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 
 // parallax scrolling, link up with navbar title switches - background switches
 
 function App() {
+  const marginTop = useSelector(state => state.marqueeSign.marqueeSign) ? '7rem' : '5rem';
 
   const router = createBrowserRouter([{
     path: '/',
@@ -20,7 +21,7 @@ function App() {
 
 <header className='fixed z-[200]'><MoveStuffAround></MoveStuffAround>
 <Header ></Header></header>
-<div className='relative top-[5rem]'>
+<div className='relative' style={{top: marginTop}}>
 
       <Background></Background>
       

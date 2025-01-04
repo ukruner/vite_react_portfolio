@@ -1,15 +1,17 @@
 import React from 'react'
 import { marqueeActions } from '../store/slices/marqueeSlice'
 import mainStore from '../store'
-import marqueeSlice from '../store/slices/marqueeSlice';
-import {useSelector} from 'react-redux';
+
+import { switcherActions } from '../store/slices/switchers';
 
 export default function Layout() {
 
   
 
   function changeMarquee(value){
+
     mainStore.dispatch(marqueeActions.setMarqueeSign(value));
+    mainStore.dispatch(switcherActions.setMarqueeActive())
   }
   
 
