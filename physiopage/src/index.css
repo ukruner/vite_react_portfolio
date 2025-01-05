@@ -32,13 +32,13 @@ body {
 }
 
 .background {
-  position: absolute;
+  position: relative;
   background-image: url("./light-blue-sky-high-resolution-clouds-hswmztfo862ydkpm.webp");
   background-size: cover;
   opacity: 10%;
   height: 100%;
   width: 100%;
-  z-index: -1;
+  
 }
 
 /* button {
@@ -73,11 +73,11 @@ button:focus {
 
 
 .side-button-wrapper {
-  @apply bg-white z-[20];
+  @apply bg-white z-[250];
 }
 
 .navbar-active-button {
-  @apply bg-white z-[50] rounded-tr-xl rounded-tl-xl relative;
+  @apply bg-white z-[500] rounded-tr-xl rounded-tl-xl relative;
 }
 
 .navbar-left-button {

@@ -23,28 +23,30 @@ export default function Header() {
       parent.classList.remove('side-button-wrapper');
     });
 
-    const buttonLeft = currentButton.previousElementSibling;
-    const buttonRight = currentButton.nextElementSibling;
+    const leftButtonWrapper = currentParent.previousElementSibling;
+    const rightButtonWrapper = currentParent.nextElementSibling;
 
-    const leftButtonWrapper = buttonLeft.querySelector('div');
-    const rightButtonWrapper = buttonRight.querySelector('div');
-    // const leftButton = parentLeft?.querySelector('button');
-    // const rightButton = parentRight?.querySelector('button');
+
+    // const leftButtonWrapper = buttonLeft.querySelector('div');
+    // const rightButtonWrapper = buttonRight.querySelector('div');
+
+    const leftButton = leftButtonWrapper?.querySelector('button');
+    const rightButton = rightButtonWrapper?.querySelector('button');
 
     // const leftParent = leftButton.parentElement;
     // const rightParent = rightButton.parentElement;
 
-    if (buttonLeft) {
-      console.log('Left button:', buttonLeft.textContent);
-      buttonLeft.classList.add('navbar-left-button');
+    if (leftButton) {
+      console.log('Left button:', leftButton.textContent);
+      leftButton.classList.add('navbar-left-button');
       leftButtonWrapper.classList.add('side-button-wrapper'); 
     } else {
       console.log('No left button.');
     }
 
-    if (buttonRight) {
-      console.log('Right button:', buttonRight.textContent);
-      buttonRight.classList.add('navbar-right-button'); 
+    if (rightButton) {
+      console.log('Right button:', rightButton.textContent);
+      rightButton.classList.add('navbar-right-button'); 
       rightButtonWrapper.classList.add('side-button-wrapper'); 
     } else {
       console.log('No right button.');

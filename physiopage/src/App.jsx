@@ -17,7 +17,7 @@ function App() {
     path: '/',
     element: (
       <main>
-
+        
 
 <header className='fixed z-[200]'><MoveStuffAround></MoveStuffAround>
 <Header ></Header></header>
