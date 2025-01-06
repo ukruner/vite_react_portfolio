@@ -51,45 +51,49 @@ button:focus {
   outline: none;
 } */
 
-.navbar-container {
-  @apply z-[10] flex justify-end relative from-blue-5 to-blue-6;
+
 
   /* border-bottom: .5rem solid var(--selected-tab-color); */
-}
+
 
 .navbar-button {
+  
   white-space: nowrap;
   padding: 0.25rem 1.5rem;
   height: 3rem;
   display: grid;
   place-items: center;
   color: black;
-  position: relative;
-  z-index: 30;
-  background-color: var(--tab-container-bg);
+  /* position: relative;
+  z-index: 30; */
+
   cursor: pointer;
   user-select: none;
+  z-index: 100;
 }
 
 
 .side-button-wrapper {
-  @apply bg-white z-[250];
+
+ @apply bg-gray-50;
 }
 
+
+
 .navbar-active-button {
-  @apply bg-white z-[500] rounded-tr-xl rounded-tl-xl relative;
+  @apply  bg-gray-50 rounded-tr-xl rounded-tl-xl;
 }
 
 .navbar-left-button {
-  @apply rounded-br-xl bg-gradient-to-r bg-blue-5;
+  @apply rounded-br-xl bg-blue-4 text-black;
 }
 
 .navbar-right-button {
-  @apply rounded-bl-xl bg-gradient-to-r bg-blue-5;
+  @apply rounded-bl-xl bg-blue-4 text-black ;
 }
 
 .custom-header {
-  @apply w-full h-20 bg-gradient-to-r from-blue-4 to-blue-6 drop-shadow-md z-[100];
+  @apply w-full h-20 bg-blue-4  z-[100];
 }
 
 .light-button {

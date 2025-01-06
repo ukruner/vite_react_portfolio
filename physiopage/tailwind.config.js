@@ -24,5 +24,6 @@ export default {
       'right-side': '0 0px 30px 0px rgba(0, 0, 0, 0.3)',
     }}},
   plugins: [require("@xpd/tailwind-3dtransforms")],
+  safelist: ['isolate']
 }
 

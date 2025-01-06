@@ -4,10 +4,10 @@ import mainStore from '../store'
 
 export default function AuthBox({children}) {
   return (
-    <div className='right-0 absolute'>
-        <div className='flex flex-inline'>
+    <div className='flex place-items-end'>
+        
+        <div className='p-4 '>{children}</div>
         <div className='p-4'>{children}</div>
-        <div className='p-4'>{children}</div>
-        </div></div>
+        </div>
   )
 }
