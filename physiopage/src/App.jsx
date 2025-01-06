@@ -7,6 +7,7 @@ import Background from './components/Background';
 import MoveStuffAround from './components/MoveStuffAround';
 import Sidebar from './components/Sidebar';
 import { useSelector } from 'react-redux';
+import ParallaxContainer from './components/ParallaxContainer';
 
 // parallax scrolling, link up with navbar title switches - background switches
 
@@ -16,6 +17,7 @@ function App() {
   const router = createBrowserRouter([{
     path: '/',
     element: (
+      
       <main>
         
 
@@ -24,19 +26,12 @@ function App() {
 <div className='relative' style={{top: marginTop}}>
 
       <Background></Background>
+      <ParallaxContainer></ParallaxContainer>
       
-      
-      <div className='z-50 w-[35rem] relative'><Layout>
-
-      </Layout>
-      <Layout>
-
-      </Layout>
-      <Layout>
-
-      </Layout></div>
-      <Sidebar></Sidebar>
+        
       </div>
+      <Sidebar></Sidebar>
+      {/* <div className='z-50 w-[35rem] relative'></div> */}
       
     
 </main>

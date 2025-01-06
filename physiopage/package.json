@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.26.0",
+    "@react-spring/parallax": "^9.7.5",
     "@reduxjs/toolkit": "^2.3.0",
     "babel-install": "^2.1.0",
     "freezeframe": "^5.0.2",
