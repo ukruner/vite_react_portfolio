@@ -59,13 +59,27 @@ button:focus {
 .navbar-button {
   
   white-space: nowrap;
-  padding: 0.25rem 1.5rem;
+  padding: 0.5rem 2rem;
+  
   height: 3rem;
   display: grid;
   place-items: center;
   color: black;
   /* position: relative;
   z-index: 30; */
+
+  cursor: pointer;
+  user-select: none;
+  z-index: 100;
+}
+
+.auth-button {
+  white-space: nowrap;
+  height: 3rem;
+display: flex;
+  place-items: center;
+  color: black;
+  
 
   cursor: pointer;
   user-select: none;
@@ -101,7 +115,7 @@ button:focus {
 }
 
 .sidebar {
-  @apply transition-all duration-100 opacity-90 shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px] flex  bg-gradient-to-r from-blue-1 to-blue-3  rounded-r-xl
+  @apply transition-all duration-300 w-72 opacity-90 shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px] flex  bg-gradient-to-r from-blue-1 to-blue-3  rounded-r-xl
 }
 
 
@@ -114,6 +128,75 @@ button:focus {
   @apply transition-all duration-100 px-2 py-2 self-center w-auto h-auto shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px]  bg-blue-2 rounded-r-xl z-[100]
 }
 
+.main-body-container {
+  @apply text-center  px-[20rem] bg-transparent top-[10rem] h-full w-full flex items-center justify-center
+}
+
+.main-body-text {
+  @apply text-5xl tracking-wide bg-transparent outline outline-offset-8 drop-shadow-md rounded-lg uppercase text-blue-1;
+  text-shadow:
+   -1px -1px 0 #A9A9A9, 1px -1px 0 #A9A9A9, -1px 1px 0 #A9A9A9, 1px 1px 0 #A9A9A9;
+  line-height: 1.25;
+}
 .toggler {
   @apply h-[2.5rem] rounded-r-xl px-[0.5rem] shadow-[rgba(0,0,0,0.2)_2px_2px_3px_0px] text-right text-black border-none cursor-pointer bg-blue-3 justify-center items-center border-r-[0.5rem];
+}
+
+
+
+/* extras */
+
+/* .page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+.page > div {
+  touch-action: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  box-shadow: 0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+} */
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  display: flex;
+  position: relative;
+  scroll-snap-type: x mandatory;
+}
+
+.page {
+  flex: 0 0 100%;
+  height: 100%;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  scroll-snap-align: start;
 }

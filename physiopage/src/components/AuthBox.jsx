@@ -4,10 +4,9 @@ import mainStore from '../store'
 
 export default function AuthBox({children}) {
   return (
-    <div className='flex place-items-end'>
-        
-        <div className='p-4 '>{children}</div>
-        <div className='p-4'>{children}</div>
+    <div id="authdiv" className='mr-4 h-20 w-[10rem] flex place-items-end justify-end'>
+        <button className='auth-button mr-[1rem]'>{children}</button>
+        <button className='auth-button ml-[1rem] mr-[1rem]'> Login </button>
         </div>
   )
 }

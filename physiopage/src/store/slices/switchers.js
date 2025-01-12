@@ -10,8 +10,15 @@ reducers:
     state.isAuth = !state.isAuth;
 },
 setIsSidebarOpen(state){
-    state.isSidebarOpen = !state.isSidebarOpen;
-},
+    if (!state.isSidebarOpen){
+        state.isSidebarOpen = true;
+    }
+    else {
+        state.isSidebarOpen = false;
+    }
+    
+    },
+    
 setMarqueeActive(state){
     state.isMarqueeActive = !state.isMarqueeActive;
 
