@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from 'react-redux';
 
-const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false}
+const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false, navBarLayer: 0, scrollToValue: null}
 const switcherSlice = createSlice({
 name: "switchers",
 initialState,
@@ -22,6 +22,12 @@ setIsSidebarOpen(state){
 setMarqueeActive(state){
     state.isMarqueeActive = !state.isMarqueeActive;
 
+},
+setNavBarLayer(state, action){
+    state.navBarLayer = action.payload; 
+},
+setScrollToValue(state, action){
+    state.scrollToValue = action.payload;
 }
 }
 })

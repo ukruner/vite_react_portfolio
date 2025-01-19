@@ -4,7 +4,7 @@ import AuthBox from './AuthBox';
 import { switcherActions } from '../store/slices/switchers';
 import mainStore from '../store';
 
-import { useState } from 'react';
+import { useRef } from 'react';
 import WhaleSidebarButton from './whaleSidebarButton';
 import HeaderNavbar from './HeaderNavbar';
 
