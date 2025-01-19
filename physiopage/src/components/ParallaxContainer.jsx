@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { switcherActions } from '../store/slices/switchers';
 import { useState, useRef, useEffect, useCallback, forwardRef } from 'react';
 import mainStore from '../store';
-
+import highlightButton from '../utils/highlightButton';
 export default function ParallaxContainer() {
 
     const marginTop = useSelector(state => state.marqueeSign.marqueeSign) ? '7rem' : '5rem';
@@ -37,102 +37,27 @@ export default function ParallaxContainer() {
     
     useEffect(() => {
     if (parallaxRef.current) {
-    const container = parallaxRef.current.container.current;
-    container.addEventListener("scroll", handleScroll);
-        console.log(navBarLayerNumber);
+        const container = parallaxRef.current.container.current;
+        container.addEventListener("scroll", handleScroll);
     return () => {
-    container.removeEventListener("scroll", handleScroll);
+        container.removeEventListener("scroll", handleScroll);
     };
     }
     }, [handleScroll]);
 
     useEffect(()=>{
-        
         if (parallaxRef.current && scrollToValue >= 0){
-
-            
             parallaxRef.current.scrollTo(scrollToValue)
-            console.log("scrolling to", scrollToValue)
-            console.log("ref body is", parallaxRef)
         }
     }
-   
 , [scrollToValue])
 
 
 
-
-
-
-    // const [activeLayer, setActiveLayer] = useState(0);
-    
-
-
-    // const parallaxLayers = document.querySelectorAll(".main-body-container")
  
     const handleClick = (index) => {
+        highlightButton(index)}
         
-        document.querySelectorAll('.navbar-active-button, .navbar-left-button, .navbar-right-button').forEach(btn => {
-          btn.classList.remove('navbar-active-button', 'navbar-left-button', 'navbar-right-button');
-        });
-      
-        document.querySelectorAll('.side-button-wrapper').forEach(parent => {
-          parent.classList.remove('side-button-wrapper');
-        });
-    
-
-        const buttonList = document.querySelectorAll('.navbar-button');
-
-        const buttonToChange = buttonList[index];
-
-        const buttonParent = buttonToChange.closest('div');
-
-        const leftButtonWrapper = buttonParent.previousElementSibling;
-        const rightButtonWrapper = buttonParent.nextElementSibling;
-    
-    
-        // const leftButtonWrapper = buttonLeft.querySelector('div');
-        // const rightButtonWrapper = buttonRight.querySelector('div');
-    
-        const leftButton = leftButtonWrapper?.querySelector('button');
-    
-        const rightButton = rightButtonWrapper?.querySelector('button');
-    
-            
-    
-            // Get the computed style of the source element
-            // const sourceBackgroundColor = window.getComputedStyle(sourceElement).backgroundImage;
-    
-            // Assign the background color to the button
-            
-            
-    
-    
-        // const leftParent = leftButton.parentElement;
-        // const rightParent = rightButton.parentElement;
-    
-        if (leftButton) {
-          console.log('Left button:', leftButton.textContent);
-          leftButton.classList.add('navbar-left-button');
-          leftButtonWrapper.classList.add('side-button-wrapper'); 
-          // leftButton.style.backgroundImage = sourceBackgroundColor;
-        } else {
-          console.log('No left button.');
-        }
-    
-        if (rightButton) {
-          console.log('Right button:', rightButton.textContent);
-          rightButton.classList.add('navbar-right-button'); 
-          rightButtonWrapper.classList.add('side-button-wrapper'); 
-          // rightButton.style.backgroundImage = sourceBackgroundColor;
-        } else {
-          console.log('No right button.');
-        }
-    
-        if (buttonToChange) {
-          buttonToChange.classList.add('navbar-active-button'); 
-        }
-      };
 
     // const observer = new IntersectionObserver (entries => {
     //     entries.forEach( entry => {
