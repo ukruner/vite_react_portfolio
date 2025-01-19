@@ -9,17 +9,11 @@ export default function ParallaxContainer() {
 
     const marginTop = useSelector(state => state.marqueeSign.marqueeSign) ? '7rem' : '5rem';
 
-    const navBarLayerNumber = useSelector(state => state.switcherSlice.navBarLayer);
-
     const scrollToValue = useSelector(state => state.switcherSlice.scrollToValue);
-
-    // const ref = useRef(null); // Ref to the Parallax component
 
     const parallaxRef = useRef(null);
 
     const totalPages = 5;
-
-    // const [currentPage, setCurrentPage] = useState(0);
     
     const handleScroll = useCallback(() => {
     if (parallaxRef.current) {
@@ -31,7 +25,9 @@ export default function ParallaxContainer() {
     const pageOffsetFormat = Math.floor(pageOffset)
 
     mainStore.dispatch(switcherActions.setNavBarLayer(pageOffsetFormat));
-    handleClick(pageOffsetFormat);
+
+    highlightButton(pageOffsetFormat);
+    
     }
     }, [totalPages]);
     
@@ -51,49 +47,10 @@ export default function ParallaxContainer() {
         }
     }
 , [scrollToValue])
-
-
-
- 
-    const handleClick = (index) => {
-        highlightButton(index)}
-        
-
-    // const observer = new IntersectionObserver (entries => {
-    //     entries.forEach( entry => {
-    //         if (entry.isIntersecting) {
-    //             handleClick(entry.target.current.offset);
-    //             console.log(entry.target.current.offset);
-    //             observer.unobserve(entry.target)
-    //         }
-    //         else{
-    //             console.log('no element')
-    //         }
-    //     })
-    // }, {threshold: 0.5})
-
-    // parallaxLayers.forEach(
-    //     (layer => observer.observe(layer))
-    // )
-    
-
-  
-  
-    
-
-
-
-  
   
   return (
     <div style={{top: marginTop}} className='h-screen'> 
-       <Parallax pages={5} ref={parallaxRef} 
-        
-    //     onScroll={(e) => {
-    // const currentPage = Math.round(e.target.scrollTop / window.innerHeight);
-    // console.log(currentPage);
-    // setActiveLayer(currentPage)}}
-    >
+       <Parallax pages={5} ref={parallaxRef}>
             <ParallaxLayer offset={0} speed={0} factor={5}
             style={{
             backgroundImage: 'url(/patches_of_clouds_and_light_blue_sky_4k_5k_hd_light_blue.jpg)',
