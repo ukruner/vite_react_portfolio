@@ -2,7 +2,6 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { useState, useRef, useEffect } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import * as dotenv from 'dotenv';
 
 export default function ChatBox() {
 
@@ -22,41 +21,69 @@ export default function ChatBox() {
         []
       )
 
+      const [chatId, setChatId] = useState(null);
+
+
+
       // startchat instead of generatecontent, and switch between grey/green lights of the avatar
 
       async function handleSubmit(e) {
         e.preventDefault();
-        console.log(api_key)
-        const newMessages = [...messages, {
-          text: textRef.current.value,
-          sender: "user"
-        }];
-        console.log(textRef.current.value)
+        console.log(genAI);
+        console.log(import.meta.env.VITE_API_KEY);
+        //youtube version
+        // const newMessages = [...messages, {
+        //   text: textRef.current.value,
+        //   sender: "user"
+        // }];
+        // console.log(textRef.current.value)
         
+        //gemini version
+        const messageText = textRef.current.value;
+        if (!messageText) return;
+
         try {
-          const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-          const prompt = 'you are an assistant, to help customers with any health questions they may have. Each response should be no longer than 2 sentences.';
-          const result = await model.generateContent({
-            contents: [{ role: "user", parts: [{ text: prompt }] }],
-            generationConfig: {
-                maxOutputTokens: 100,  // <---- Set your desired maximum output tokens here
-            },
-        });
-          const response = await result.response;
-          const text = response.text();
-          console.log(text)
-        setMessages([...newMessages, {
-          sender: 'ai',
-          text: text
-        }])
-        textRef.current.value = '';
+         
+          // const prompt = 'you are an assistant, to help customers with any health questions they may have. Each response should be no longer than 2 sentences.';
+          
+        //   const response = await result.response;
+        //   const text = response.text();
+        //   console.log(text)
+        // setMessages([...newMessages, {
+        //   sender: 'ai',
+        //   text: text
+        // }])
+
+
+
+        const response = await fetch('http://localhost:5000/api/gemini/chat', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              message: messageText,
+              chatId: chatId, // Send the chat ID
+          }),
+      });
+
+      const data = await response.json();
+
+      setMessages(prevMessages => [...prevMessages, { sender: 'ai', text: data.response }]);
+      textRef.current.value = '';
+      if (!chatId) {
+        // Store the chat ID if it's a new chat
+        setChatId(data.chatId);
       }
-      catch(error) {
-        console.log('error route');
+      
+      console.log("chatId in the state:", chatId)
+
+      }
+
+      catch(error) { 
+
         console.error('Error:', error);
-        setMessages([...newMessages, {
-          sender: 'ai',
-          text: 'Error getting response from server.'}]);
+
       }}
 
 
