@@ -17,8 +17,8 @@ export default function Header() {
 
   return (
 
-     <header className='custom-header fixed '>
-      <div id='mainheader' className='flex justify-between'>
+     <header className='flex w-screen bg-blue-4'>
+      <div id='mainheader' className='header-container px-4'>
       <WhaleSidebarButton></WhaleSidebarButton>
       <HeaderNavbar></HeaderNavbar>
       <AuthBox >Account</AuthBox>

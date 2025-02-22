@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from 'react-redux';
 
-const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false, navBarLayer: 0, scrollToValue: null}
+const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false}
 const switcherSlice = createSlice({
 name: "switchers",
 initialState,
@@ -28,6 +28,12 @@ setNavBarLayer(state, action){
 },
 setScrollToValue(state, action){
     state.scrollToValue = action.payload;
+},
+setChatBoxOpen(state){
+    state.isChatBoxOpen = !state.isChatBoxOpen;
+},
+setChatBotOnline(state){
+    state.chatBotOnline = !state.chatBotOnline;
 }
 }
 })

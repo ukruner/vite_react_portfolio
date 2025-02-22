@@ -8,10 +8,9 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        sans: 
-      ["Open Sans", "sans-serif"],},
-    
+     fontFamily: {
+      exo2: ['Exo 2', 'sans-serif'],
+     },
     colors: {
       'blue-1': '#67c7ff',
       'blue-2': '#80d0ff',

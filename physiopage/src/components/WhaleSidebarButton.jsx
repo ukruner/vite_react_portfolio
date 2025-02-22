@@ -24,7 +24,7 @@ export default function WhaleSidebarButton() {
 
 
   return (
-    <div id='starterdiv' className='flex ml-4 h-20 w-[10rem] place-items-end bg-blue-4'>
+    <div id='starterdiv' className='flex h-20 basis-[20%] place-items-end bg-blue-4'>
           
     <button  onClick={openSideBar} className={`object-scale-down  h-full flex-shrink-0 w-20 flex ${isHovered && 'bg-white rounded-tl-[9999px] rounded-tr-[9999px]'}`} onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>
