@@ -5,7 +5,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { v4 as uuidv4 } from 'uuid'
 
 const router = Router();
-const MODEL_NAME = "gemini-1.0-pro"; // or "gemini-1.5-pro-latest", etc.
+const MODEL_NAME = "gemini-1.5-pro-latest"; // or "gemini-1.5-pro-latest", etc.
 
 const chatSessions = {};
 
@@ -14,6 +14,7 @@ const chatSessions = {};
 async function runGemini(chatId, prompt) {
     const genAI = new GoogleGenerativeAI(process.env.API_KEY);
     console.log("genAI object:", genAI);
+    console.log(chatId);
     const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
 

@@ -2,11 +2,15 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { useState, useRef, useEffect } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { switcherActions } from '../../store/slices/switchers';
+import { chatActions } from '../../store/slices/chatSlice';
+import mainStore from '../../store';
 
 export default function ChatBox() {
 
       const chatOpen = useSelector(state => state.switcherSlice.isChatBoxOpen);
       const botOnline = useSelector(state => state.switcherSlice.chatBotOnline);
+      const chatSlice = useSelector(state => state.chatSlice);
 
       const textRef = useRef();
       const chatBoxRef = useRef();
@@ -28,9 +32,16 @@ export default function ChatBox() {
       // startchat instead of generatecontent, and switch between grey/green lights of the avatar
 
       async function handleSubmit(e) {
+        if (!botOnline){
+          setTimeout(
+          () => {mainStore.dispatch(switcherActions.setChatBotOnline(true))}, 1000);
+        }
         e.preventDefault();
         console.log(genAI);
         console.log(import.meta.env.VITE_API_KEY);
+
+        mainStore.dispatch(chatActions.updateHistory({ sender: 'user', text: textRef.current.value }))
+        // setMessages(prevMessages => [...prevMessages, { sender: 'user', text: textRef.current.value }])
         //youtube version
         // const newMessages = [...messages, {
         //   text: textRef.current.value,
@@ -69,14 +80,17 @@ export default function ChatBox() {
 
       const data = await response.json();
 
-      setMessages(prevMessages => [...prevMessages, { sender: 'ai', text: data.response }]);
+      // setMessages(prevMessages => [...prevMessages, { sender: 'ai', text: data.response }]);
+      mainStore.dispatch(chatActions.updateHistory({ sender: 'ai', text: data.response }))
+
       textRef.current.value = '';
       if (!chatId) {
         // Store the chat ID if it's a new chat
-        setChatId(data.chatId);
+        mainStore.dispatch(chatActions.setChatId(data.chatId))
+        // setChatId(data.chatId);
       }
       
-      console.log("chatId in the state:", chatId)
+      console.log("chatId in redux:", chatSlice.chatId)
 
       }
 
@@ -109,11 +123,11 @@ export default function ChatBox() {
     <div className={`flex flex-col w-[20rem] h-[30rem] overflow-hidden shadow-md transition-all duration-[900ms] ease-out ${!chatOpen ? 'opacity-0' : 'opacity-100'}  bg-white rounded-2xl`}>
         <div className='basis-[25%] w-[100%] p-2 gap-1 bg-blue-1 flex flex-col justify-center items-center'>
             <div className=' text-center'>Hello, virtual assistant is here to help answer your questions</div>
-            <img className='w-10 h-10 ' src={`../public/${!botOnline ? 'avatar - green.png' : 'avatar - grey.png'}`}></img>
+            <img className='w-10 h-10 ' src={`../public/${botOnline ? 'avatar - green.png' : 'avatar - grey.png'}`}></img>
             <div className='text-sm '>Mariana</div>
         </div>
         <div ref={chatBoxRef} className='basis-[60%] m-3 overflow-auto bg-white'>
-          {messages.map((message, index)=> <p key={index} className={'message ' + message.sender}>{message.text}</p>)}
+          {chatSlice.history.map((message, index)=> <p key={index} className={'message ' + message.sender}>{message.text}</p>)}
         
         </div>
         <form onSubmit={handleSubmit} className='flex basis-[15%] bg-white'>
