@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from 'react-redux';
 
-const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false}
+const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false, isAiThinking: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false}
 const switcherSlice = createSlice({
 name: "switchers",
 initialState,
@@ -17,6 +17,10 @@ setIsSidebarOpen(state){
         state.isSidebarOpen = false;
     }
     
+    },
+    setIsAiThinking(state){
+        state.isAiThinking = !state.isAiThinking;
+        console.log('changing AI thinking value ' + state.isAiThinking)
     },
     
 setMarqueeActive(state){

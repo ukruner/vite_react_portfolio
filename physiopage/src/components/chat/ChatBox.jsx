@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { switcherActions } from '../../store/slices/switchers';
 import { chatActions } from '../../store/slices/chatSlice';
@@ -11,6 +11,7 @@ export default function ChatBox() {
       const chatOpen = useSelector(state => state.switcherSlice.isChatBoxOpen);
       const botOnline = useSelector(state => state.switcherSlice.chatBotOnline);
       const chatSlice = useSelector(state => state.chatSlice);
+      const isChatThinking = useSelector(state => state.switcherSlice.isAiThinking);
 
       const textRef = useRef();
       const chatBoxRef = useRef();
@@ -27,14 +28,14 @@ export default function ChatBox() {
 
       const [chatId, setChatId] = useState(null);
 
-
+      const [scrollTrigger, setScrollTrigger] = useState(0);
 
       // startchat instead of generatecontent, and switch between grey/green lights of the avatar
 
       async function handleSubmit(e) {
         if (!botOnline){
           setTimeout(
-          () => {mainStore.dispatch(switcherActions.setChatBotOnline(true))}, 1000);
+          () => {mainStore.dispatch(switcherActions.setChatBotOnline())}, 1000);
         }
         e.preventDefault();
         console.log(genAI);
@@ -50,23 +51,13 @@ export default function ChatBox() {
         // console.log(textRef.current.value)
         
         //gemini version
+        mainStore.dispatch(switcherActions.setIsAiThinking());
         const messageText = textRef.current.value;
         if (!messageText) return;
 
         try {
-         
-          // const prompt = 'you are an assistant, to help customers with any health questions they may have. Each response should be no longer than 2 sentences.';
-          
-        //   const response = await result.response;
-        //   const text = response.text();
-        //   console.log(text)
-        // setMessages([...newMessages, {
-        //   sender: 'ai',
-        //   text: text
-        // }])
 
-
-
+        textRef.current.value = '';
         const response = await fetch('http://localhost:5000/api/gemini/chat', {
           method: 'POST',
           headers: {
@@ -77,13 +68,13 @@ export default function ChatBox() {
               chatId: chatId, // Send the chat ID
           }),
       });
-
+      
       const data = await response.json();
 
       // setMessages(prevMessages => [...prevMessages, { sender: 'ai', text: data.response }]);
       mainStore.dispatch(chatActions.updateHistory({ sender: 'ai', text: data.response }))
-
-      textRef.current.value = '';
+      mainStore.dispatch(switcherActions.setIsAiThinking());
+      
       if (!chatId) {
         // Store the chat ID if it's a new chat
         mainStore.dispatch(chatActions.setChatId(data.chatId))
@@ -111,11 +102,11 @@ export default function ChatBox() {
 
 
       useEffect(() => {
-        // Scroll to the bottom whenever messages change
-        if (chatBoxRef.current) {
-          chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-        }
-      }, [messages]);
+        
+              console.log(chatBoxRef.current.scrollHeight)
+              chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+        
+      }, [chatSlice.history]);
 
       
 
@@ -126,10 +117,17 @@ export default function ChatBox() {
             <img className='w-10 h-10 ' src={`../public/${botOnline ? 'avatar - green.png' : 'avatar - grey.png'}`}></img>
             <div className='text-sm '>Mariana</div>
         </div>
-        <div ref={chatBoxRef} className='basis-[60%] m-3 overflow-auto bg-white'>
+    
+        <div ref={chatBoxRef} className='basis-[55%] mx-3 mt-3 overflow-auto bg-white'>
           {chatSlice.history.map((message, index)=> <p key={index} className={'message ' + message.sender}>{message.text}</p>)}
-        
+          
         </div>
+        <div className='basis-[5%]'>
+        {isChatThinking && <div className="bouncing-loader">
+         <div className=''></div>
+        <div></div>
+        <div></div>
+      </div>}</div>
         <form onSubmit={handleSubmit} className='flex basis-[15%] bg-white'>
           <div className='flex basis-[80%] px-2 py-2'>
             <textarea ref={textRef} id='chatInput' onKeyDown={handleKeyDown} className='outline-0 w-full leading-6 text-ellipsis resize-none' type='text' placeholder='Your message' ></textarea></div>

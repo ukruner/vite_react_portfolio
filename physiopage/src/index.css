@@ -1,97 +1,32 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
-/* * {
-  box-sizing: border-box;
-} */
-
-:root {
-  /* --tab-container-bg: rgba(0,0,0,0,0); */
-  --selected-tab-color: #404040;
-  --tab-text-color: #e7e7e7;
-}
-
-
-
 body {
-  font-family: exo2 !important;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
+  @apply font-exo2 m-0 p-0 h-[100%] w-[100%];
 }
 
 .background {
-  position: relative;
-  background-image: url("./light-blue-sky-high-resolution-clouds-hswmztfo862ydkpm.webp");
-  background-size: cover;
-  opacity: 10%;
-  height: 100%;
-  width: 100%;
-  
+  @apply relative bg-[url("./light-blue-sky-high-resolution-clouds-hswmztfo862ydkpm.webp")] bg-cover opacity-[10%] h-[100%] w-[100%]
 }
-
-/* button {
-  cursor: pointer;
-  background: none;
-  line-height: inherit;
-}
-
-button:focus {
-  outline: none;
-} */
-
-
-
-  /* border-bottom: .5rem solid var(--selected-tab-color); */
-
 
 .navbar-button {
-  
-  white-space: nowrap;
-  padding: 0.5rem 2rem;
-  
-  height: 3rem;
-  display: grid;
-  place-items: center;
-  color: black;
-  /* position: relative;
-  z-index: 30; */
-
-  cursor: pointer;
-  user-select: none;
-  z-index: 100;
+  @apply px-[2rem] py-[0.5rem] h-[3rem] grid place-items-center whitespace-nowrap cursor-pointer select-none z-[100];
 }
 
 .auth-button {
-  white-space: nowrap;
-  height: 3rem;
-display: flex;
-  place-items: center;
-  color: black;
-  
-
-  cursor: pointer;
-  user-select: none;
-  z-index: 100;
+  @apply h-[3rem] grid place-items-center whitespace-nowrap cursor-pointer select-none z-[100];
 }
-
 
 .side-button-wrapper {
-
- @apply bg-gray-50;
+  @apply bg-gray-50;
 }
 
-
-
 .navbar-active-button {
-  @apply  bg-gray-50 rounded-tr-xl rounded-tl-xl;
+  @apply bg-gray-50 rounded-tr-xl rounded-tl-xl;
 }
 
 .navbar-left-button {
@@ -99,7 +34,7 @@ display: flex;
 }
 
 .navbar-right-button {
-  @apply rounded-bl-xl bg-blue-4 text-black ;
+  @apply rounded-bl-xl bg-blue-4 text-black;
 }
 
 .custom-header {
@@ -111,110 +46,79 @@ display: flex;
 }
 
 .sidebar {
-  @apply transition-all duration-300 opacity-90 shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px] flex  bg-gradient-to-r from-blue-1 to-blue-3  rounded-r-xl
+  @apply transition-all duration-300 opacity-90 shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px] flex  bg-gradient-to-r from-blue-1 to-blue-3  rounded-r-xl;
 }
-
-
-.sidebar-height {
-  height: calc((100vh - 5rem))
-}
-
 
 .sidebar-button {
-  @apply transition-all duration-100 px-2 py-2 self-center w-auto h-auto shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px]  bg-blue-2 rounded-r-xl z-[100]
+  @apply transition-all duration-100 px-2 py-2 self-center w-auto h-auto shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px]  bg-blue-2 rounded-r-xl z-[100];
 }
 
 .main-body-container {
-  @apply text-center  px-[20rem] bg-transparent top-[10rem] h-full w-full flex items-center justify-center
+  @apply text-center  px-[20rem]  bg-transparent top-[10rem] h-full w-full flex items-center justify-center;
 }
 
 .main-body-text {
-  @apply text-5xl tracking-wide bg-transparent outline outline-offset-8 drop-shadow-md rounded-lg uppercase text-blue-1;
-  text-shadow:
-   -1px -1px 0 #A9A9A9, 1px -1px 0 #A9A9A9, -1px 1px 0 #A9A9A9, 1px 1px 0 #A9A9A9;
-  line-height: 1.25;
+  @apply text-5xl tracking-wide bg-transparent text-shadow-outline outline outline-offset-8 drop-shadow-md rounded-lg leading-[1.25] uppercase text-blue-1;
+
 }
 .toggler {
   @apply h-[2.5rem] rounded-r-xl px-[0.5rem] shadow-[rgba(0,0,0,0.2)_2px_2px_3px_0px] text-right text-black border-none cursor-pointer bg-blue-3 justify-center items-center border-r-[0.5rem];
 }
 
 .message {
-  @apply rounded-lg p-2 my-2
+  @apply rounded-lg p-2 my-2;
 }
 
-.message.ai{
-  @apply bg-slate-300 
+.message.ai {
+  @apply bg-slate-300;
 }
 
 .message.user {
-  @apply text-white ml-[2rem] bg-blue-1
+  @apply text-white ml-[2rem] bg-blue-1;
 }
 
 .header-container {
   @apply flex w-screen;
 }
 
-.header-container > *:first-child{
-  margin-right: auto;
+.header-container > *:first-child {
+  @apply mr-auto
+
 }
 
-.header-container> *:last-child{
-  margin-left: auto;
+.header-container > *:last-child {
+  @apply ml-auto
 }
 
-/* extras */
+.bouncing-loader {
+  @apply flex justify-center
 
-/* .page {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  will-change: transform;
 }
 
-.page > div {
-  touch-action: none;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  width: 100%;
-  height: 100%;
-  will-change: transform;
-  box-shadow: 0 62.5px 125px -25px rgba(50, 50, 73, 0.5), 0 37.5px 75px -37.5px rgba(0, 0, 0, 0.6);
+.bouncing-loader > div {
+  @apply w-[10px] h-[10px] m-[3px] rounded-[50%] bg-[rgba(103,199,255,1)] animate-bouncing ;
 }
+
+.bouncing-loader > div:nth-child(2) {
+  @apply animation-delay-200
+  
+}
+
+.bouncing-loader > div:nth-child(3) {
+  @apply animation-delay-400
+}
+
 
 .container {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  justify-content: center;
+  @apply flex items-center h-[100%] justify-center
+  
 }
 
 .wrapper {
-  width: 100%;
-  height: 100%;
-} */
+  @apply flex relative w-[100%] h-[100%] overflow-x-scroll snap-x snap-mandatory
 
-.container {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  justify-content: center;
-}
-
-.wrapper {
-  width: 100%;
-  height: 100%;
-  overflow-x: scroll;
-  display: flex;
-  position: relative;
-  scroll-snap-type: x mandatory;
 }
 
 .page {
-  flex: 0 0 100%;
-  height: 100%;
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  scroll-snap-align: start;
+  @apply flex-[0_0_100%] h-[100%] relative bg-cover bg-center snap-start
 }
