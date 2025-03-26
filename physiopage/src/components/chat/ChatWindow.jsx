@@ -57,7 +57,7 @@ export default function ChatWindow() {
     }
   }
   return (
-<div className='fixed flex flex-col w-[30rem] h-[60rem] bottom-4 right-8 overflow-hidden space-y-4 justify-end items-end'>
+<div className='fixed flex flex-col w-[20rem] h-[35rem] bottom-4 right-8 overflow-hidden space-y-4 justify-end items-end'>
   <ChatBox></ChatBox>
   
 {chatOpen ? <div className='flex gap-3'>{sessionTerminated && <button onClick={resetChatData} className="flex items-center justify-center bottom-4 right-4 bg-blue-1 text-white px-4 py-2 rounded-full shadow-lg ">finish session</button>} <button onClick={closeChatSession} className="flex items-center justify-center bottom-4 right-4 bg-blue-1 text-white px-4 py-2 rounded-full shadow-lg "><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">

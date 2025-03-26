@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +7,19 @@ body {
 }
 
 .background {
-    @apply relative h-[100%] w-[100%] bg-[url("./light-blue-sky-high-resolution-clouds-hswmztfo862ydkpm.webp")] bg-cover opacity-[10%];
+    @apply bg-[url("/patches_of_clouds_and_light_blue_sky_4k_5k_hd_light_blue.jpg")] opacity-30;
+}
+
+.sidebar-grandparent {
+    @apply flex w-72 transition-all duration-1000;
+}
+
+.parallax {
+    @apply h-screen 
+}
+
+.navbar-container {
+    @apply flex justify-end;
 }
 
 .navbar-button {
@@ -20,8 +30,20 @@ body {
     @apply z-[100] grid h-[3rem] cursor-pointer select-none place-items-center whitespace-nowrap;
 }
 
+.side-button {
+    @apply px-[1rem] py-[1.5rem];
+}
+
+.header-tag-css {
+    @apply z-[200] flex w-screen bg-blue-4 ;
+}
+
 .side-button-wrapper {
     @apply bg-gray-50;
+}
+
+.main-header {
+    @apply z-[200] flex w-screen bg-blue-4 top-[10rem]  h-full  items-end   text-center;
 }
 
 .navbar-active-button {
@@ -37,19 +59,35 @@ body {
 }
 
 .custom-header {
-    @apply z-[100] flex h-20 basis-[100%] bg-blue-4;
+    @apply flex h-20 basis-[100%] bg-blue-4;
 }
 
 .light-button {
     @apply mx-7  my-2 flex rounded bg-gradient-to-r from-sky-300 to-sky-600 px-7 delay-150 hover:scale-125 hover:transition-transform;
 }
 
-.sidebar {
-    @apply flex rounded-r-xl bg-gradient-to-r from-blue-1 to-blue-3  opacity-90 shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px] transition-all  duration-300;
+.sidebar-container {
+    @apply flex rounded-r-xl bg-gradient-to-r from-blue-1 to-blue-3  opacity-90 shadow-[rgba(0,0,0,0.2)_5px_0px_4px_0px];
+}
+
+.sidebar-text {
+    @apply m-auto mt-10 flex px-8 text-stone-50;
 }
 
 .sidebar-button {
-    @apply z-[100] h-auto w-auto self-center rounded-r-xl bg-blue-2 px-2 py-2  shadow-[rgba(0,0,0,0.2)_5px_2px_4px_0px] transition-all duration-100;
+    @apply mr-3 mt-3 inline-flex h-5 w-5 items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-1;
+}
+
+.header-whale-container {
+    @apply flex h-10 basis-[20%] place-items-end bg-blue-4;
+}
+
+.header-sidebar-whale-button {
+    @apply fixed h-20 w-20 flex-shrink-0 object-scale-down;
+}
+
+.header-sidebar-text-button {
+    @apply flex ml-20 flex-shrink-0 text-nowrap px-3 py-3;
 }
 
 .main-body-container {
@@ -59,6 +97,11 @@ body {
 .main-body-text {
     @apply rounded-lg bg-transparent text-5xl uppercase leading-[1.25] tracking-wide text-blue-1 outline outline-offset-8 drop-shadow-md text-shadow-outline;
 }
+
+.questionnaire-box {
+    @apply rounded-sm text-lg leading-3 outline outline-offset-[20px] drop-shadow-md    
+}
+
 .toggler {
     @apply h-[2.5rem] cursor-pointer items-center justify-center rounded-r-xl border-r-[0.5rem] border-none bg-blue-3 px-[0.5rem] text-right text-black shadow-[rgba(0,0,0,0.2)_2px_2px_3px_0px];
 }
@@ -79,6 +122,9 @@ body {
     @apply flex w-screen;
 }
 
+.submit-button {
+    @apply rounded bg-blue-2 p-5
+}
 .header-container > *:first-child {
     @apply mr-auto;
 }

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 
-const initialState = {marqueeSign: undefined}
+const initialState = {marqueeSign: "admin"}
 const marqueeSign = createSlice({
 name: "marquee",
 initialState,

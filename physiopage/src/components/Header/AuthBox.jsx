@@ -1,6 +1,7 @@
 import React from 'react'
-import { switcherActions } from '../store/slices/switchers'
-import mainStore from '../store'
+import { switcherActions } from '../../store/slices/switchers'
+
+import mainStore from '../../store'
 
 export default function AuthBox({children}) {
   return (

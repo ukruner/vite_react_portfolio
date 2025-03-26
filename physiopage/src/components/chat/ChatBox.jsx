@@ -114,7 +114,7 @@ export default function ChatBox() {
     <div className={`flex flex-col w-[20rem] h-[30rem] overflow-hidden shadow-md transition-all duration-[900ms] ease-out ${!chatOpen ? 'opacity-0' : 'opacity-100'}  bg-white rounded-2xl`}>
         <div className='basis-[25%] w-[100%] p-2 gap-1 bg-blue-1 flex flex-col justify-center items-center'>
             <div className=' text-center'>Hello, virtual assistant is here to help answer your questions</div>
-            <img className='w-10 h-10 ' src={`../public/${botOnline ? 'avatar - green.png' : 'avatar - grey.png'}`}></img>
+            <img className='w-10 h-10 ' src={`../${botOnline ? 'avatar - green.png' : 'avatar - grey.png'}`}></img>
             <div className='text-sm '>Mariana</div>
         </div>
     
