@@ -2,136 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    @apply m-0 h-[100%] w-[100%] p-0 font-exo2;
+
+.auth-button {
+    @apply z-[100] grid h-[3rem] cursor-pointer select-none place-items-center whitespace-nowrap;
 }
 
 .background {
     @apply bg-[url("/patches_of_clouds_and_light_blue_sky_4k_5k_hd_light_blue.jpg")] opacity-30;
 }
 
-.sidebar-grandparent {
-    @apply flex w-72 transition-all duration-1000;
+body {
+    @apply m-0  w-[100%] p-0 font-exo2;
 }
 
-.parallax {
-    @apply h-screen 
-}
+/* @media (max-width: 640px) {
+    .responsive-text {
+        @apply text-sm
+    }
+    .chat-window .chat-box {
+        @apply w-full
+    }
+} */
 
-.navbar-container {
-    @apply flex justify-end;
-}
 
-.navbar-button {
-    @apply z-[100] grid h-[3rem] cursor-pointer select-none place-items-center whitespace-nowrap px-[2rem] py-[0.5rem];
-}
+/* @media (max-height: 640px) {
+    .chat-window .chat-box {
+    @apply h-[15rem]
+};
+  ;
 
-.auth-button {
-    @apply z-[100] grid h-[3rem] cursor-pointer select-none place-items-center whitespace-nowrap;
-}
+} */
 
-.side-button {
-    @apply px-[1rem] py-[1.5rem];
-}
-
-.header-tag-css {
-    @apply z-[200] flex w-screen bg-blue-4 ;
-}
-
-.side-button-wrapper {
-    @apply bg-gray-50;
-}
-
-.main-header {
-    @apply z-[200] flex w-screen bg-blue-4 top-[10rem]  h-full  items-end   text-center;
-}
-
-.navbar-active-button {
-    @apply rounded-tl-xl rounded-tr-xl bg-gray-50;
-}
-
-.navbar-left-button {
-    @apply rounded-br-xl bg-blue-4 text-black;
-}
-
-.navbar-right-button {
-    @apply rounded-bl-xl bg-blue-4 text-black;
-}
-
-.custom-header {
-    @apply flex h-20 basis-[100%] bg-blue-4;
-}
-
-.light-button {
-    @apply mx-7  my-2 flex rounded bg-gradient-to-r from-sky-300 to-sky-600 px-7 delay-150 hover:scale-125 hover:transition-transform;
-}
-
-.sidebar-container {
-    @apply flex rounded-r-xl bg-gradient-to-r from-blue-1 to-blue-3  opacity-90 shadow-[rgba(0,0,0,0.2)_5px_0px_4px_0px];
-}
-
-.sidebar-text {
-    @apply m-auto mt-10 flex px-8 text-stone-50;
-}
-
-.sidebar-button {
-    @apply mr-3 mt-3 inline-flex h-5 w-5 items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-1;
-}
-
-.header-whale-container {
-    @apply flex h-10 basis-[20%] place-items-end bg-blue-4;
-}
-
-.header-sidebar-whale-button {
-    @apply fixed h-20 w-20 flex-shrink-0 object-scale-down;
-}
-
-.header-sidebar-text-button {
-    @apply flex ml-20 flex-shrink-0 text-nowrap px-3 py-3;
-}
-
-.main-body-container {
-    @apply top-[10rem]  flex  h-full w-full items-center justify-center bg-transparent px-[20rem] text-center;
-}
-
-.main-body-text {
-    @apply rounded-lg bg-transparent text-5xl uppercase leading-[1.25] tracking-wide text-blue-1 outline outline-offset-8 drop-shadow-md text-shadow-outline;
-}
-
-.questionnaire-box {
-    @apply rounded-sm text-lg leading-3 outline outline-offset-[20px] drop-shadow-md    
-}
-
-.toggler {
-    @apply h-[2.5rem] cursor-pointer items-center justify-center rounded-r-xl border-r-[0.5rem] border-none bg-blue-3 px-[0.5rem] text-right text-black shadow-[rgba(0,0,0,0.2)_2px_2px_3px_0px];
-}
-
-.message {
-    @apply my-2 rounded-lg p-2;
-}
-
-.message.ai {
-    @apply bg-slate-300;
-}
-
-.message.user {
-    @apply ml-[2rem] bg-blue-1 text-white;
-}
-
-.header-container {
-    @apply flex w-screen;
-}
-
-.submit-button {
-    @apply rounded bg-blue-2 p-5
-}
-.header-container > *:first-child {
-    @apply mr-auto;
-}
-
-.header-container > *:last-child {
-    @apply ml-auto;
-}
 
 .bouncing-loader {
     @apply flex justify-center;
@@ -149,14 +50,151 @@ body {
     @apply animation-delay-400;
 }
 
+.chat-box {
+    @apply flex flex-1 overflow-y-auto basis-[70%] flex-col shadow-md w-full transition-all  duration-[900ms] ease-out
+}
+
+
+.chat-window {
+    @apply fixed flex flex-1 flex-col overflow-y-auto space-y-4  top-[7rem] bottom-[1rem] pl-5 pr-5 xs:w-full sm:w-full md:w-[25rem] lg:w-[25rem] 
+}
+
 .container {
     @apply flex h-[100%] items-center justify-center;
 }
 
-.wrapper {
-    @apply relative flex h-[100%] w-[100%] snap-x snap-mandatory overflow-x-scroll;
+.custom-header {
+    @apply flex h-20 basis-[100%] bg-blue-4;
+}
+
+.header-container {
+    @apply flex w-screen;
+}
+
+.header-container > *:first-child {
+    @apply mr-auto;
+}
+
+.header-container > *:last-child {
+    @apply ml-auto;
+}
+
+.header-whale-container {
+    @apply flex h-10 basis-[20%] place-items-end bg-blue-4;
+}
+
+.header-sidebar-whale-button {
+    @apply fixed h-20 w-20 flex-shrink-0 object-scale-down;
+}
+
+.header-sidebar-text-button {
+    @apply ml-20 flex flex-shrink-0 text-nowrap px-3 py-3;
+}
+
+.header-tag-css {
+    @apply z-[200] flex w-screen bg-blue-4;
+}
+
+html {
+    @apply m-0  w-[100%] p-0 font-exo2;
+}
+
+.light-button {
+    @apply mx-7  my-2 flex rounded bg-gradient-to-r from-sky-300 to-sky-600 px-7 delay-150 hover:scale-125 hover:transition-transform;
+}
+
+.main-header {
+    @apply top-[10rem] z-[200]  flex h-full w-screen  items-end ~text-xs/lg bg-blue-4   text-center;
+}
+
+.main-body-container {
+    @apply top-[10rem]  flex  h-full w-full items-center justify-center bg-transparent px-[20rem] text-center;
+}
+
+.main-body-text {
+    @apply rounded-lg bg-transparent text-5xl uppercase leading-[1.25] tracking-wide text-blue-1 outline outline-offset-8 drop-shadow-md text-shadow-outline;
+}
+
+.message {
+    @apply my-2 rounded-lg p-2;
+}
+
+.message.ai {
+    @apply bg-slate-300;
+}
+
+.message.user {
+    @apply ml-[2rem] bg-blue-1 text-white;
+}
+
+.navbar-button {
+    @apply z-[100] grid h-[3rem] cursor-pointer select-none place-items-center whitespace-nowrap px-[2rem] py-[0.5rem];
+}
+
+.navbar-active-button {
+    @apply rounded-tl-xl rounded-tr-xl bg-gray-50;
+}
+
+.navbar-container {
+    @apply flex justify-end;
+}
+
+.navbar-right-button {
+    @apply rounded-bl-xl bg-blue-4 text-black;
+}
+
+.navbar-left-button {
+    @apply rounded-br-xl bg-blue-4 text-black;
 }
 
 .page {
     @apply relative h-[100%] flex-[0_0_100%] snap-start bg-cover bg-center;
+}
+
+.parallax {
+    @apply h-screen;
+}
+
+.questionnaire-box {
+    @apply flex ~size-[25rem]/[50rem] justify-center items-start text-lg leading-3  drop-shadow-md;
+}
+
+.responsive-text {
+    @apply block;
+}
+
+.side-button {
+    @apply px-[1rem] py-[1.5rem];
+}
+
+.sidebar-container {
+    @apply  flex w-full h-full min-w-0 max-w-full gap-2 p-2 rounded-r-xl bg-gradient-to-r from-blue-1 to-blue-3  shadow-[rgba(0,0,0,0.2)_5px_0px_4px_0px];
+}
+
+.sidebar-button {
+    @apply flex w-full px-2 min-w-0 max-w-full items-center justify-center rounded-md bg-white text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-1;
+}
+
+.sidebar-grandparent {
+    @apply ~w-36/72 transition-all duration-1000;
+}
+
+.sidebar-text {
+    @apply mt-10 w-[90%] px-2 max-w-[90%] overflow-hidden shrink break-all ~text-xs/lg text-stone-50;
+}
+
+.side-button-wrapper {
+    @apply w-[10%] h-full;
+}
+
+.submit-button {
+    @apply rounded bg-blue-2;
+}
+
+.toggler {
+    @apply h-[2.5rem] cursor-pointer items-center justify-center rounded-r-xl border-r-[0.5rem] border-none bg-blue-3 px-[0.5rem] text-right text-black shadow-[rgba(0,0,0,0.2)_2px_2px_3px_0px];
+}
+
+.wrapper {
+    @apply relative flex h-[100%] w-[100%] snap-x snap-mandatory overflow-x-scroll;
 }

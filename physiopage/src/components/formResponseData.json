@@ -1,0 +1,55 @@
+{
+"bodypart": {
+    "Head/Neck": "Most commonly, people who get affected ny neck pain tend to be office workers. 2nd most common cause of neck pain are road traffic collisions resulting in whiplash injuries.", 
+    "Shoulder": "If not a trauma or dislocation, most likely cause of shoulder pain is related to rotator cuff muscles. If shoulder's range of movement is severely limited - possibility of having a 'frozen shoulder' condition needs to be evaluated.", 
+    "Elbow/Forearm": "If not a severe trauma, most classic causes of elbow pain are so-called \"golfer's\" or \"tennis\" elbow, conditions resulting from overuse of forearm muscles.", 
+    "Wrist/Hand": "Repetitive strain injuries from extended computer equipment use tends to be the most common cause of wrist/hand pain.",
+    "Upper back": "Fairly uncommon area to experience pain in, usually resulting from poor sitting posture or working/exercising techniques.",
+    "Lower back": "Arguably the most common musculoskeletal problem in the world. In vast majority, lower back pain is of muscular origin and would subside on its won with rest. It is important to reflect whether you in addition experience pain/pins&needles/numbness in your legs, or whether there have been changes to the function of your bowel/bladder or sexual function recently. If so, you need to immediately contact your GP or go to urgent care. But don't panic - severe cases of back pain that eventually require urgent surgery - account for less than 1% of back pain sufferers.", 
+    "Hip/Groin/Thigh": "Causes of hip pain may vary, depending on your age an level of activity. If the pain is very close to the groin area, or outer side of the hip - it is likely the issue to be muscle-related. If the pain is deep exactly in the hip joint - the problem could be related to an impingement or arthritic/degenerative changes.", 
+    "Knee/Shin": "If experienced an injury - most likely cause of your knee pain is due to a ligament sprain or a tear to a meniscus structure. Otherwise, pain in the knee could be related to overuse, age-related changes or poor posture of the leg during movement (walking, running, stairs).", 
+    "Foot/Ankle": "Most common cause of pain in this region is an ankle sprain. Did you know - that if sprained once, the ankle is inreasingly likely to get sprained again? Therefore, it is incredibly important to get it assessed and follow the advice on treatment till full recovery!" 
+},
+
+"duration": {
+    "1-2 weeks": "",
+    "3-12 weeks": "",
+    "3-6 months": "At this stage, if you are receiving treatment a discussion needs to be had with your therapist why you are not yet feeling fully better and why is there a delay in recovery (with some conditions may be completely justified)",
+    "Over 6 months": "If the treatment you have been receiving has not led you to full recovery at this stage - you will need to have a discussion with your therapist as to whether further medical investigations are required and if not - discuss what will be the next steps to addressing and living with this chronic issue."
+
+},
+"offworkduration": {
+    "3-12 weeks": "Did you know, that people who aim to get back to work as soon as possible in any capacity - fare better when it comes to recovering from musculoskeletal injuries?",
+    "3-6 months": "At this stage, it is fair to assume you are dealing with either delays in treatment provision or experiencing multiple health problems at the same time. It is important to keep chasing up healthcare practitioners and enquiring if you can get seen sooner, on a regular basis.",
+    "Over 6 months": "At this stage, if your mental health is affected - enquire what help is available from your Employer. If facing other obstacles relating to the working environment or strained relationships at work - it is the best port of call to contact your Line manager / HR to discuss it in detail."
+},
+"caremodality": {
+    "Osteopath": "Typically a great blend of treatment knowledge of so called hands-on (passive) treatment as well as prescription of rehabilitation exercise. Important to understand and find out, whether your osteopath has your best interests in mind, or instead wants profit. It is also important to understand whether the goal is to resolve or maintain yor issue.",
+    "Physiotherapist": "Most often treatment will revolve around self-supported exercise as well as advice/education. Nowadays hands-on treatment is no longer well evidenced and therefore not a first treatment of choice.",
+    "Chiropractor": "Mostly incorporates hands-on (passive) treatment only and no advice on exercise. Important to understand and find out, whether your chiropractor has your best interests in mind, or instead wants profit. It is also important to understand whether the goal is to resolve or maintain your issue. Did you know, that very often a 10-15 minute self-stretching session has the same effect on your joints as getting them clicked by a chiropractor?",
+    "Massage": "Now who doesn't like a good massage? It is important to understand, however, that exercise-based treatment has by far the best evidence for achieving sustainable long-term improvements and needs to be a core of any treatment program. Everything else is not contraindicated but supplementary.",
+    "Alternative": "Whether it is acupuncture, reflexology, homeopathy or herbal remedies - it is important to understand it is definitely helping you deal with your issue. It is important to understand, however, that exercise-based treatment has by far the best evidence for achieving sustainable long-term improvements and needs to be a core of any treatment program. Everything else is not contraindicated but supplementary."
+
+},
+"careprovider": {
+    "NHS": "A standard way to access care for a musculoskeletal injury. However, what needs to be understood is that this could involve farly long wait times and locational challenges (hospital/clinic being too far). Typically, you won't have your appointments as often as you would like, and treatment approach could end up being fairly standardised (ie not tailored to high-level/professional athletes or people with quite physical jobs)",
+    "Private": "Arguably most accessible way to get seen and assessed as quickly as possible. This comes at a price, and one must exercise care not to end up being 'scammed', as many clinics are very highly profit-oriented and would rather see you for an extra session or two, instead of aiming to warrant fastest recovery.",
+    "Other": "If receiving treatment through insurance - it would typically have a cap for a number of sessions. If done through work or a sports club - it is optimal as your therapist will have a good understanding of what your capacity was and should be, as well as your expectations. If getting advice from a friend or relative - it is important to note this will likely not be a professional therapist-patient relationship."
+},
+"exercisecount": {
+    "1-3": "A perfect amount! Any program has to be concise, easy to understand and repeat - and relevant : aimed and tailored to your issue, level of fitness and expectations",
+    "3-6": "Your therapist either trusts your dedication, memory and level your body awareness - or simply helpign you with more than one musculoskeletal problem at the same time. Otherwise, for most people it is challenging to remember and do so many things on a regular basis!",
+    "6 or more": "There are 2 options: you are definitely being treated for different musculoskeletal problems together, or your therapist may have been too eager and went a bit overboard with the treatment program. This many exercises typically results in low compliance and therefore delays recovery time.",
+    "Multiple routines": "Advanced and comprehensive approach. Applicable for a very small number of cases and usually opted for if the goals are quite advanced (return to professional sports) or the timeframe for recovery has to be pushed (and treatment to be as efficient and accelerated as possible)"
+},
+"apptfrequency": {
+    "Once a week": "Consider yourself lucky! This is very close to ideal world scenario, and typically not possible especially if living in a bigger city or receiving your treatment via NHS.",
+    "Once every 2-3 weeks": "A reasonable aspproach with regular reviews, which private clinics and NHS (when applicable) tend to follow. Normally it is not necessary to have your appointments more often as long as the goal isn't to return to play professional sport!",
+    "Once every 3-6 weeks": "This approach is generally chosen by your therapist since there are caseload constraints (not possible to see you more often) or the issue you are dealing with has a longer recovery timeframe and improvements come regular but slower",
+    "More than 6 weeks between appointments": "This tends to be the case if treatment is aimed at maintaining the condition instead trying to achieve full recovery. On the other hand, appointments this far from each other could be due to a high volume of patients in your local hospital/clinic",
+    "Only had 1 and got discharged": "If you have been discharged after being provided with a diagnosis and general advice on treatment - don't get discouraged. Either your therapist simply cannot or does not see people for follow-up appointments, or is adamant that your problem will recover over the next 3-6 weeks if assisted by exercise. In most cases, it is imperative to seek care as soon as possible once you will feel that recovery is getting more delayed than what was advised to you."
+},
+"radioeducation": 
+    {"No": "Communication between you and your therapist, as well as full awareness of your issue are 2 cornerstones of successful treatment and recovery. If your appointment was fairly short, ideally your therapist should have sent you additional reading content to get a better understanding of your health issue. If that did not happen - make sure to either make yourself a note with all the questions for your next appointment, or ask them to send something over to you."
+    , "Yes": ""
+    }}

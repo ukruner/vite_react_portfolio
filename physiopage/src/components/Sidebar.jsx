@@ -3,7 +3,33 @@ import mainStore from '../store'
 import { useSelector } from 'react-redux'
 import { switcherActions } from '../store/slices/switchers'
 import { Fragment } from 'react'
+import { useRef, useState, useEffect } from 'react'
+
 export default function Sidebar() {
+
+    const [offset, setOffset] = useState();
+const ref = useRef(null);
+
+useEffect(() => {
+  function updateOffset() {
+    if (ref.current) {
+      const height = ref.current.offsetHeight;
+      const marginTop = 80; // ~5rem
+      setOffset(height - marginTop);
+    }
+  }
+
+  // Run once on mount
+  updateOffset();
+
+  // Run on resize
+  window.addEventListener('resize', updateOffset);
+
+  // Clean up on unmount
+  return () => window.removeEventListener('resize', updateOffset);
+}, []);
+
+
     function openSideBar() {
         mainStore.dispatch(switcherActions.setIsSidebarOpen())
     }
@@ -11,30 +37,38 @@ export default function Sidebar() {
         (state) => state.switcherSlice.isSidebarOpen
     )
     const marginTop = useSelector((state) => state.switcherSlice.isMarqueeActive)
-        ? '7rem'
-        : '5rem'
+        ? 112
+        : 80
 
     return (
         <div
+        ref={ref}
             id="container"
-            className={`sidebar-grandparent top-[${marginTop}] mt-[${marginTop}] ${
-                isSidebarClicked
-                    ? 'translate-y-0 opacity-100'
-                    : '-translate-y-full opacity-100'
-            } `}
+            className='sidebar-grandparent absolute h-[100dvh] overflow-y-scroll'
+                
+            style={{
+        transform: isSidebarClicked
+          ? `translateY(-${offset}px)` // visible
+          : `translateY(-200dvh)`, // hidden (mostly off-screen)
+        opacity: isSidebarClicked ? 1 : 1,
+        transition: 'transform 1s ease, opacity 1s ease',
+      }}
+            
         >
-            <aside className={`sidebar-container top-[${marginTop}]`}>
-                <div className="sidebar-text">
+            <aside className='sidebar-container'>
+             
+                <div className="sidebar-text flex-[0_0_90%]">
                     Sidebar Want to learn about Want to learn
                     boutddddddsdfsdfsdfsddsg
                 </div>
+            <div className='side-button-wrapper'> 
                 <button
                     className="sidebar-button"
                     type="button"
                     onClick={openSideBar}
                 >
                     x
-                </button>
+                </button></div>
             </aside>
         </div>
     )

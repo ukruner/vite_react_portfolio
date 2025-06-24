@@ -1,15 +1,16 @@
 import { useLocation } from 'react-router-dom';
-import Header from './Header/Header';
-import MoveStuffAround from './Header/MoveStuffAround';
+import Header from './header/Header';
+import MoveStuffAround from './header/MoveStuffAround';
 import Sidebar from './Sidebar';
 import ChatWindow from './chat/ChatWindow';
 import ParallaxContainer from './ParallaxContainer';
-import Questionnaire from './Questionnaire';
+import Questionnaire from './formComponents/Questionnaire';
 
-function Layout() {
+function Layout({children}) {
     const location = useLocation();
     const isQuestionnaire = location.pathname === "/questionnaire";
 
+    
     return (
         <main>
             <header className="fixed z-[200]">
@@ -17,7 +18,7 @@ function Layout() {
                 <Header />
             </header>
             <div>
-                {isQuestionnaire ? <Questionnaire /> : <ParallaxContainer />}
+                {children}
                 <Sidebar />
                 <ChatWindow />
             </div>
