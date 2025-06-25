@@ -14,7 +14,7 @@ useEffect(() => {
   function updateOffset() {
     if (ref.current) {
       const height = ref.current.offsetHeight;
-      const marginTop = 80; // ~5rem
+      const marginTop = 72; // ~5rem
       setOffset(height - marginTop);
     }
   }
@@ -44,7 +44,7 @@ useEffect(() => {
         <div
         ref={ref}
             id="container"
-            className='sidebar-grandparent absolute h-[100dvh] overflow-y-scroll'
+            className='sidebar-grandparent absolute h-[100dvh]'
                 
             style={{
         transform: isSidebarClicked
