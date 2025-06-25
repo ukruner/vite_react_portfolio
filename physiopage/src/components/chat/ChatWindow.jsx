@@ -58,10 +58,10 @@ export default function ChatWindow() {
   }
   return (
 <div className='chat-window'>
-  <div className='rounded-2xl overflow-hidden flex flex-col h-full bg-white shadow-lg'><ChatBox></ChatBox></div>
+  <div className='rounded-2xl overflow-hidden flex flex-col w-full  h-full bg-white shadow-lg'><ChatBox></ChatBox></div>
   
-{chatOpen && <div className='flex basis-[30%] flex-row gap-2 justify-end'>{sessionTerminated && 
-  <button onClick={resetChatData} className="flex items-center justify-center  bottom-4 w-16 shrink right-4 bg-blue-1 text-white px-4 py-2 rounded-full shadow-lg ">finish session</button>} 
+{chatOpen && <div className='flex basis-[10%] flex-row gap-2 justify-end'>{sessionTerminated && 
+  <button onClick={resetChatData} className="flex items-center justify-center  bottom-4 ~xs/lg:~w-12/16 ~text-xs/sm ~xs/lg:~h-12/16 right-4 bg-blue-1 text-white px-4 py-2 rounded-full shadow-lg ">finish session</button>} 
   <button onClick={closeChatSession} className="flex items-center justify-center bottom-4 ~xs/lg:~w-12/16 ~xs/lg:~h-12/16 right-4 bg-blue-1 text-white px-4 py-2 rounded-full shadow-lg "><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8 shrink-0">
   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
 </svg></button>

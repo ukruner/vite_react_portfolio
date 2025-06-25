@@ -26,12 +26,12 @@ function Layout2({children}) {
                 <MoveStuffAround />
                 <HeaderBlank/>
             </header>
-            <div className={`flex flex-row w-full h-screen pt-[7rem] pb-[1rem] gap-10`}>
+            <div className={`flex flex-row w-full max-w-full h-screen pt-[7rem] pb-[1rem]`}>
                 
-                <div className={`flex justify-center ${chatOpen ? 'flex-[3_3_0%]' : 'flex-[4_4_0%]'}`}>
+                <div className={`sm:flex justify-center ${chatOpen ? 'flex-[3_3_0%] hidden' : 'flex-[4_4_0%]'}`}>
                 {children}</div>
                
-                {chatOpen && <div className='flex flex-1 h-full justify-end'><ChatWindow /></div>}
+                {chatOpen && <div className='flex flex-1 w-full max-w-full h-full justify-end'><ChatWindow /></div>}
 
             </div>
              <Sidebar />

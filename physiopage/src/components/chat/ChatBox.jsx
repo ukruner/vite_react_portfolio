@@ -111,14 +111,14 @@ export default function ChatBox() {
       
 
   return (
-    <div className={`chat-box ~text-xs/lg`}>
-        <div className='basis-[25%] w-[100%] p-2 gap-1 bg-blue-1 flex flex-col justify-center items-center'>
+    <div className='chat-box ~text-xs/lg '>
+        <div className=' p-2 bg-blue-1 flex flex-col justify-center items-center'>
             <div className='flex text-center'>Hello, virtual assistant is here to help answer your questions</div>
-            <img className='w-10 h-10 ' src={`../${botOnline ? 'avatar - green.png' : 'avatar - grey.png'}`}></img>
-            <div>Mariana</div>
+            <img className='w-10 h-10 hidden sm:block' src={`../${botOnline ? 'avatar - green.png' : 'avatar - grey.png'}`}></img>
+            <div className={`${botOnline ? 'max-sm:text-green-500' : 'max-sm:text-red-500'}`}>Mariana</div>
         </div>
     
-        <div ref={chatBoxRef} className='basis-[55%] mx-3 mt-3 overflow-auto bg-white'>
+        <div ref={chatBoxRef} className='basis-[85%] mx-3 mt-3 overflow-auto bg-white'>
           {chatSlice.history.map((message, index)=> <p key={index} className={'message ' + message.sender}>{message.text}</p>)}
           
         </div>
@@ -128,7 +128,7 @@ export default function ChatBox() {
         <div></div>
         <div></div>
       </div>}</div>
-        <form onSubmit={handleSubmit} className='flex basis-[15%] bg-white'>
+        <form onSubmit={handleSubmit} className='flex bg-white'>
           <div className='flex basis-[80%] px-2 py-2'>
             <textarea ref={textRef} id='chatInput' onKeyDown={handleKeyDown} className='outline-0 w-full leading-6 text-ellipsis resize-none' type='text' placeholder='Your message' ></textarea></div>
             <button type='submit' className='flex basis-[20%] justify-center place-items-center active:transition-transform delay-150 active:scale-125'>

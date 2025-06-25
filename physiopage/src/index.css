@@ -51,12 +51,12 @@ body {
 }
 
 .chat-box {
-    @apply flex flex-1 overflow-y-auto basis-[70%] flex-col shadow-md w-full transition-all  duration-[900ms] ease-out
+    @apply flex flex-1 overflow-y-auto basis-[90%] flex-col shadow-md w-full max-w-full transition-all  duration-[900ms] ease-out
 }
 
 
 .chat-window {
-    @apply fixed flex flex-1 flex-col overflow-y-auto space-y-4  top-[7rem] bottom-[1rem] pl-5 pr-5 xs:w-full sm:w-full md:w-[25rem] lg:w-[25rem] 
+    @apply fixed flex flex-1 flex-col overflow-y-auto space-y-4  top-[7rem] bottom-[1rem] pl-5 pr-5 xs:w-full sm:w-full md:w-[22.5rem] lg:w-[22.5rem] max-w-[100%]
 }
 
 .container {
@@ -156,7 +156,7 @@ html {
 }
 
 .questionnaire-box {
-    @apply flex ~size-[25rem]/[50rem] justify-center items-start text-lg leading-3  drop-shadow-md;
+    @apply flex ~size-[25rem]/[50rem] ml-3 justify-center items-start text-lg leading-3  drop-shadow-md;
 }
 
 .responsive-text {
