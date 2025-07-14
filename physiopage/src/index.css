@@ -15,6 +15,8 @@ body {
     @apply m-0  w-[100%] p-0 font-exo2;
 }
 
+
+
 /* @media (max-width: 640px) {
     .responsive-text {
         @apply text-sm
@@ -156,7 +158,7 @@ html {
 }
 
 .questionnaire-box {
-    @apply flex ~size-[25rem]/[50rem] ml-3 justify-center items-start text-lg leading-3  drop-shadow-md;
+    @apply flex max-w-xl mx-auto justify-center   drop-shadow-md ;
 }
 
 .responsive-text {
@@ -168,7 +170,7 @@ html {
 }
 
 .sidebar-container {
-    @apply  flex w-full h-full min-w-0 max-w-full gap-2 p-2 rounded-r-xl bg-gradient-to-r from-blue-1 to-blue-3  shadow-[rgba(0,0,0,0.2)_5px_0px_4px_0px];
+    @apply  flex absolute w-full  min-w-0 max-w-full gap-2 p-2 rounded-r-xl bg-gradient-to-r from-blue-1 to-blue-3  shadow-[rgba(0,0,0,0.2)_5px_0px_4px_0px];
 }
 
 .sidebar-button {
@@ -176,7 +178,7 @@ html {
 }
 
 .sidebar-grandparent {
-    @apply ~w-36/72 transition-all duration-1000;
+    @apply ~w-36/72;
 }
 
 .sidebar-text {

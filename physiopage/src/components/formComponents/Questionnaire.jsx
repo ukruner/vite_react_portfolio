@@ -51,9 +51,9 @@ function handleSubmit(event){
 }
 
   return (
-    submitted ? <Navigate to='/results'/> : <div className='flex flex-col overflow-y-auto extra-padding   rounded-3xl'>
+    submitted ? <Navigate to='/results'/> : <div className='extra-padding rounded-3xl'>
         <div className='questionnaire-box '>
-            <form className='grid p-5 ~mt-5/20 border-2 ~text-xs/lg border-black rounded-3xl' onSubmit={handleSubmit}>
+            <form className='grid p-5 ~mt-5/20  border-2 ~text-xs/lg border-black rounded-3xl' onSubmit={handleSubmit}>
        
                 {formEntries.map( entry => {
                     switch (entry.type){

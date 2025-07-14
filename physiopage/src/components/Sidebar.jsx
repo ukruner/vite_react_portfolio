@@ -14,7 +14,7 @@ useEffect(() => {
   function updateOffset() {
     if (ref.current) {
       const height = ref.current.offsetHeight;
-      const marginTop = 72; // ~5rem
+      const marginTop = 200; // ~5rem
       setOffset(height - marginTop);
     }
   }
@@ -42,20 +42,13 @@ useEffect(() => {
 
     return (
         <div
-        ref={ref}
+       
             id="container"
-            className='sidebar-grandparent absolute h-[100dvh]'
-                
-            style={{
-        transform: isSidebarClicked
-          ? `translateY(-${offset}px)` // visible
-          : `translateY(-200dvh)`, // hidden (mostly off-screen)
-        opacity: isSidebarClicked ? 1 : 1,
-        transition: 'transform 1s ease, opacity 1s ease',
-      }}
-            
+            className='sidebar-grandparent fixed h-full '
         >
-            <aside className='sidebar-container'>
+            <aside className={`sidebar-container ${isSidebarClicked ? 'opacity-100 max-h-screen h-full' : 'opacity-0 h-0 max-h-0'}`} style={{
+                transition: 'max-height 1s ease, opacity 0.4s ease'
+            }}>
              
                 <div className="sidebar-text flex-[0_0_90%]">
                     Sidebar Want to learn about Want to learn
