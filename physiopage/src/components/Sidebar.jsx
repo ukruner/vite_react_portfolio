@@ -44,7 +44,7 @@ useEffect(() => {
         <div
        
             id="container"
-            className='sidebar-grandparent fixed h-full '
+            className={`sidebar-grandparent fixed ${isSidebarClicked ? 'h-full max-h-full' : 'h-0 max-h-0'}`}
         >
             <aside className={`sidebar-container ${isSidebarClicked ? 'opacity-100 max-h-screen h-full' : 'opacity-0 h-0 max-h-0'}`} style={{
                 transition: 'max-height 1s ease, opacity 0.4s ease'
