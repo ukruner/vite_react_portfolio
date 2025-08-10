@@ -3,28 +3,24 @@
 const plugin = require('tailwindcss/plugin');
 const fluid = require('fluid-tailwind');
 
-console.log('fluid export', fluid);
+
 const { extract, screens, fontSize} = fluid;
 
-// console.log('fluid spacing keys:', Object.keys(spacing));
-console.log('screens:', screens);
-console.log('fontSize:', fontSize);
-// console.log('spacing:', spacing);
 
 module.exports = {
   content: {
     files: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-    extract, // ✅ This is valid, passed from fluid-tailwind
+    extract, 
   },
   theme: {
-    screens, // ✅ From fluid-tailwind
-    fontSize, // ✅ From fluid-tailwind
+    screens, 
+    fontSize, 
     extend: {
       fontFamily: {
         exo2: ['"Exo 2"', 'sans-serif'],
       },
       screens: {
-        xs: '20rem', // ✅ Extending fluid screens
+        xs: '20rem', 
       },
       colors: {
         'blue-1': '#67c7ff',
@@ -65,7 +61,7 @@ module.exports = {
     }),
     require('tailwindcss-animation-delay'),
     require('@xpd/tailwind-3dtransforms'),
-     // ✅ Add fluid-tailwind as a plugin
+   
   ],
   safelist: ['isolate'],
 };

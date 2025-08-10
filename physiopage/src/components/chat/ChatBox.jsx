@@ -1,6 +1,6 @@
-import React from 'react'
+
 import { useSelector } from 'react-redux';
-import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { switcherActions } from '../../store/slices/switchers';
 import { chatActions } from '../../store/slices/chatSlice';
@@ -8,7 +8,7 @@ import mainStore from '../../store';
 
 export default function ChatBox() {
 
-      const chatOpen = useSelector(state => state.switcherSlice.isChatBoxOpen);
+      
       const botOnline = useSelector(state => state.switcherSlice.chatBotOnline);
       const chatSlice = useSelector(state => state.chatSlice);
       const isChatThinking = useSelector(state => state.switcherSlice.isAiThinking);
@@ -22,15 +22,9 @@ export default function ChatBox() {
         api_key
       );
 
-      const [messages, setMessages] = useState(
-        []
-      )
+  
 
       const [chatId, setChatId] = useState(null);
-
-      const [scrollTrigger, setScrollTrigger] = useState(0);
-
-      // startchat instead of generatecontent, and switch between grey/green lights of the avatar
 
       async function handleSubmit(e) {
         if (!botOnline){
@@ -42,15 +36,7 @@ export default function ChatBox() {
         console.log(import.meta.env.VITE_API_KEY);
 
         mainStore.dispatch(chatActions.updateHistory({ sender: 'user', text: textRef.current.value }))
-        // setMessages(prevMessages => [...prevMessages, { sender: 'user', text: textRef.current.value }])
-        //youtube version
-        // const newMessages = [...messages, {
-        //   text: textRef.current.value,
-        //   sender: "user"
-        // }];
-        // console.log(textRef.current.value)
-        
-        //gemini version
+
         mainStore.dispatch(switcherActions.setIsAiThinking());
         const messageText = textRef.current.value;
         if (!messageText) return;
@@ -65,20 +51,19 @@ export default function ChatBox() {
           },
           body: JSON.stringify({
               message: messageText,
-              chatId: chatId, // Send the chat ID
+              chatId: chatId
           }),
       });
-      
-      const data = await response.json();
 
-      // setMessages(prevMessages => [...prevMessages, { sender: 'ai', text: data.response }]);
+      console.log(response)
+      
+      const data = response.json();
+
       mainStore.dispatch(chatActions.updateHistory({ sender: 'ai', text: data.response }))
       mainStore.dispatch(switcherActions.setIsAiThinking());
       
       if (!chatId) {
-        // Store the chat ID if it's a new chat
         mainStore.dispatch(chatActions.setChatId(data.chatId))
-        // setChatId(data.chatId);
       }
       
       console.log("chatId in redux:", chatSlice.chatId)

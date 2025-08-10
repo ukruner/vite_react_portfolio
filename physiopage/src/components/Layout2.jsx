@@ -4,20 +4,15 @@ import MoveStuffAround from './header/MoveStuffAround';
 import Sidebar from './Sidebar';
 import mainStore from '../store';
 import ChatWindow from './chat/ChatWindow';
-import Questionnaire from './formComponents/Questionnaire';
 import { switcherActions } from '../store/slices/switchers';
 import { useSelector } from 'react-redux';
 
 function Layout2({children}) {
-    const location = useLocation();
-    const isQuestionnaire = location.pathname === "/questionnaire";
     const chatOpen = useSelector(state => state.switcherSlice.isChatBoxOpen);
-
     
     function openChat(){
     mainStore.dispatch(switcherActions.setChatBoxOpen());
-    // setChatIsOpen(!chatIsOpen);
-    console.log(chatOpen)
+
   }
 
     return (

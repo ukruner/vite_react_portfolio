@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useSelector } from 'react-redux';
 
-const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false, isAiThinking: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false}
+
+const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false, isAiThinking: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false, routeParallax: false, routeHeader: false, routeSidebar: false}
 const switcherSlice = createSlice({
 name: "switchers",
 initialState,
@@ -9,7 +9,10 @@ reducers:
 { setIsAuth(state){
     state.isAuth = !state.isAuth;
 },
-setIsSidebarOpen(state){
+setIsSidebarOpen(state, action){
+    if (action.payload) {
+        state.isSidebarOpen = action.payload;
+    }
     if (!state.isSidebarOpen){
         state.isSidebarOpen = true;
     }
@@ -20,7 +23,6 @@ setIsSidebarOpen(state){
     },
     setIsAiThinking(state){
         state.isAiThinking = !state.isAiThinking;
-        console.log('changing AI thinking value ' + state.isAiThinking)
     },
     
 setMarqueeActive(state){
@@ -38,6 +40,15 @@ setChatBoxOpen(state){
 },
 setChatBotOnline(state){
     state.chatBotOnline = !state.chatBotOnline;
+},
+setRouteParallax(state){
+    state.routeParallax = !state.routeParallax
+},
+setRouteHeader(state){
+    state.routeHeader = !state.routeHeader
+},
+setRouteSidebar(state){
+    state.routeSidebar = !state.routeSidebar
 }
 }
 })

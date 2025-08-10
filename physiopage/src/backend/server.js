@@ -4,23 +4,29 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import geminiRoutes from './routes/gemini.js';
 import 'dotenv/config'
+import data from './storechatdata-firebase-adminsdk-fbsvc-133107b5ae.js'
+import admin from 'firebase-admin';
 
 
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-const GEMINI_API_KEY = process.env.API_KEY
-console.log(GEMINI_API_KEY);
 
-// Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing (for React to access)
-app.use(bodyParser.json()); // Parse JSON request bodies
 
-// Routes
-app.use('/api/gemini', geminiRoutes); // Mount the gemini routes
+app.use(cors()); 
+app.use(bodyParser.json()); 
 
-// Start the server
+
+app.use('/api/gemini', geminiRoutes);
+
+
+admin.initializeApp({
+  credential: admin.credential.cert(data),
+  databaseURL: "https://storechatdata-default-rtdb.europe-west1.firebasedatabase.app/"
+});
+
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });

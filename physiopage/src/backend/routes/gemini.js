@@ -1,20 +1,19 @@
-// routes/gemini.js
+
 import { Router } from 'express';
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { v4 as uuidv4 } from 'uuid'
 
 const router = Router();
-const MODEL_NAME = "gemini-1.5-pro-latest"; // or "gemini-1.5-pro-latest", etc.
+const MODEL_NAME = "gemini-2.5-flash"; 
 
 const chatSessions = {};
 
-// const GEMINI_API_KEY = process.env.API_KEY
-// Function to send request to gemini model
+
 async function runGemini(chatId, prompt) {
     const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-    console.log("genAI object:", genAI);
-    console.log(chatId);
+
+
     const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
 
@@ -23,7 +22,7 @@ async function runGemini(chatId, prompt) {
 
     if(!chat){
         chat = model.startChat({
-            history: [], // Initialize empty history
+            history: [],
             generationConfig: {
                 maxOutputTokens: 200,
             },
@@ -39,43 +38,30 @@ async function runGemini(chatId, prompt) {
 }
 
 
-// POST route to handle chat requests
 router.post('/chat', async (req, res) => {
     try {
         const userMessage = req.body.message;
-        const chatId = req.body.chatId; // Get chat ID from request (or create a new one)
+        const chatId = req.body.chatId; 
 
         if (!userMessage) {
             return res.status(400).json({ error: 'Missing message in request body' });
         }
 
-        //If chatId is not provided, create a new one for the current conversation
+
         let currentChatId = chatId;
         if (!chatId) {
             currentChatId = uuidv4();
         }
 
-        const geminiResponse = await runGemini(currentChatId, userMessage); // Pass chatId
+        const geminiResponse = await runGemini(currentChatId, userMessage); 
+        console.log(geminiResponse)  
 
-        res.json({ response: geminiResponse, chatId: currentChatId });  //Send back chatId in response
+        res.json({ response: geminiResponse, chatId: currentChatId });
     } catch (error) {
         console.error('Error calling Gemini API:', error);
         res.status(500).json({ error: 'Failed to get response from Gemini' });
     }
 });
 
-// test.js
-
-
-
-// dotenv.config();
-
-// async function runGemini2() {
-//     console.log("API Key:", process.env.GEMINI_API_KEY);
-//     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-//     const model = genAI.getModel({ model: MODEL_NAME });
-//     console.log("response :",model)
-// }
-// runGemini2();
 
 export default router;

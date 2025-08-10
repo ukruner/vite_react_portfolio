@@ -31,14 +31,14 @@ export default function highlightButton (index) {
       if (leftButton) {
         leftButton.classList.add('navbar-left-button');
         leftButtonWrapper.classList.add('side-button-wrapper'); 
-        // leftButton.style.backgroundImage = sourceBackgroundColor;
+      
       } 
   
       if (rightButton) {
 
         rightButton.classList.add('navbar-right-button'); 
         rightButtonWrapper.classList.add('side-button-wrapper'); 
-        // rightButton.style.backgroundImage = sourceBackgroundColor;
+        
       } 
   
   

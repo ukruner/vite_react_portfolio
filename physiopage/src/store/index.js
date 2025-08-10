@@ -7,7 +7,7 @@ const mainStore = configureStore({reducer:
     {marqueeSign: marqueeSlice, switcherSlice: switcherSlice, chatSlice: chatSlice},
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-          serializableCheck: false, // Disable the check
+          serializableCheck: false,
         })
 })
 

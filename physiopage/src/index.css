@@ -17,25 +17,6 @@ body {
 
 
 
-/* @media (max-width: 640px) {
-    .responsive-text {
-        @apply text-sm
-    }
-    .chat-window .chat-box {
-        @apply w-full
-    }
-} */
-
-
-/* @media (max-height: 640px) {
-    .chat-window .chat-box {
-    @apply h-[15rem]
-};
-  ;
-
-} */
-
-
 .bouncing-loader {
     @apply flex justify-center;
 }
@@ -117,6 +98,11 @@ html {
     @apply rounded-lg bg-transparent text-5xl uppercase leading-[1.25] tracking-wide text-blue-1 outline outline-offset-8 drop-shadow-md text-shadow-outline;
 }
 
+.main-body-button {
+        @apply  bg-transparent text-5xl uppercase leading-[1.25] tracking-wide text-blue-1 drop-shadow-md text-shadow-outline;
+
+}
+
 .message {
     @apply my-2 rounded-lg p-2;
 }
@@ -142,7 +128,7 @@ html {
 }
 
 .navbar-right-button {
-    @apply rounded-bl-xl bg-blue-4 text-black;
+    @apply rounded-bl-xl bg-blue-4 text-black ;
 }
 
 .navbar-left-button {
@@ -185,9 +171,14 @@ html {
     @apply mt-10 w-[90%] px-2 max-w-[90%] overflow-hidden shrink break-all ~text-xs/lg text-stone-50;
 }
 
-.side-button-wrapper {
-    @apply w-[10%] h-full;
+.sidebar-button-wrapper {
+    @apply h-full w-[10%];
 }
+
+.side-button-wrapper {
+    @apply  bg-white;
+}
+
 
 .submit-button {
     @apply rounded bg-blue-2;

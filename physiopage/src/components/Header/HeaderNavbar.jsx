@@ -1,4 +1,4 @@
-import React from 'react'
+
 import mainStore from '../../store'
 import { switcherActions } from '../../store/slices/switchers'
 import highlightButton from '../../utils/highlightButton'

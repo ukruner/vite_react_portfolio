@@ -1,11 +1,10 @@
-import React from 'react'
+
 import Marquee from 'react-fast-marquee'
 import { useSelector } from 'react-redux'
 
 const MoveStuffAround = () => {
     const marqueeActive = useSelector((state) => state.switcherSlice.isMarqueeActive);
     const marqueeName = useSelector((state) => state.marqueeSign.marqueeSign)
-    // const marqueeActive = useSelector(state => state.swi)
 
     return (
         <div className='flex w-screen h-full'>{marqueeActive && <Marquee autoFill="true">

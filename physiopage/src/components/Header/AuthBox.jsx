@@ -1,13 +1,28 @@
-import React from 'react'
+
 import { switcherActions } from '../../store/slices/switchers'
-
+import { getAuthToken } from '../../utils/auth'
 import mainStore from '../../store'
+import { useNavigate } from 'react-router-dom';
+import { Form, Link } from 'react-router-dom';
 
-export default function AuthBox({children}) {
+
+export default function AuthBox() {
+  const token = getAuthToken();
+  const navigate = useNavigate();
+
+  function navigateAuth(){
+    mainStore.dispatch(switcherActions.setRouteHeader());
+    navigate('/auth')
+  }
+
   return (
-    <div id="authdiv" className='h-20 flex basis-[20%] place-items-end justify-end'>
-        <button className='auth-button mr-[1rem]'>{children}</button>
-        <button className='auth-button ml-[1rem] mr-[1rem]'> Login </button>
-        </div>
+    <>
+    {token ? <Form action='/logout' method='post'><div id="authdiv" className='h-20 flex basis-[20%] place-items-end justify-end'>
+        <button className='auth-button mr-[1rem]'>Log out</button>
+        </div></Form> : 
+        <div id="authdiv" className='h-20 flex basis-[20%] place-items-end justify-end'>
+        <button onClick={navigateAuth} className='auth-button mr-[1rem]'>Log in/ Sign up</button>
+        </div>}</>
+    
   )
 }

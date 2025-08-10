@@ -1,4 +1,4 @@
-import React from 'react';
+
 import ReactFreezeframe from 'react-freezeframe';
 
 

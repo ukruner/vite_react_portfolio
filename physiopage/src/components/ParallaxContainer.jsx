@@ -1,16 +1,15 @@
-import React from 'react'
+
 import { Parallax, ParallaxLayer } from '@react-spring/parallax'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { switcherActions } from '../store/slices/switchers'
-import { useState, useRef, useEffect, useCallback, forwardRef } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import mainStore from '../store'
 import highlightButton from '../utils/highlightButton'
-export default function ParallaxContainer() {
-    const marginTop = useSelector((state) => state.marqueeSign.marqueeSign)
-        ? '7rem'
-        : '5rem'
 
+
+export default function ParallaxContainer() {
+  
     const scrollToValue = useSelector(
         (state) => state.switcherSlice.scrollToValue
     )
@@ -19,18 +18,23 @@ export default function ParallaxContainer() {
 
     const totalPages = 5
 
+    const navigate = useNavigate();
+
+    
+
     const handleScroll = useCallback(() => {
         if (parallaxRef.current) {
             const container = parallaxRef.current.container.current
             const scrollYProgress =
                 container.scrollTop /
-                (container.scrollHeight - container.clientHeight)
+                ((container.scrollHeight + 1) - container.clientHeight)
             const pageOffset = scrollYProgress * totalPages
             const pageOffsetFormat = Math.floor(pageOffset)
 
             mainStore.dispatch(switcherActions.setNavBarLayer(pageOffsetFormat))
 
             highlightButton(pageOffsetFormat)
+    
         }
     }, [totalPages])
 
@@ -38,22 +42,24 @@ export default function ParallaxContainer() {
         if (parallaxRef.current) {
             const container = parallaxRef.current.container.current
             container.addEventListener('scroll', handleScroll)
-            console.log(parallaxRef.current.scrollHeight)
             return () => {
                 container.removeEventListener('scroll', handleScroll)
             }
         }
     }, [handleScroll])
 
-    function checkScrollHeight(){
-        console.log(parallaxRef.current.container.current.scrollHeight)
-    }
-
     useEffect(() => {
         if (parallaxRef.current && scrollToValue >= 0) {
             parallaxRef.current.scrollTo(scrollToValue)
         }
     }, [scrollToValue])
+
+    function navigateQuestionnaire(){
+        mainStore.dispatch(switcherActions.setRouteParallax());
+        navigate('/questionnaire')
+    }
+
+    
 
     return (
         <div className="parallax">
@@ -93,8 +99,7 @@ export default function ParallaxContainer() {
                 <ParallaxLayer speed={0.5} offset={3}>
                     <div className="main-body-container">
                         <h1 className="main-body-text">
-                            We created a tool that rates the exercises given to
-                            you
+                            We created a tool that provides a little extra information and guidance.
                         </h1>
                     </div>
                 </ParallaxLayer>
@@ -102,8 +107,8 @@ export default function ParallaxContainer() {
                     <div className="main-body-container">
                         <h1 className="main-body-text">
                             So, you can see how other people perceive it, and
-                            feel you are not alone
-                            <Link to="/questionnaire">Press here for evaluation form</Link>
+                            feel you are not alone<br></br>
+                            Press <button onClick={navigateQuestionnaire} className='main-body-button underline'>here</button> for evaluation form
                         </h1>
                     </div>
                 </ParallaxLayer>

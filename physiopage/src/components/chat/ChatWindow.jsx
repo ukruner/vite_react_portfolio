@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { switcherActions } from '../../store/slices/switchers'
 import mainStore from '../../store'
 import { useSelector } from 'react-redux';
@@ -13,15 +13,13 @@ export default function ChatWindow() {
 
   const [sessionTerminated, setSessionTerminated] = useState(false);
   
-  // const [chatIsOpen, setChatIsOpen] = useState(false);
 
   function changeChatLayout(){
     mainStore.dispatch(switcherActions.setChatBoxOpen());
     if (sessionTerminated) {
       setSessionTerminated(false);
     } 
-    // setChatIsOpen(!chatIsOpen);
-    console.log(chatOpen)
+
   }
 
   const postData = async () => {

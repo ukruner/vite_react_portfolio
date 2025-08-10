@@ -1,13 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-// import AuthBox from '../AuthBox'
-import AuthBox from './AuthBox'
-// import { switcherActions } from '../../store/slices/switchers'
-import mainStore from '../../store'
 
-import { useRef } from 'react'
+import AuthBox from './AuthBox'
 import WhaleSidebarButton from './whaleSidebarButton'
-import HeaderNavbar from './HeaderNavbar'
+
 
 export default function HeaderBlank() {
     return (
