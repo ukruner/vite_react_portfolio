@@ -65,7 +65,7 @@ router.post('/chat', async (req, res) => {
         res.json(geminiText)
         
     } catch (error) {
-        // console.error('Error calling Gemini API:', error);
+        console.error("Error stack:", error.stack)
         res.status(500).json({ error: 'Failed to get response from Gemini' });
     }
 });
