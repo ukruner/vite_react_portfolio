@@ -3,6 +3,27 @@ import AuthenticationForm from './AuthenticationForm'
 import mainStore from '../../store'
 import ErrorPage from '../error/Error'
 import { getAuthToken } from '../../utils/auth'
+import {isValidText} from '../../utils/validation'
+import { initializeApp } from 'firebase/app'
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from 'firebase/auth'
+
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_AUTH_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  databaseURL: import.meta.env.VITE_FIREBASE_URL,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+};
+
+const app2 = initializeApp(firebaseConfig)
+const auth = getAuth(app2)
 
 export default function Authentication() {
     const token = getAuthToken()
@@ -21,47 +42,61 @@ export default function Authentication() {
     )
 }
 
-export async function action({ request }) {
-    const searchParams = new URL(request.url).searchParams
+export const action = async ({ request }) => {
+    try {
+        const searchParams = new URL(request.url).searchParams
 
-    const mode = searchParams.get('mode') || 'login'
+        const mode = searchParams.get('mode') || 'login'
     const state = mainStore.getState()
     const routeParallax = state.switcherSlice.routeParallax
     const routeSidebar = state.switcherSlice.routeSidebar
+        console.log(mode)
+        if (mode !== 'login' && mode !== 'signup') {
+            throw json({ message: 'Unsupported mode.' }, { status: 422 })
+        }
+        const data = await request.formData()
 
-    if (mode !== 'login' && mode !== 'signup') {
-        throw json({ message: 'Unsupported mode.' }, { status: 422 })
+        const email = data.get('email')
+        const password = data.get('password');
+
+  
+
+  if (!isValidText(password, 6)) {
+        return json({ message: "Password must be at least 6 characters long." }, { status: 422 });
+  }
+
+
+        if (mode === 'signup') {
+            try {const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            )
+            console.log('User registered:', userCredential.user)
+            return redirect('/auth?mode=login')}
+            catch (error) {
+                 if (error.code === "auth/email-already-in-use") {
+                 
+      return json({ message: "Email already exists" }, { status: 422 });
     }
-    const data = await request.formData()
+    return json({ message: "Signup failed" }, { status: 500 });
+  }
+  }
+            
+        
+        if (mode === 'login') {
+            console.log(auth, email, password)
+            const userCredential = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            )
+            const user = userCredential.user;
+            const token = await user.getIdToken();
+            console.log('User logged in:', user)
+            localStorage.setItem('token', token)
 
-    const authData = {
-        email: data.get('email'),
-        password: data.get('password'),
-    }
-
-    const response = await fetch('http://localhost:8080/' + mode, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(authData),
-    })
-
-    if (response.status === 422 || response.status === 401) {
-        return response
-    }
-
-    if (!response.ok) {
-        throw json({ message: 'could not authenticate user.' }, { status: 500 })
-    }
-
-    const resData = await response.json()
-
-    const token = resData.token
-
-    localStorage.setItem('token', token)
-
-    if (routeParallax) {
+                if (routeParallax) {
         return redirect('/questionnaire')
     } else {
         if (routeSidebar) {
@@ -69,4 +104,11 @@ export async function action({ request }) {
         }
         return redirect('/')
     }
+         
+        }
+    } catch (error) {
+        console.error('Error with', mode, error.message)
+        throw error
+    }
 }
+

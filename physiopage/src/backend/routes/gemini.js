@@ -1,8 +1,13 @@
 
-import { Router } from 'express';
+import { response, Router } from 'express';
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { v4 as uuidv4 } from 'uuid'
+import dotenv from "dotenv";
+
+
+dotenv.config({ path: "../../.env" });
+
 
 const router = Router();
 const MODEL_NAME = "gemini-2.5-flash"; 
@@ -11,7 +16,7 @@ const chatSessions = {};
 
 
 async function runGemini(chatId, prompt) {
-    const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 
     const model = genAI.getGenerativeModel({ model: MODEL_NAME });
@@ -24,7 +29,7 @@ async function runGemini(chatId, prompt) {
         chat = model.startChat({
             history: [],
             generationConfig: {
-                maxOutputTokens: 200,
+                maxOutputTokens: 10000,
             },
         });
         chatSessions[chatId] = chat;
@@ -34,7 +39,8 @@ async function runGemini(chatId, prompt) {
 
     const result = await chat.sendMessage(prompt);
     const response = await result.response;
-    return response.text();
+    console.log(response.text())
+    return response;
 }
 
 
@@ -54,11 +60,12 @@ router.post('/chat', async (req, res) => {
         }
 
         const geminiResponse = await runGemini(currentChatId, userMessage); 
-        console.log(geminiResponse)  
-
-        res.json({ response: geminiResponse, chatId: currentChatId });
+        const geminiText = geminiResponse.text()
+        console.log(geminiText)
+        res.json(geminiText)
+        
     } catch (error) {
-        console.error('Error calling Gemini API:', error);
+        // console.error('Error calling Gemini API:', error);
         res.status(500).json({ error: 'Failed to get response from Gemini' });
     }
 });

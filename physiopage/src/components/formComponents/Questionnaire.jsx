@@ -2,8 +2,8 @@ import { Link, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import { evaluateForm } from '../../utils/evaluateForm'
 import { formEntries } from '../formEntries'
-
-
+import { getAuthToken } from '../../utils/auth'
+import ErrorPage from '../error/Error'
 
 export default function Questionnaire() {
     const [isCheckedObject, setIsCheckedObject] = useState({
@@ -15,6 +15,7 @@ export default function Questionnaire() {
     })
 
     const [submitted, setSubmitted] = useState(false)
+    const token = getAuthToken();
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -32,7 +33,7 @@ export default function Questionnaire() {
         setSubmitted(true)
     }
 
-    return submitted ? (
+    return token ? (submitted ? (
         <Navigate to="/results" />
     ) : (
         <div className="extra-padding rounded-3xl">
@@ -172,5 +173,5 @@ export default function Questionnaire() {
                 </form>
             </div>
         </div>
-    )
+    )) : (<ErrorPage loggedIn={"noToken"}></ErrorPage>)
 }

@@ -17,20 +17,21 @@ let routeText = 'home page'
     title = "Looks like you are already logged in, wanderer"
   }
 
+
   if (error.status === 404) {
     title = 'Not found!';
     message = 'Could not find resource or page.';
 
   }
 
-  if (error.status === 401) {
+  if (error.status === 401 || loggedIn === "noToken") {
     title = "Unauthorised"
     message = "User not logged in or does not exist"
     routeText = "authentication page"
   }
 
   function routeToEscape(){
-    if (error.status === 401){
+    if (error.status === 401 || loggedIn === "noToken"){
         
         navigate("/auth")
     }

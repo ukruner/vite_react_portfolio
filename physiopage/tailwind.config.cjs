@@ -7,6 +7,7 @@ const fluid = require('fluid-tailwind');
 const { extract, screens, fontSize} = fluid;
 
 
+
 module.exports = {
   content: {
     files: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],

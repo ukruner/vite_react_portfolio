@@ -9,9 +9,10 @@ import Questionnaire from './components/formComponents/Questionnaire'
 import ParallaxContainer from './components/ParallaxContainer'
 import FormSummary from './components/formComponents/FormSummary'
 import Authentication, {action as authAction} from './components/admin/Authentication'  
+// import {action as authAction} from '/Users/urmaskruner/Desktop/VScodeprojects/Portfolio_v2/vite_react_portfolio/physiopage/src/backend/server.js'
 import ErrorPage from './components/error/Error'
-import { QuestionnaireLoader } from './components/loaders/QuestionnaireLoader'
 import { action as logOutAction } from './utils/logout.js'
+
 
 function App() {
 
@@ -35,7 +36,6 @@ function App() {
           element: (
              <Layout2><Questionnaire></Questionnaire></Layout2>
           ),
-          loader: QuestionnaireLoader,
           errorElement: <ErrorPage></ErrorPage>
    
       },

@@ -16,7 +16,7 @@ export default function ChatBox() {
       const textRef = useRef();
       const chatBoxRef = useRef();
 
-      const api_key = import.meta.env.VITE_API_KEY;
+      const api_key = import.meta.env.VITE_GEMINI_API_KEY;
 
       const genAI = new GoogleGenerativeAI(
         api_key
@@ -33,7 +33,7 @@ export default function ChatBox() {
         }
         e.preventDefault();
         console.log(genAI);
-        console.log(import.meta.env.VITE_API_KEY);
+        console.log(import.meta.env.VITE_FIREBASE_DB_API_KEY);
 
         mainStore.dispatch(chatActions.updateHistory({ sender: 'user', text: textRef.current.value }))
 
@@ -44,6 +44,8 @@ export default function ChatBox() {
         try {
 
         textRef.current.value = '';
+
+        
         const response = await fetch('http://localhost:5000/api/gemini/chat', {
           method: 'POST',
           headers: {
@@ -54,16 +56,30 @@ export default function ChatBox() {
               chatId: chatId
           }),
       });
+     
 
-      console.log(response)
+      // console.log(response.response)
+
+
+        const data = await response.json()
       
-      const data = response.json();
+// the problem is that {error object is going to be in text: data}
 
-      mainStore.dispatch(chatActions.updateHistory({ sender: 'ai', text: data.response }))
-      mainStore.dispatch(switcherActions.setIsAiThinking());
+
+// fix the issue when there is a delay sending an empty query - should never work
+
+      console.log(data)
+      
+      if (!data.error){
+      mainStore.dispatch(chatActions.updateHistory({ sender: 'ai', text: data }))
+        mainStore.dispatch(switcherActions.setIsAiThinking())}
+      else {
+        setTimeout(()=>{mainStore.dispatch(chatActions.updateHistory({ sender: 'ai', text: "Failed to get a response from Gemini, check your connection or settings" }));mainStore.dispatch(switcherActions.setIsAiThinking());}, 1000)
+      }
+      
       
       if (!chatId) {
-        mainStore.dispatch(chatActions.setChatId(data.chatId))
+        mainStore.dispatch(chatActions.setChatId(response.chatId))
       }
       
       console.log("chatId in redux:", chatSlice.chatId)
@@ -72,8 +88,7 @@ export default function ChatBox() {
 
       catch(error) { 
 
-        console.error('Error:', error);
-
+        throw error
       }}
 
 

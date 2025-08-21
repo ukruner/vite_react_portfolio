@@ -7,6 +7,7 @@ export default function AuthenticationForm() {
     const [searchParams] = useSearchParams();
 
     const data = useActionData();
+    console.log(data)
     const navigation = useNavigation();
     const isSubmitting = navigation.state === 'submitting';
     
