@@ -46,7 +46,7 @@ export default function ChatBox() {
         textRef.current.value = '';
 
         
-        const response = await fetch('http://localhost:5000/api/gemini/chat', {
+        const response = await fetch('http://localhost:5000/api/backend/gemini', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

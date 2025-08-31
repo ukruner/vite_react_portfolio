@@ -4,6 +4,7 @@ import { evaluateForm } from '../../utils/evaluateForm'
 import { formEntries } from '../formEntries'
 import { getAuthToken } from '../../utils/auth'
 import ErrorPage from '../error/Error'
+import { postData2 } from '../../utils/postMongo'
 
 export default function Questionnaire() {
     const [isCheckedObject, setIsCheckedObject] = useState({
@@ -23,13 +24,13 @@ export default function Questionnaire() {
         const fd = new FormData(form)
 
         const arrayData = fd.entries()
-
+        const dictFromData = Object.fromEntries(arrayData);
         const objData = Array.from(arrayData).map(([key, value]) => ({
             [key]: value,
         }))
-
+        console.log(dictFromData);
         evaluateForm(objData)
-
+        postData2(dictFromData);
         setSubmitted(true)
     }
 
@@ -80,7 +81,7 @@ export default function Questionnaire() {
                             case 'radio':
                                 if (isCheckedObject[String(entry.parent)]) {
                                     return (
-                                        <fieldset>
+                                        <fieldset key={entry.label}>
                                             {' '}
                                             <div className="grid gap-4">
                                                 <legend>{entry.label}</legend>

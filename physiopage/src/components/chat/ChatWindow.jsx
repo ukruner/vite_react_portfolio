@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import ChatBox from './ChatBox';
 import { chatActions } from '../../store/slices/chatSlice';
+import { postData2 } from '../../utils/postMongo';
+
 export default function ChatWindow() {
 
   const chatOpen = useSelector(state => state.switcherSlice.isChatBoxOpen);
@@ -22,6 +24,7 @@ export default function ChatWindow() {
 
   }
 
+  
   const postData = async () => {
     console.log(JSON.stringify(chatSlice));
     const response = await fetch(
@@ -34,10 +37,30 @@ export default function ChatWindow() {
     }
   };
 
+
+
+
+
+
+// const postData2 = async() => {
+//   try {
+//     await fetch('http://localhost:5000/api/backend/mongodb', {
+//           method: 'POST',
+//           headers: {
+//               'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify(chatSlice)
+//       })
+//   } catch(error) { 
+
+//         throw error
+//       }
+// }
+
   function closeChatSession(){
     
     if (chatSlice.history.length > 0){
-    postData();
+    postData2(chatSlice);
     mainStore.dispatch(chatActions.clearState());
     setSessionTerminated(true);
     setTimeout(

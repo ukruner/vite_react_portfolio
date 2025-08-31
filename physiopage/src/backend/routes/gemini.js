@@ -4,6 +4,7 @@ import { response, Router } from 'express';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { v4 as uuidv4 } from 'uuid'
 import dotenv from "dotenv";
+import { MongoClient } from 'mongodb'
 
 
 dotenv.config({ path: "../../.env" });
@@ -13,7 +14,8 @@ const router = Router();
 const MODEL_NAME = "gemini-2.5-flash"; 
 
 const chatSessions = {};
-
+const uri = "mongodb://127.0.0.1:27017"
+const client = new MongoClient(uri);
 
 async function runGemini(chatId, prompt) {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -43,8 +45,25 @@ async function runGemini(chatId, prompt) {
     return response;
 }
 
+router.post('/mongodb', async (req, res) => {
+    try {
+    await client.connect();
+    // database and collection code goes here
+    const db = client.db("physiodb");
+    const coll = db.collection("gemini");
+    // insert code goes here
+    const docs = [req.body];
+    const result = await coll.insertMany(docs);
+    // display the results of your operation
+    console.log(docs)
+    console.log(result);
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+})
 
-router.post('/chat', async (req, res) => {
+router.post('/gemini', async (req, res) => {
     try {
         const userMessage = req.body.message;
         const chatId = req.body.chatId; 

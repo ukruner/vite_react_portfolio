@@ -2,7 +2,7 @@ import mainStore from '../store'
 import { useSelector } from 'react-redux'
 import { switcherActions } from '../store/slices/switchers'
 import { useRef, useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getAuthToken } from '../utils/auth'
 
 export default function Sidebar() {
