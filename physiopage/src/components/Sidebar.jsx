@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { switcherActions } from '../store/slices/switchers'
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { getAuthToken } from '../utils/auth'
+import { getUserObject } from '../utils/auth'
 
 export default function Sidebar() {
     const [offset, setOffset] = useState()
@@ -13,7 +13,7 @@ export default function Sidebar() {
         (state) => state.switcherSlice.isSidebarOpen
     )
 
-    const token = getAuthToken()
+    const user = getUserObject();
 
     const navigate = useNavigate()
 
@@ -78,7 +78,7 @@ export default function Sidebar() {
                     Want to learn more about your health?
                     <br></br>
                     <br></br>
-                    {token ? (
+                    {user ? (
                         <div></div>
                     ) : (
                         <button onClick={navigateAuth}>

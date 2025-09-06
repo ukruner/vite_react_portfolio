@@ -6,6 +6,7 @@ import { useState } from 'react';
 import ChatBox from './ChatBox';
 import { chatActions } from '../../store/slices/chatSlice';
 import { postData2 } from '../../utils/postMongo';
+import { getUserObject } from '../../utils/auth'
 
 export default function ChatWindow() {
 
@@ -14,7 +15,7 @@ export default function ChatWindow() {
   const chatSlice = useSelector(state => state.chatSlice);
 
   const [sessionTerminated, setSessionTerminated] = useState(false);
-  
+  const user = getUserObject();
 
   function changeChatLayout(){
     mainStore.dispatch(switcherActions.setChatBoxOpen());
@@ -60,7 +61,7 @@ export default function ChatWindow() {
   function closeChatSession(){
     
     if (chatSlice.history.length > 0){
-    postData2(chatSlice);
+    // postData2(chatSlice, token);
     mainStore.dispatch(chatActions.clearState());
     setSessionTerminated(true);
     setTimeout(

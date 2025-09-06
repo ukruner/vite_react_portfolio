@@ -11,12 +11,24 @@ import FormSummary from './components/formComponents/FormSummary'
 import Authentication, {action as authAction} from './components/admin/Authentication'  
 // import {action as authAction} from '/Users/urmaskruner/Desktop/VScodeprojects/Portfolio_v2/vite_react_portfolio/physiopage/src/backend/server.js'
 import ErrorPage from './components/error/Error'
-import { action as logOutAction } from './utils/logout.js'
-
+import { logoutAction } from './components/admin/Authentication'
+import { getAuth, onAuthStateChanged} from 'firebase/auth'
+import { userActions } from './store/slices/userSlice.js'
+import mainStore from './store/index.js'
 
 function App() {
 
 
+const auth = getAuth();
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    mainStore.dispatch(userActions.setUser(user.uid)); // push plain user to Redux
+  } else {
+    mainStore.dispatch(userActions.clearUser());
+  }
+
+});
     const router = createBrowserRouter([
         {
             path: '/',
@@ -24,12 +36,7 @@ function App() {
                <Layout><ParallaxContainer/></Layout>
             ),
             errorElement: <ErrorPage></ErrorPage>,
-        children: [
-{
-            path: '/logout',
-            action: logOutAction,
-        }
-        ]},
+        },
 
         {
           path: '/questionnaire',
@@ -52,6 +59,11 @@ function App() {
             action: authAction,
             errorElement: <ErrorPage></ErrorPage>
         },
+        {
+            path: '/logout',
+            action: logoutAction,
+            element: <div>Logging out...</div>
+        }
         
 
     ])

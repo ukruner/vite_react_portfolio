@@ -1,14 +1,16 @@
 import { json, redirect } from 'react-router-dom'
 import AuthenticationForm from './AuthenticationForm'
 import mainStore from '../../store'
+import { userActions } from '../../store/slices/userSlice'
 import ErrorPage from '../error/Error'
-import { getAuthToken } from '../../utils/auth'
+import { getUserObject } from '../../utils/auth'
 import {isValidText} from '../../utils/validation'
 import { initializeApp } from 'firebase/app'
 import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signOut
 } from 'firebase/auth'
 
 const firebaseConfig = {
@@ -26,11 +28,11 @@ const app2 = initializeApp(firebaseConfig)
 const auth = getAuth(app2)
 
 export default function Authentication() {
-    const token = getAuthToken()
+    const user = getUserObject();
 
     return (
         <>
-            {!token ? (
+            {!user ? (
                 <div className="relative z-0 flex h-screen w-screen items-center justify-center overflow-hidden">
                     <div className="pointer-events-none absolute inset-0 -z-10 bg-[url('/patches_of_clouds_and_light_blue_sky_4k_5k_hd_light_blue.jpg')] bg-cover bg-center opacity-30" />
                     <AuthenticationForm />
@@ -72,7 +74,7 @@ export const action = async ({ request }) => {
                 email,
                 password
             )
-            console.log('User registered:', userCredential.user)
+            console.log('User registered with uid:', userCredential.user)
             return redirect('/auth?mode=login')}
             catch (error) {
                  if (error.code === "auth/email-already-in-use") {
@@ -91,17 +93,17 @@ export const action = async ({ request }) => {
                 email,
                 password
             )
-            const user = userCredential.user;
-            const token = await user.getIdToken();
-            console.log('User logged in:', user)
-            localStorage.setItem('token', token)
+            const loggedUser = userCredential.user;
+
+            console.log('User logged in:', loggedUser.uid)
+            mainStore.dispatch(userActions.setUser(loggedUser.uid));
 
                 if (routeParallax) {
-        return redirect('/questionnaire')
-    } else {
-        if (routeSidebar) {
-            sessionStorage.setItem('sidebarOpen', 'true')
-        }
+                    return redirect('/questionnaire')
+                } else {
+                if (routeSidebar) {
+                    mainStore.dispatch(userActions.setUser(loggedUser.uid));
+                    }
         return redirect('/')
     }
          
@@ -110,5 +112,22 @@ export const action = async ({ request }) => {
         console.error('Error with', mode, error.message)
         throw error
     }
+}
+
+export async function logoutAction(){
+    const state = mainStore.getState();
+  const user = state.userSlice.user;
+    if(user){
+
+    try {
+    
+    await signOut(auth);
+    mainStore.dispatch(userActions.clearUser())
+    console.log('logout logic executing');
+    return redirect('/')}
+
+    catch (error) {
+        console.error("Error logging out:", error);
+    }};
 }
 

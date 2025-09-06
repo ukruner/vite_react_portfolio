@@ -2,9 +2,10 @@ import { Link, Navigate } from 'react-router-dom'
 import { useState } from 'react'
 import { evaluateForm } from '../../utils/evaluateForm'
 import { formEntries } from '../formEntries'
-import { getAuthToken } from '../../utils/auth'
+import { getUserObject } from '../../utils/auth'
 import ErrorPage from '../error/Error'
 import { postData2 } from '../../utils/postMongo'
+import { getAuth } from "firebase/auth";
 
 export default function Questionnaire() {
     const [isCheckedObject, setIsCheckedObject] = useState({
@@ -16,25 +17,32 @@ export default function Questionnaire() {
     })
 
     const [submitted, setSubmitted] = useState(false)
-    const token = getAuthToken();
-
-    function handleSubmit(event) {
+    const user = getUserObject();
+    console.log(user);
+    async function handleSubmit(event) {
         event.preventDefault()
         const form = event.target
         const fd = new FormData(form)
 
-        const arrayData = fd.entries()
-        const dictFromData = Object.fromEntries(arrayData);
-        const objData = Array.from(arrayData).map(([key, value]) => ({
+        const arrayData = Array.from(fd.entries());
+        let dictFromData = Object.fromEntries(arrayData);
+        dictFromData = {...dictFromData, user}
+        const auth = getAuth();
+        const loggedInUser = auth.currentUser;
+        console.log(loggedInUser);
+        const token = await loggedInUser.getIdToken(true);
+        const spreadEntriesData = arrayData.map(([key, value]) => ({
             [key]: value,
         }))
+       
         console.log(dictFromData);
-        evaluateForm(objData)
-        postData2(dictFromData);
+        console.log(spreadEntriesData);
+        evaluateForm(spreadEntriesData)
+        postData2(dictFromData, token);
         setSubmitted(true)
     }
 
-    return token ? (submitted ? (
+    return user ? (submitted ? (
         <Navigate to="/results" />
     ) : (
         <div className="extra-padding rounded-3xl">
