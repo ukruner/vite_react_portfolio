@@ -40,7 +40,9 @@ export default function AuthenticationForm() {
             <input type='email' id='email' name='email' className="my-1 px-1 leading-tight bg-white border border-slate-200 rounded  transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none"/>
                        <label htmlFor='password'>Password</label>
             <input type='password' id='password' name='password' className="my-1 px-1 leading-tight bg-white border border-slate-200 rounded  transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none"/>
-           </div>
+           <label htmlFor='rememberMe'>Remember me
+            <input type='checkbox' id='rememberMe' name='rememberMe' className="m-2 leading-tight bg-white border border-slate-200  focus:outline-none"/>
+           </label></div>
            <div className='flex flex-row basis-[20%] items-center gap-3 justify-center'>
             <button className='submit-button ~xs/md:~p-1/3 ~text-xs/lg'>{mode === "login" ? "Login" : "Save"}</button>
             {mode !== "signup" && <Link to={`?mode=signup`} className='submit-button ~xs/md:~p-1/3 ~text-xs/lg' >

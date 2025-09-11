@@ -30,7 +30,7 @@ export default function Questionnaire() {
         const auth = getAuth();
         const loggedInUser = auth.currentUser;
         console.log(loggedInUser);
-        const token = await loggedInUser.getIdToken(true);
+        // const token = await loggedInUser.getIdToken(true);
         const spreadEntriesData = arrayData.map(([key, value]) => ({
             [key]: value,
         }))
@@ -38,7 +38,7 @@ export default function Questionnaire() {
         console.log(dictFromData);
         console.log(spreadEntriesData);
         evaluateForm(spreadEntriesData)
-        postData2(dictFromData, token);
+        postData2(dictFromData);
         setSubmitted(true)
     }
 

@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { MongoClient } from 'mongodb';
 import { validateToken } from '../authMiddleware.js';
-
+import admin from 'firebase-admin';
 
 
 
@@ -73,10 +73,61 @@ router.post('/gemini', async (req, res) => {
     }
 });
 
+router.post("/sessionLogin", async (req, res) => {
+    console.log(req.body);
+    const idToken = req.body.token;
+    const rememberMe = req.body.rememberMe;
+  const expiresIn = rememberMe ? 3600000 : 300000;
+    
+  try {
+    const verifiedToken = await admin.auth().verifyIdToken(idToken);
+    console.log("token verified")
+    const sessionCookie = await admin
+      .auth()
+      .createSessionCookie(idToken, { expiresIn });
+
+    const options = { sameSite: "strict", httpOnly: true, secure: process.env.NODE_ENV === "production"}
+    if (rememberMe){
+        options.maxAge = expiresIn
+    };
+    console.log(options);
+    res.cookie("session", sessionCookie, options);
+    res.status(200).json({ message: "Session created" });
+  } catch (err) {
+    console.error("Session login failed", err);
+    res.status(401).send("UNAUTHORIZED REQUEST!");
+  }
+});
+
+router.post("/logout", (req, res) => {
+  res.clearCookie("session");
+  res.status(200).send("Logged out");
+});
+
+router.get("/sessionStatus", async (req, res) => {
+  const sessionCookie = req.cookies.session || "";
+
+  if (!sessionCookie) {
+    console.log("no session cookie")
+    return res.json({ uid: '' });
+  }
+  
+  try {
+    const decoded = await admin.auth().verifySessionCookie(sessionCookie, true);
+    console.log(decoded)
+    res.json({ uid: decoded.uid, email: decoded.email })
+   
+  } catch (err) {
+    console.log("wtf")
+    res.json({ uid: '' });
+  }
+});
+
 router.use(validateToken);
 
 router.post('/mongodb', async (req, res) => {
     try {
+        console.log("trying to connect")
     await client.connect();
     // database and collection code goes here
     const db = client.db("physiodb");

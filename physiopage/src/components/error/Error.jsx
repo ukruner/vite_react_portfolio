@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 function ErrorPage({loggedIn}) {
   const error = useRouteError() || false;
+  console.log(error);
 const navigate = useNavigate();
   let title = 'An error occurred!';
   let message = 'Something went wrong!';

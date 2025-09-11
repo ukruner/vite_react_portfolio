@@ -8,6 +8,8 @@ import {isValidText} from '../../utils/validation'
 import { initializeApp } from 'firebase/app'
 import {
     getAuth,
+    setPersistence,
+    browserSessionPersistence,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut
@@ -49,9 +51,9 @@ export const action = async ({ request }) => {
         const searchParams = new URL(request.url).searchParams
 
         const mode = searchParams.get('mode') || 'login'
-    const state = mainStore.getState()
-    const routeParallax = state.switcherSlice.routeParallax
-    const routeSidebar = state.switcherSlice.routeSidebar
+        const state = mainStore.getState()
+        const routeParallax = state.switcherSlice.routeParallax
+        const routeSidebar = state.switcherSlice.routeSidebar
         console.log(mode)
         if (mode !== 'login' && mode !== 'signup') {
             throw json({ message: 'Unsupported mode.' }, { status: 422 })
@@ -60,16 +62,17 @@ export const action = async ({ request }) => {
 
         const email = data.get('email')
         const password = data.get('password');
-
-  
+        const rememberMe = data.get('rememberMe')
+        console.log(rememberMe)
 
   if (!isValidText(password, 6)) {
         return json({ message: "Password must be at least 6 characters long." }, { status: 422 });
-  }
+    }
 
 
         if (mode === 'signup') {
-            try {const userCredential = await createUserWithEmailAndPassword(
+            try 
+            {const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
@@ -86,17 +89,34 @@ export const action = async ({ request }) => {
   }
             
         
-        if (mode === 'login') {
-            console.log(auth, email, password)
+        if (mode === 'login') {    
+            try {
             const userCredential = await signInWithEmailAndPassword(
                 auth,
                 email,
-                password
+                password,
+                rememberMe
             )
             const loggedUser = userCredential.user;
-
-            console.log('User logged in:', loggedUser.uid)
-            mainStore.dispatch(userActions.setUser(loggedUser.uid));
+            const token = await loggedUser.getIdToken(true);
+            console.log("Sending token:", token)
+            const res = await fetch("http://localhost:5000/api/backend/sessionLogin", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({token, rememberMe}),
+    credentials: "include", // ensures cookie is set
+            })
+    console.log('User logged in:', loggedUser.uid, mode)
+    mainStore.dispatch(userActions.setUser(loggedUser.uid))
+    // res.status(200).send("ok")     
+        }
+catch (error){
+    throw new Error("Failed to create session")
+}
+    
+            
+            
+        };
 
                 if (routeParallax) {
                     return redirect('/questionnaire')
@@ -108,8 +128,8 @@ export const action = async ({ request }) => {
     }
          
         }
-    } catch (error) {
-        console.error('Error with', mode, error.message)
+     catch (error) {
+        console.error('Error with', error.message)
         throw error
     }
 }
@@ -121,7 +141,8 @@ export async function logoutAction(){
 
     try {
     
-    await signOut(auth);
+    await fetch("http://localhost:5000/api/backend/logout", { method: "POST", credentials: "include" });
+
     mainStore.dispatch(userActions.clearUser())
     console.log('logout logic executing');
     return redirect('/')}

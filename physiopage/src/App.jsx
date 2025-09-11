@@ -12,23 +12,35 @@ import Authentication, {action as authAction} from './components/admin/Authentic
 // import {action as authAction} from '/Users/urmaskruner/Desktop/VScodeprojects/Portfolio_v2/vite_react_portfolio/physiopage/src/backend/server.js'
 import ErrorPage from './components/error/Error'
 import { logoutAction } from './components/admin/Authentication'
-import { getAuth, onAuthStateChanged} from 'firebase/auth'
 import { userActions } from './store/slices/userSlice.js'
-import mainStore from './store/index.js'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
 function App() {
+const dispatch = useDispatch();
 
+  useEffect(() => {
+    async function checkSession() {
+      try {
+        const res = await fetch("http://localhost:5000/api/backend/sessionStatus", {
+          credentials: "include", // send cookies
+        });
 
-const auth = getAuth();
+        if (!res.ok) {
+          throw new Error("Not authenticated");
+        }
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    mainStore.dispatch(userActions.setUser(user.uid)); // push plain user to Redux
-  } else {
-    mainStore.dispatch(userActions.clearUser());
-  }
+        const data = await res.json();
+        console.log(data)
+        dispatch(userActions.setUser(data.uid)); // update Redux with backend user info
+      } catch (err) {
+        dispatch(userActions.clearUser()); // clear if no session
+      }
+    }
 
-});
+    checkSession();
+  }, [dispatch]);
+
     const router = createBrowserRouter([
         {
             path: '/',
