@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRef, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import mainStore from '../../../../store'
 import { switcherActions } from '../../../../store/slices/switchers'
@@ -18,36 +18,31 @@ export async function fetchGemini(message) {
     return res.json()
 }
 
-export default function ChatForm({ mockRef }) {
-    
-    console.log(mockRef)
-   const textRef = mockRef ?? useRef(null);
+export default function ChatForm({ mockString }) {
+    const textRef = useRef(null)
 
-console.log(mockRef)
+    useEffect(() => {
+        if (mockString && textRef.current) {
+            textRef.current.value = mockString
+        }
+    }, [mockString]);
+
     async function handleSubmit(e) {
-            const messageText = textRef.current.value;
-        if (messageText.length > 0) {
+        const messageText = mockString ?? textRef.current.value
 
+        if (messageText.length > 0) {
             e.preventDefault()
-            console.log(messageText);
             mainStore.dispatch(switcherActions.setIsAiThinking(true))
             mainStore.dispatch(
                 chatActions.updateHistory({ sender: 'user', text: messageText })
             )
-            console.log('Scheduling timeout!')
             setTimeout(() => {
-                console.log('Timeout fired!')
                 mainStore.dispatch(switcherActions.setChatBotOnline(true))
             }, 1000)
 
             try {
-                if (!mockRef) {
-                    textRef.current.value = ''}
-                // } else {
-                //     setTimeout (()=> {mockTextRef.current.value = '' }, 1000)
-
-                    
-                // }
+               
+                textRef.current.value = ''
 
                 const response = await fetchGemini(messageText)
 
@@ -89,7 +84,7 @@ console.log(mockRef)
         <form onSubmit={handleSubmit} className="flex" aria-label="formsubmit">
             <div className="chat-textbox-container">
                 <textarea
-                    ref={!mockRef ? textRef : null}
+                    ref={textRef}
                     id="chatInput"
                     onKeyDown={handleKeyDown}
                     className="chat-textarea"
