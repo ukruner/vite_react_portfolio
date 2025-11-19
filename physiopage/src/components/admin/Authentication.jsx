@@ -4,7 +4,7 @@ import mainStore from '../../store'
 import { userActions } from '../../store/slices/userSlice'
 import ErrorPage from '../error/Error'
 import { getUserObject } from '../../utils/auth'
-import {isValidText} from '../../utils/validation'
+import { isValidText } from '../../utils/validation'
 import { initializeApp } from 'firebase/app'
 import {
     getAuth,
@@ -12,31 +12,31 @@ import {
     browserSessionPersistence,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
 } from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_AUTH_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  databaseURL: import.meta.env.VITE_FIREBASE_URL,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
-};
+    apiKey: import.meta.env.VITE_FIREBASE_AUTH_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    databaseURL: import.meta.env.VITE_FIREBASE_URL,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+}
 
 const app2 = initializeApp(firebaseConfig)
 const auth = getAuth(app2)
 
 export default function Authentication() {
-    const user = getUserObject();
+    const user = getUserObject()
 
     return (
         <>
             {!user ? (
-                <div className="relative z-0 flex h-screen w-screen items-center justify-center overflow-hidden">
-                    <div className="pointer-events-none absolute inset-0 -z-10 bg-[url('/patches_of_clouds_and_light_blue_sky_4k_5k_hd_light_blue.jpg')] bg-cover bg-center opacity-30" />
+                <div className="auth-form-container">
+                    <div className="auth-form-bg" />
                     <AuthenticationForm />
                 </div>
             ) : (
@@ -61,94 +61,94 @@ export const action = async ({ request }) => {
         const data = await request.formData()
 
         const email = data.get('email')
-        const password = data.get('password');
+        const password = data.get('password')
         const rememberMe = data.get('rememberMe')
         console.log(rememberMe)
 
-  if (!isValidText(password, 6)) {
-        return json({ message: "Password must be at least 6 characters long." }, { status: 422 });
-    }
-
+        if (!isValidText(password, 6)) {
+            return json(
+                { message: 'Password must be at least 6 characters long.' },
+                { status: 422 }
+            )
+        }
 
         if (mode === 'signup') {
-            try 
-            {const userCredential = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            )
-            console.log('User registered with uid:', userCredential.user)
-            return redirect('/auth?mode=login')}
-            catch (error) {
-                 if (error.code === "auth/email-already-in-use") {
-                 
-      return json({ message: "Email already exists" }, { status: 422 });
-    }
-    return json({ message: "Signup failed" }, { status: 500 });
-  }
-  }
-            
-        
-        if (mode === 'login') {    
             try {
-            const userCredential = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password,
-                rememberMe
-            )
-            const loggedUser = userCredential.user;
-            const token = await loggedUser.getIdToken(true);
-            console.log("Sending token:", token)
-            const res = await fetch("http://localhost:5000/api/backend/sessionLogin", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({token, rememberMe}),
-    credentials: "include", // ensures cookie is set
-            })
-    console.log('User logged in:', loggedUser.uid, mode)
-    mainStore.dispatch(userActions.setUser(loggedUser.uid))
-    // res.status(200).send("ok")     
+                const userCredential = await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                )
+                console.log('User registered with uid:', userCredential.user)
+                return redirect('/auth?mode=login')
+            } catch (error) {
+                if (error.code === 'auth/email-already-in-use') {
+                    return json(
+                        { message: 'Email already exists' },
+                        { status: 422 }
+                    )
+                }
+                return json({ message: 'Signup failed' }, { status: 500 })
+            }
         }
-catch (error){
-    throw new Error("Failed to create session")
-}
-    
-            
-            
-        };
 
-                if (routeParallax) {
-                    return redirect('/questionnaire')
-                } else {
-                if (routeSidebar) {
-                    mainStore.dispatch(userActions.setUser(loggedUser.uid));
+        if (mode === 'login') {
+            try {
+                const userCredential = await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password,
+                    rememberMe
+                )
+                const loggedUser = userCredential.user
+                const token = await loggedUser.getIdToken(true)
+                console.log('Sending token:', token)
+                const res = await fetch(
+                    'http://localhost:5000/api/backend/sessionLogin',
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ token, rememberMe }),
+                        credentials: 'include', // ensures cookie is set
                     }
-        return redirect('/')
-    }
-         
+                )
+                console.log('User logged in:', loggedUser.uid, mode)
+                mainStore.dispatch(userActions.setUser(loggedUser.uid))
+                // res.status(200).send("ok")
+            } catch (error) {
+                throw new Error('Failed to create session')
+            }
         }
-     catch (error) {
+
+        if (routeParallax) {
+            return redirect('/questionnaire')
+        } else {
+            if (routeSidebar) {
+                mainStore.dispatch(userActions.setUser(loggedUser.uid))
+            }
+            return redirect('/')
+        }
+    } catch (error) {
         console.error('Error with', error.message)
         throw error
     }
 }
 
-export async function logoutAction(){
-    const state = mainStore.getState();
-  const user = state.userSlice.user;
-    if(user){
+export async function logoutAction() {
+    const state = mainStore.getState()
+    const user = state.userSlice.user
+    if (user) {
+        try {
+            await fetch('http://localhost:5000/api/backend/logout', {
+                method: 'POST',
+                credentials: 'include',
+            })
 
-    try {
-    
-    await fetch("http://localhost:5000/api/backend/logout", { method: "POST", credentials: "include" });
-
-    mainStore.dispatch(userActions.clearUser())
-    console.log('logout logic executing');
-    return redirect('/')}
-
-    catch (error) {
-        console.error("Error logging out:", error);
-    }};
+            mainStore.dispatch(userActions.clearUser())
+            console.log('logout logic executing')
+            return redirect('/')
+        } catch (error) {
+            console.error('Error logging out:', error)
+        }
+    }
 }
-

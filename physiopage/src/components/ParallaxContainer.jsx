@@ -55,7 +55,7 @@ export default function ParallaxContainer() {
     }, [scrollToValue])
 
     function navigateQuestionnaire(){
-        mainStore.dispatch(switcherActions.setRouteParallax());
+        mainStore.dispatch(switcherActions.setRouteParallax(true));
         navigate('/questionnaire')
     }
 

@@ -1,11 +1,11 @@
 
 import AuthBox from './AuthBox'
-import WhaleSidebarButton from './whaleSidebarButton'
+import WhaleSidebarButton from './WhaleSidebarButton'
 
 
 export default function HeaderBlank() {
     return (
-        <header className="main-header px-4 justify-between">
+        <header className="main-header">
                 <WhaleSidebarButton></WhaleSidebarButton>
                 
                 <AuthBox>Account</AuthBox>

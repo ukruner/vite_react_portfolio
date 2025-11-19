@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const initialState = {isAuth: false, isSidebarOpen: false, isMarqueeActive: false, isAiThinking: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false, routeParallax: false, routeHeader: false, routeSidebar: false}
+const initialState = {isAuth: false, isSidebarOpen: false, sessionTerminated: false, isMarqueeActive: false, isAiThinking: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false, routeParallax: false, routeHeader: false, routeSidebar: false}
 const switcherSlice = createSlice({
 name: "switchers",
 initialState,
@@ -21,34 +21,37 @@ setIsSidebarOpen(state, action){
     }
     
     },
-    setIsAiThinking(state){
-        state.isAiThinking = !state.isAiThinking;
+    setIsAiThinking(state, action){
+        state.isAiThinking = action.payload;
     },
     
-setMarqueeActive(state){
-    state.isMarqueeActive = !state.isMarqueeActive;
+setMarqueeActive(state, action){
+    state.isMarqueeActive = action.payload;
 
 },
 setNavBarLayer(state, action){
-    state.navBarLayer = action.payload; 
+    state.navBarLayer = action.payload;
+},
+setSessionTerminated(state, action){
+    state.sessionTerminated = action.payload
 },
 setScrollToValue(state, action){
     state.scrollToValue = action.payload;
 },
-setChatBoxOpen(state){
-    state.isChatBoxOpen = !state.isChatBoxOpen;
+setChatBoxOpen(state, action){
+    state.isChatBoxOpen = action.payload;
 },
-setChatBotOnline(state){
-    state.chatBotOnline = !state.chatBotOnline;
+setChatBotOnline(state, action){
+    state.chatBotOnline = action.payload;
 },
-setRouteParallax(state){
-    state.routeParallax = !state.routeParallax
+setRouteParallax(state, action){
+    state.routeParallax = action.payload;
 },
-setRouteHeader(state){
-    state.routeHeader = !state.routeHeader
+setRouteHeader(state, action){
+    state.routeHeader = action.payload
 },
-setRouteSidebar(state){
-    state.routeSidebar = !state.routeSidebar
+setRouteSidebar(state, action){
+    state.routeSidebar = action.payload
 }
 }
 })

@@ -7,7 +7,6 @@ export default function AuthenticationForm() {
     const [searchParams] = useSearchParams();
 
     const data = useActionData();
-    console.log(data)
     const navigation = useNavigation();
     const isSubmitting = navigation.state === 'submitting';
     
@@ -16,42 +15,45 @@ export default function AuthenticationForm() {
     const routeSidebar = useSelector(state => state.switcherSlice.routeSidebar);
 
 
-    const mode = searchParams.get("mode") || "login"
-
+    const mode = searchParams.get('mode') || 'login'
+    // to make sure only one route to Auth is true at any given moment
+    
   return (
     <>
-        <Form method='post' className='grid gap-3 justify-center  min-w-[30rem] max-w-[40rem]  p-8 border-2 ~text-xs/lg border-black rounded-3xl'>
-           <div className=''><h1 className='text-3xl'>{routeParallax && mode === 'login' && <div>To access the form, please</div>}
-           {routeHeader && mode === 'login' && <div>To access useful content, please</div>}
-           {routeSidebar && mode === 'login' && <div>To access links on health related content, please</div>}</h1>
+        <Form method='post' className='auth-form-element'>
+           <div>{mode === 'login' && <h1 className='text-3xl'>
+            {routeParallax && <div>To access the form, please</div>}
+           {routeHeader && <div>To access useful content, please</div>}
+           {routeSidebar && <div>To access links on health related content, please</div>}
+           </h1>}
      
-           <h1 className='text-3xl'>{mode === "login" ? "Log in or create new user" : "Press Save to register your user"}</h1>
+           <h1 className='text-3xl'>{mode === 'login' ? 'Log in or create new user' : 'Press Save to register your user'}</h1>
             {data && data.errors && (
                 <ul>
                     {Object.values(data.errors).map((err)=> (
-                        <li className='text-sm text-red-600' key={err}>{err}</li>
+                        <li className='data-errors' key={err}>{err}</li>
                     ))}
                 </ul>
             )}
-            {data && data.message && <p className='text-sm text-red-600'>{data.message}</p>}
+            {data && data.message && <p className='data-errors'>{data.message}</p>}
            </div>
            <div className='grid w-full'>
             <label htmlFor='email'>Email</label>
-            <input type='email' id='email' name='email' className="my-1 px-1 leading-tight bg-white border border-slate-200 rounded  transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none"/>
+            <input type='email' id='email' name='email' className='auth-input-field '/>
                        <label htmlFor='password'>Password</label>
-            <input type='password' id='password' name='password' className="my-1 px-1 leading-tight bg-white border border-slate-200 rounded  transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md appearance-none"/>
+            <input type='password' id='password' name='password' className='auth-input-field'/>
            <label htmlFor='rememberMe'>Remember me
-            <input type='checkbox' id='rememberMe' name='rememberMe' className="m-2 leading-tight bg-white border border-slate-200  focus:outline-none"/>
+            <input type='checkbox' id='rememberMe' name='rememberMe' className='auth-input-checkbox'/>
            </label></div>
-           <div className='flex flex-row basis-[20%] items-center gap-3 justify-center'>
-            <button className='submit-button ~xs/md:~p-1/3 ~text-xs/lg'>{mode === "login" ? "Login" : "Save"}</button>
-            {mode !== "signup" && <Link to={`?mode=signup`} className='submit-button ~xs/md:~p-1/3 ~text-xs/lg' >
+           <div className='auth-submission-buttons-container'>
+            <button className='submit-button'>{mode === 'login' ? 'Login' : 'Save'}</button>
+            {mode !== 'signup' && <Link to={`?mode=signup`} className='submit-button' >
             Create new user
             </Link>}
-            <Link to="/" className='submit-button ~xs/md:~p-1/3 ~text-xs/lg' >
+            <Link to='/' className='submit-button' >
             Back to home
             </Link></div>
-           {isSubmitting && <p className='flex justify-center'>submitting...</p>}
+           {isSubmitting && <p className='flex-center'>submitting...</p>}
            </Form>
     </>
   )

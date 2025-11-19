@@ -5,7 +5,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { v4 as uuidv4 } from 'uuid'
 
 import { MongoClient } from 'mongodb';
-import { validateToken } from '../authMiddleware.js';
+import { validateToken } from './authMiddleware.js';
 import admin from 'firebase-admin';
 
 

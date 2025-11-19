@@ -53,14 +53,14 @@ export default function Sidebar() {
     )
 
     function navigateAuth() {
-        mainStore.dispatch(switcherActions.setRouteSidebar())
+        mainStore.dispatch(switcherActions.setRouteSidebar(true))
         navigate('/auth')
     }
 
     return (
         <div
             id="container"
-            className={`sidebar-grandparent fixed ${
+            className={`sidebar-grandparent ${
                 isSidebarClicked ? 'h-full max-h-full' : 'h-0 max-h-0'
             }`}
         >

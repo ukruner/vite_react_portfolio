@@ -11,17 +11,17 @@ export default function AuthBox() {
   const navigate = useNavigate();
 
   function navigateAuth(){
-    mainStore.dispatch(switcherActions.setRouteHeader());
+    mainStore.dispatch(switcherActions.setRouteHeader(true));
     navigate('/auth')
   }
 
   return (
     <>
-    {user ? <Form action='/logout' method='post'><div id="authdiv" className='h-20 flex basis-[20%] place-items-end justify-end'>
-        <button className='auth-button mr-[1rem]'>Log out</button>
+    {user ? <Form action='/logout' method='post'><div id="authdiv" className='authbox-container'>
+        <button className='auth-button'>Log out</button>
         </div></Form> : 
-        <div id="authdiv" className='h-20 flex basis-[20%] place-items-end justify-end'>
-        <button onClick={navigateAuth} className='auth-button mr-[1rem]'>Log in/ Sign up</button>
+        <div id="authdiv" className='authbox-container'>
+        <button onClick={navigateAuth} className='auth-button'>Log in/ Sign up</button>
         </div>}</>
     
   )

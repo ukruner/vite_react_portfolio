@@ -40,11 +40,11 @@ let routeText = 'home page'
   }
 
   return (
-    <div className='flex flex-col gap-4 h-screen w-screen justify-center items-center'>
-       <h1 className='justify-center items-center text-5xl text-red-600'>
+    <div className='error-container'>
+       <h1 className='error-header'>
        {error.status}
         </h1>
-        <h1 className='justify-center items-center text-5xl text-red-600'>
+        <h1 className='error-header'>
        {title}
         </h1> 
         {!loggedIn && <p>{message}</p>}
