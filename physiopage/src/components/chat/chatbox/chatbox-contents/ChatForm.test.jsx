@@ -3,6 +3,8 @@ import { vi } from 'vitest'
 import * as storeModule from '../../../../store/index.js'
 import { act } from 'react-dom/test-utils'
 import React from 'react'
+// import Response from 'node-fetch';
+
 vi.mock('react-redux', () => ({
     useSelector: vi.fn(),
     useDispatch: vi.fn(),
@@ -13,6 +15,7 @@ vi.mock('../../../../store/index.js', () => ({
         dispatch: vi.fn(),
     },
 }))
+vi.stubGlobal('fetch', vi.fn())
 
 import mainStore from '../../../../store/index.js'
 import { useSelector } from 'react-redux'
@@ -22,18 +25,26 @@ import { fireEvent } from '@testing-library/react'
 
 describe('ChatForm test suite', () => {
     let result
-    const mockRef = { current: { value: 'teststring' } }
+    // const mockRef = { current: { value: 'teststring' } }
     const message = 'teststring'
 
+    const mockFormRef = vi.fn()
+
+    vi.spyOn(React, 'useRef').mockReturnValue({
+        current: {
+            childMethod: mockFormRef,
+        },
+    })
+
+    beforeEach(() => {
+        fetch.mockReset()
+    })
+
+    afterEach(() => {
+        vi.clearAllMocks()
+    })
+
     beforeAll(async () => {
-        global.fetch = vi.fn()
-        global.fetch.mockResolvedValue({
-            json: async () => 'airesponse',
-        })
-
-        result = await fetchGemini(message)
-
-        // vi.clearAllMocks(),
         console.log(mainStore.dispatch.mock.calls)
     })
     const mockStore = {
@@ -46,13 +57,50 @@ describe('ChatForm test suite', () => {
         return selectorFn(mockStore)
     })
 
-    // it("handleSubmit request gets triggered when Enter button is pressed", ()=>{
+    test('pressing Enter (without Shift) calls handleSubmit', () => {
+        fetch.mockResolvedValueOnce(
+            new Response(JSON.stringify({ data: 'airesponse' }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+            })
+        )
+        const handleSubmitMock = vi.fn((e) => e.preventDefault())
+        const {getByLabelText} = render(
+            <ChatForm mockString={message} handleSubmitMock={handleSubmitMock} />
+        )
 
-    // });
-    // it("handleSubmit does NOT get triggered with shift+Enter", ()=>{
+        const input = getByLabelText("chat-textarea")
 
-    // });
+        fireEvent.keyDown(input, { key: 'Enter', shiftKey: false })
+
+        expect(handleSubmitMock).toHaveBeenCalled()
+    })
+
+    test('pressing Shift+Enter does NOT call handleSubmit', () => {
+        fetch.mockResolvedValueOnce(
+            new Response(JSON.stringify({ data: 'airesponse' }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+            })
+        )
+        const handleSubmitMock = vi.fn((e) => e.preventDefault())
+        const {getByLabelText} = render(
+            <ChatForm mockString={message} handleSubmitMock={handleSubmitMock} />
+        )
+
+        const input = getByLabelText("chat-textarea")
+
+        fireEvent.keyDown(input, { key: 'Enter', shiftKey: true })
+
+        expect(handleSubmitMock).not.toHaveBeenCalled()
+    })
     it('placeholder message appears (textRef gets cleared) once user sends the message', () => {
+        fetch.mockResolvedValueOnce(
+            new Response(JSON.stringify({ data: 'airesponse' }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+            })
+        )
         render(<ChatForm mockString={message} />)
         const textArea = screen.getByPlaceholderText('Your message')
 
@@ -63,15 +111,16 @@ describe('ChatForm test suite', () => {
         expect(textArea.value).toBe('')
     })
 
-    it('once form submits, a dispatch call to change chatBotOnline, setIsAiThinking is sent as well as dispatch call to update chat history object with user message', async () => {
+    it('once form submits, a dispatch call to change chatBotOnline, setIsAiThinking is sent as well as dispatch call to update chat history object with user message.', async () => {
         vi.useFakeTimers()
-        const mockFormRef = vi.fn()
 
-        vi.spyOn(React, 'useRef').mockReturnValue({
-            current: {
-                childMethod: mockFormRef,
-            },
-        })
+        fetch.mockResolvedValueOnce(
+            new Response(JSON.stringify('airesponse'), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+            })
+        )
+
         render(<ChatForm mockString={message} />)
         const form = screen.getByLabelText('formsubmit')
         fireEvent.submit(form)
@@ -94,6 +143,14 @@ describe('ChatForm test suite', () => {
         vi.clearAllTimers()
     })
     it('received data equals to expected value', async () => {
+        fetch.mockResolvedValueOnce(
+            new Response(JSON.stringify('airesponse'), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+            })
+        )
+        result = await fetchGemini(message)
+
         expect(result).toEqual('airesponse')
         expect(global.fetch).toHaveBeenCalledWith(
             'http://localhost:5000/api/backend/gemini',
@@ -108,16 +165,67 @@ describe('ChatForm test suite', () => {
             }
         )
     })
-    // it("displays response text on screen", ()=>{
+    it('Dispatch call to update chat history is made with the response received, if there is no response.error', async () => {
+        vi.useFakeTimers()
+        const airesponse = 'airesponse'
+        fetch.mockResolvedValueOnce(
+            new Response(JSON.stringify(airesponse), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+            })
+        )
+        render(<ChatForm mockString={message} />)
+        const form = screen.getByLabelText('formsubmit')
+        fireEvent.submit(form)
+        await vi.runAllTimersAsync()
 
-    // });
-    it('response has an .error object, and then it displays it failed to get a response in the chatbox', async () => {
-        global.fetch.mockResolvedValue({
-            json: async () => {
-                error: 'error'
+        expect(mainStore.dispatch).toHaveBeenCalledWith({
+            type: 'chatSlice/updateHistory',
+            payload: { sender: 'ai', text: airesponse },
+        })
+        expect(mainStore.dispatch).toHaveBeenCalledWith({
+            type: 'switchers/setIsAiThinking',
+            payload: false,
+        })
+        vi.clearAllTimers()
+    })
+    it('error is returned if response has an .error object', async () => {
+        fetch.mockResolvedValueOnce(
+            new Response(JSON.stringify({ error: 'error' }), {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' },
+            })
+        )
+        const result = await fetchGemini(message)
+        expect(result).toEqual({ error: 'error' })
+    })
+
+    it('response has an .error object, and then it fires a dispatch that it failed to get a response from Gemini', async () => {
+        vi.useFakeTimers()
+        fetch.mockResolvedValueOnce(
+            new Response(JSON.stringify({ error: 'error' }), {
+                status: 400,
+                headers: { 'Content-Type': 'application/json' },
+            })
+        )
+        // let result2 = await fetchGemini(message)
+        render(<ChatForm mockString={message} />)
+        const form = screen.getByLabelText('formsubmit')
+        fireEvent.submit(form)
+        await vi.runAllTimersAsync()
+
+        // expect(result2).toEqual(result2)
+        expect(mainStore.dispatch).toHaveBeenCalledWith({
+            type: 'chatSlice/updateHistory',
+            payload: {
+                sender: 'ai',
+                text: 'Failed to get a response from Gemini, check your connection or settings',
             },
         })
-        result = await fetchGemini(message)
+        expect(mainStore.dispatch).toHaveBeenCalledWith({
+            type: 'switchers/setIsAiThinking',
+            payload: false,
+        })
+        vi.clearAllTimers()
     })
-    // it("throws an error if request doesn't succeed at all");
 })

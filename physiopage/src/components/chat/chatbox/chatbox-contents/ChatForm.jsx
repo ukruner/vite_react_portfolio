@@ -18,7 +18,7 @@ export async function fetchGemini(message) {
     return res.json()
 }
 
-export default function ChatForm({ mockString }) {
+export default function ChatForm({ mockString, handleSubmitMock }) {
     const textRef = useRef(null)
 
     useEffect(() => {
@@ -45,8 +45,8 @@ export default function ChatForm({ mockString }) {
                 textRef.current.value = ''
 
                 const response = await fetchGemini(messageText)
-
-                console.log(response)
+                
+                // console.log(response)
 
                 if (!response.error) {
                     mainStore.dispatch(
@@ -57,6 +57,7 @@ export default function ChatForm({ mockString }) {
                     )
                     mainStore.dispatch(switcherActions.setIsAiThinking(false))
                 } else {
+                  console.log(response)
                     setTimeout(() => {
                         mainStore.dispatch(
                             chatActions.updateHistory({
@@ -64,7 +65,7 @@ export default function ChatForm({ mockString }) {
                                 text: 'Failed to get a response from Gemini, check your connection or settings',
                             })
                         )
-                        mainStore.dispatch(switcherActions.setIsAiThinking())
+                        mainStore.dispatch(switcherActions.setIsAiThinking(false))
                     }, 1000)
                 }
             } catch (error) {
@@ -76,7 +77,11 @@ export default function ChatForm({ mockString }) {
     const handleKeyDown = (event) => {
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault()
-            handleSubmit(event)
+            if (handleSubmitMock){
+                handleSubmitMock(event);
+            }
+            else{
+            handleSubmit(event)}
         }
     }
 
@@ -86,6 +91,7 @@ export default function ChatForm({ mockString }) {
                 <textarea
                     ref={textRef}
                     id="chatInput"
+                    aria-label="chat-textarea"
                     onKeyDown={handleKeyDown}
                     className="chat-textarea"
                     type="text"
