@@ -15,7 +15,8 @@ vi.mock('../../../../store/index.js', () => ({
         dispatch: vi.fn(),
     },
 }))
-vi.stubGlobal('fetch', vi.fn())
+
+window.fetch = vi.fn()
 
 import mainStore from '../../../../store/index.js'
 import { useSelector } from 'react-redux'
@@ -37,12 +38,10 @@ describe('ChatForm test suite', () => {
     })
 
     beforeEach(() => {
-        fetch.mockReset()
+        window.fetch.mockResolvedValueOnce({ json: async () => 'airesponse' })
     })
 
-    afterEach(() => {
-        vi.clearAllMocks()
-    })
+    afterEach(() => {})
 
     beforeAll(async () => {
         console.log(mainStore.dispatch.mock.calls)
@@ -58,18 +57,15 @@ describe('ChatForm test suite', () => {
     })
 
     test('pressing Enter (without Shift) calls handleSubmit', () => {
-        fetch.mockResolvedValueOnce(
-            new Response(JSON.stringify({ data: 'airesponse' }), {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' },
-            })
-        )
         const handleSubmitMock = vi.fn((e) => e.preventDefault())
-        const {getByLabelText} = render(
-            <ChatForm mockString={message} handleSubmitMock={handleSubmitMock} />
+        const { getByLabelText } = render(
+            <ChatForm
+                mockString={message}
+                handleSubmitMock={handleSubmitMock}
+            />
         )
 
-        const input = getByLabelText("chat-textarea")
+        const input = getByLabelText('chat-textarea')
 
         fireEvent.keyDown(input, { key: 'Enter', shiftKey: false })
 
@@ -77,30 +73,21 @@ describe('ChatForm test suite', () => {
     })
 
     test('pressing Shift+Enter does NOT call handleSubmit', () => {
-        fetch.mockResolvedValueOnce(
-            new Response(JSON.stringify({ data: 'airesponse' }), {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' },
-            })
-        )
         const handleSubmitMock = vi.fn((e) => e.preventDefault())
-        const {getByLabelText} = render(
-            <ChatForm mockString={message} handleSubmitMock={handleSubmitMock} />
+        const { getByLabelText } = render(
+            <ChatForm
+                mockString={message}
+                handleSubmitMock={handleSubmitMock}
+            />
         )
 
-        const input = getByLabelText("chat-textarea")
+        const input = getByLabelText('chat-textarea')
 
         fireEvent.keyDown(input, { key: 'Enter', shiftKey: true })
 
         expect(handleSubmitMock).not.toHaveBeenCalled()
     })
     it('placeholder message appears (textRef gets cleared) once user sends the message', () => {
-        fetch.mockResolvedValueOnce(
-            new Response(JSON.stringify({ data: 'airesponse' }), {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' },
-            })
-        )
         render(<ChatForm mockString={message} />)
         const textArea = screen.getByPlaceholderText('Your message')
 
@@ -113,13 +100,6 @@ describe('ChatForm test suite', () => {
 
     it('once form submits, a dispatch call to change chatBotOnline, setIsAiThinking is sent as well as dispatch call to update chat history object with user message.', async () => {
         vi.useFakeTimers()
-
-        fetch.mockResolvedValueOnce(
-            new Response(JSON.stringify('airesponse'), {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' },
-            })
-        )
 
         render(<ChatForm mockString={message} />)
         const form = screen.getByLabelText('formsubmit')
@@ -143,12 +123,6 @@ describe('ChatForm test suite', () => {
         vi.clearAllTimers()
     })
     it('received data equals to expected value', async () => {
-        fetch.mockResolvedValueOnce(
-            new Response(JSON.stringify('airesponse'), {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' },
-            })
-        )
         result = await fetchGemini(message)
 
         expect(result).toEqual('airesponse')
@@ -167,13 +141,7 @@ describe('ChatForm test suite', () => {
     })
     it('Dispatch call to update chat history is made with the response received, if there is no response.error', async () => {
         vi.useFakeTimers()
-        const airesponse = 'airesponse'
-        fetch.mockResolvedValueOnce(
-            new Response(JSON.stringify(airesponse), {
-                status: 200,
-                headers: { 'Content-Type': 'application/json' },
-            })
-        )
+
         render(<ChatForm mockString={message} />)
         const form = screen.getByLabelText('formsubmit')
         fireEvent.submit(form)
@@ -181,7 +149,7 @@ describe('ChatForm test suite', () => {
 
         expect(mainStore.dispatch).toHaveBeenCalledWith({
             type: 'chatSlice/updateHistory',
-            payload: { sender: 'ai', text: airesponse },
+            payload: { sender: 'ai', text: 'airesponse' },
         })
         expect(mainStore.dispatch).toHaveBeenCalledWith({
             type: 'switchers/setIsAiThinking',
@@ -190,25 +158,20 @@ describe('ChatForm test suite', () => {
         vi.clearAllTimers()
     })
     it('error is returned if response has an .error object', async () => {
-        fetch.mockResolvedValueOnce(
-            new Response(JSON.stringify({ error: 'error' }), {
-                status: 400,
-                headers: { 'Content-Type': 'application/json' },
-            })
-        )
+        window.fetch.mockReset()
+        window.fetch.mockResolvedValueOnce({
+            json: async () => ({ error: 'error' }),
+        })
         const result = await fetchGemini(message)
         expect(result).toEqual({ error: 'error' })
     })
 
     it('response has an .error object, and then it fires a dispatch that it failed to get a response from Gemini', async () => {
         vi.useFakeTimers()
-        fetch.mockResolvedValueOnce(
-            new Response(JSON.stringify({ error: 'error' }), {
-                status: 400,
-                headers: { 'Content-Type': 'application/json' },
-            })
-        )
-        // let result2 = await fetchGemini(message)
+        window.fetch.mockReset()
+        window.fetch.mockResolvedValueOnce({
+            json: async () => ({ error: 'error' }),
+        })
         render(<ChatForm mockString={message} />)
         const form = screen.getByLabelText('formsubmit')
         fireEvent.submit(form)
