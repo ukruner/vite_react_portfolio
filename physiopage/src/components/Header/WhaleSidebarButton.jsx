@@ -1,6 +1,7 @@
 
 import { useState, useRef } from 'react'
 import mainStore from '../../store'
+import openSidebar from '../../utils/openSidebar'
 import ReactFreezeframe from 'react-freezeframe'
 import { switcherActions } from '../../store/slices/switchers'
 
@@ -18,17 +19,14 @@ export default function WhaleSidebarButton() {
         freezeRef.current?.stop();
     }
 
-    function openSideBar() {
-        mainStore.dispatch(switcherActions.setIsSidebarOpen())
-        freezeRef.current.toggle();
-    }
+  
 
     return (
         <button
             id="starterdiv"
             aria-label='grandparent-container'
             className="header-whale-container"
-            onClick={openSideBar}
+            onClick={()=>{openSidebar(); freezeRef.current.toggle();}}
              onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
         >

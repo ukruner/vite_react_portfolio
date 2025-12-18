@@ -4,6 +4,7 @@ import { switcherActions } from '../store/slices/switchers'
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getUserObject } from '../utils/auth'
+import openSidebar from '../utils/openSidebar'
 
 export default function Sidebar() {
     const [offset, setOffset] = useState()
@@ -45,12 +46,7 @@ export default function Sidebar() {
         }
     }, [mainStore.dispatch])
 
-    function openSideBar() {
-        mainStore.dispatch(switcherActions.setIsSidebarOpen())
-    }
-    const isSidebarClicked = useSelector(
-        (state) => state.switcherSlice.isSidebarOpen
-    )
+  
 
     function navigateAuth() {
         mainStore.dispatch(switcherActions.setRouteSidebar(true))
@@ -61,12 +57,12 @@ export default function Sidebar() {
         <div
             id="container"
             className={`sidebar-grandparent ${
-                isSidebarClicked ? 'h-full max-h-full' : 'h-0 max-h-0'
+                isSidebarOpen ? 'h-full max-h-full' : 'h-0 max-h-0'
             }`}
         >
             <aside
                 className={`sidebar-container ${
-                    isSidebarClicked
+                    isSidebarOpen
                         ? 'h-full max-h-screen opacity-100'
                         : 'h-0 max-h-0 opacity-0'
                 }`}
@@ -90,7 +86,7 @@ export default function Sidebar() {
                     <button
                         className="sidebar-button"
                         type="button"
-                        onClick={openSideBar}
+                        onClick={()=>{openSidebar()}}
                     >
                         x
                     </button>

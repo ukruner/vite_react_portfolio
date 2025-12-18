@@ -1,5 +1,4 @@
 import HeaderBlank from './header/HeaderBlank';
-import MoveStuffAround from './header/MoveStuffAround';
 import Sidebar from './Sidebar';
 import ChatWindow from './chat/ChatWindow';
 import { useSelector } from 'react-redux';
@@ -11,7 +10,6 @@ function Layout2({children}) {
     return (
         <main>
             <header className="fixed z-[200]">
-                <MoveStuffAround />
                 <HeaderBlank/>
                 <Sidebar />
             </header>
