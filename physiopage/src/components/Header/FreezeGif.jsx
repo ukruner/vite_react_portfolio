@@ -2,10 +2,9 @@
 import ReactFreezeframe from 'react-freezeframe';
 
 
-const FreezeGif = () => {
+export default function FreezeGif(){
     return (
       <ReactFreezeframe src="./public/whale2.gif" />
     );
   };
 
-  export default FreezeGif;

@@ -41,8 +41,6 @@ describe('ChatForm test suite', () => {
         window.fetch.mockResolvedValueOnce({ json: async () => 'airesponse' })
     })
 
-    afterEach(() => {})
-
     beforeAll(async () => {
         console.log(mainStore.dispatch.mock.calls)
     })

@@ -14,7 +14,7 @@ export default function HeaderNavbar() {
     return (
         <nav className="navbar-container">
             <div>
-                <button className="side-button"></button>
+                <button className="side-button" aria-label='left-side'></button>
             </div>
 
             {navArray.map((label, index) => (
@@ -30,7 +30,7 @@ export default function HeaderNavbar() {
             ))}
 
             <div>
-                <button className="side-button"></button>
+                <button className="side-button" aria-label='right-side'></button>
             </div>
         </nav>
     )
