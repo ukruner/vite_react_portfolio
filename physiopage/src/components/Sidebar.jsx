@@ -37,7 +37,7 @@ export default function Sidebar() {
     useEffect(() => {
         const savedSidebarBool = sessionStorage.getItem('sidebarOpen')
         if (savedSidebarBool) {
-            mainStore.dispatch(switcherActions.setIsSidebarOpen())
+            mainStore.dispatch(switcherActions.setIsSidebarOpen(true))
 
             setTimeout(() => {
                 sessionStorage.removeItem('sidebarOpen')
@@ -86,7 +86,7 @@ export default function Sidebar() {
                     <button
                         className="sidebar-button"
                         type="button"
-                        onClick={()=>{openSidebar()}}
+                        onClick={()=>{openSidebar(false)}}
                     >
                         x
                     </button>

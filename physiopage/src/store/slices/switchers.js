@@ -10,16 +10,8 @@ reducers:
     state.isAuth = !state.isAuth;
 },
 setIsSidebarOpen(state, action){
-    if (action.payload) {
-        state.isSidebarOpen = action.payload;
-    }
-    if (!state.isSidebarOpen){
-        state.isSidebarOpen = true;
-    }
-    else {
-        state.isSidebarOpen = false;
-    }
-    
+ 
+    state.isSidebarOpen = action.payload;
     },
     setIsAiThinking(state, action){
         state.isAiThinking = action.payload;
