@@ -98,11 +98,22 @@ render(<WhaleSidebarButton/>);
     );
     expect(mockStop).toHaveBeenCalledTimes(1);
     });
-    it("dispatches to open sidebar once the whalebutton is clicked", ()=>{
+    it("dispatches to open sidebar (set to true) once the whalebutton is clicked", ()=>{
+      
                 render(<WhaleSidebarButton/>);
             const buttonElement = screen.getByLabelText('grandparent-container');
             fireEvent.click(buttonElement);
-            expect(mainStore.dispatch).toHaveBeenCalledWith({type: 'switchers/setIsSidebarOpen'})
+            expect(mainStore.dispatch).toHaveBeenCalledWith({type: 'switchers/setIsSidebarOpen', payload: true})
+    });
+    it("dispatches to open sidebar (set to close) once the whalebutton is clicked and sidebar is already open", ()=>{
+      const openedSidebarSlice = { switcherSlice: { isSidebarOpen: true} }
+          useSelector.mockImplementation((selectorFn) => {
+        return selectorFn(openedSidebarSlice)
+    });  
+      render(<WhaleSidebarButton/>);
+            const buttonElement = screen.getByLabelText('grandparent-container');
+            fireEvent.click(buttonElement);
+            expect(mainStore.dispatch).toHaveBeenCalledWith({type: 'switchers/setIsSidebarOpen', payload: false})
     });
     it("stops freezeframe motion if clicked and sidebar opens", ()=>{
         render(<WhaleSidebarButton/>);

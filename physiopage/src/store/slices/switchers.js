@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-const initialState = {isAuth: false, isSidebarOpen: false, sessionTerminated: false, isMarqueeActive: false, isAiThinking: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false, routeParallax: false, routeHeader: false, routeSidebar: false}
+const initialState = {isAuth: false, isSidebarOpen: false, sessionTerminated: false, isAiThinking: false, navBarLayer: 0, scrollToValue: null, isChatBoxOpen: false, chatBotOnline: false, routeParallax: false, routeHeader: false, routeSidebar: false}
 const switcherSlice = createSlice({
 name: "switchers",
 initialState,

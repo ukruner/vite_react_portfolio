@@ -7,8 +7,7 @@ import { getUserObject } from '../utils/auth'
 import openSidebar from '../utils/openSidebar'
 
 export default function Sidebar() {
-    const [offset, setOffset] = useState()
-    const ref = useRef(null)
+
 
     const isSidebarOpen = useSelector(
         (state) => state.switcherSlice.isSidebarOpen
@@ -18,21 +17,6 @@ export default function Sidebar() {
 
     const navigate = useNavigate()
 
-    useEffect(() => {
-        function updateOffset() {
-            if (ref.current) {
-                const height = ref.current.offsetHeight
-                const marginTop = 200
-                setOffset(height - marginTop)
-            }
-        }
-
-        updateOffset()
-
-        window.addEventListener('resize', updateOffset)
-
-        return () => window.removeEventListener('resize', updateOffset)
-    }, [])
 
     useEffect(() => {
         const savedSidebarBool = sessionStorage.getItem('sidebarOpen')
@@ -59,6 +43,7 @@ export default function Sidebar() {
             className={`sidebar-grandparent ${
                 isSidebarOpen ? 'h-full max-h-full' : 'h-0 max-h-0'
             }`}
+            aria-label='sidebar-grandparent'
         >
             <aside
                 className={`sidebar-container ${
@@ -66,18 +51,21 @@ export default function Sidebar() {
                         ? 'h-full max-h-screen opacity-100'
                         : 'h-0 max-h-0 opacity-0'
                 }`}
+                hidden={!isSidebarOpen}
                 style={{
                     transition: 'max-height 1s ease, opacity 0.4s ease',
                 }}
+                aria-label='sidebar-container'
             >
-                <div className="sidebar-text flex-[0_0_90%]">
+                <div className="sidebar-text flex-[0_0_90%]" aria-label='sidebar-text'>
+                    
                     Want to learn more about your health?
                     <br></br>
                     <br></br>
                     {user ? (
-                        <div></div>
+                        <div aria-label='useful-links'></div>
                     ) : (
-                        <button onClick={navigateAuth}>
+                        <button aria-label='navigate-register' onClick={navigateAuth}>
                             Press here to log in or register with us
                         </button>
                     )}
@@ -85,6 +73,7 @@ export default function Sidebar() {
                 <div className="sidebar-button-wrapper">
                     <button
                         className="sidebar-button"
+                        aria-label='sidebar-button'
                         type="button"
                         onClick={()=>{openSidebar(false)}}
                     >
