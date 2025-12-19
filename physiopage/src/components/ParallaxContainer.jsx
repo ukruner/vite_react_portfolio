@@ -108,7 +108,7 @@ export default function ParallaxContainer() {
                         <h1 className="main-body-text">
                             So, you can see how other people perceive it, and
                             feel you are not alone<br></br>
-                            Press <button onClick={navigateQuestionnaire} className='main-body-button underline'>here</button> for evaluation form
+                            Press <button aria-label='to-questionnaire' onClick={navigateQuestionnaire} className='main-body-button underline'>here</button> for evaluation form
                         </h1>
                     </div>
                 </ParallaxLayer>
