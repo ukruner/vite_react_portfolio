@@ -47,7 +47,6 @@ import {
     useSearchParams,
     useActionData,
 } from 'react-router-dom'
-import { error } from 'console'
 
 describe('Authentication form testing suite,', () => {
     const mockReduxSlice = {
