@@ -22,12 +22,12 @@ export default function AuthenticationForm() {
     <>
         <Form method='post' className='auth-form-element'>
            <div>{mode === 'login' && <h1 className='text-3xl'>
-            {routeParallax && <div>To access the form, please</div>}
-           {routeHeader && <div>To access useful content, please</div>}
-           {routeSidebar && <div>To access links on health related content, please</div>}
+            {routeParallax && <div aria-label='route-parallax-text'>To access the form, please</div>}
+           {routeHeader && <div aria-label='route-header-text'>To access useful content, please</div>}
+           {routeSidebar && <div aria-label='route-sidebar-text'>To access links on health related content, please</div>}
            </h1>}
      
-           <h1 className='text-3xl'>{mode === 'login' ? 'Log in or create new user' : 'Press Save to register your user'}</h1>
+           <h1 className='text-3xl' aria-label='header-form-text'>{mode === 'signup' ? 'Press Save to register your user': 'Log in or create new user' }</h1>
             {data && data.errors && (
                 <ul>
                     {Object.values(data.errors).map((err)=> (
@@ -35,7 +35,7 @@ export default function AuthenticationForm() {
                     ))}
                 </ul>
             )}
-            {data && data.message && <p className='data-errors'>{data.message}</p>}
+            {data && data.message && <p aria-label='error-message' className='data-errors'>{data.message}</p>}
            </div>
            <div className='grid w-full'>
             <label htmlFor='email'>Email</label>
@@ -46,7 +46,7 @@ export default function AuthenticationForm() {
             <input type='checkbox' id='rememberMe' name='rememberMe' className='auth-input-checkbox'/>
            </label></div>
            <div className='auth-submission-buttons-container'>
-            <button className='submit-button'>{mode === 'login' ? 'Login' : 'Save'}</button>
+            <button className='submit-button' aria-label='final-button'>{mode === 'login' ? 'Login' : 'Save'}</button>
             {mode !== 'signup' && <Link to={`?mode=signup`} className='submit-button' >
             Create new user
             </Link>}
