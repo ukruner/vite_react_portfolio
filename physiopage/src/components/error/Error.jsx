@@ -40,7 +40,7 @@ let routeText = 'home page'
   }
 
   return (
-    <div className='error-container'>
+    <div aria-label='error-container' className='error-container'>
        <h1 className='error-header'>
        {error.status}
         </h1>

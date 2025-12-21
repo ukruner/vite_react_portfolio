@@ -147,7 +147,7 @@ describe('Authentication form testing suite,', () => {
     })
     it("displays 'To access useful content, please' if route parallax is true", () => {
         const mockReduxWithHeader = {
-            switcherSlice: { ...mockReduxSlice, routeHeader: true },
+            switcherSlice: { ...mockReduxSlice.switcherSlice, routeHeader: true },
         }
         useSearchParams.mockReturnValue([
             new URLSearchParams({ mode: 'login' }),
@@ -176,7 +176,7 @@ describe('Authentication form testing suite,', () => {
     })
     it("displays 'To access links on health related content, please' if route parallax is true", () => {
         const mockReduxWithSidebar = {
-            switcherSlice: { ...mockReduxSlice, routeSidebar: true },
+            switcherSlice: { ...mockReduxSlice.switcherSlice, routeSidebar: true },
         }
         useSearchParams.mockReturnValue([
             new URLSearchParams({ mode: 'login' }),

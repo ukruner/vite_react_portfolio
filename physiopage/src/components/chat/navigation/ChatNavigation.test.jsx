@@ -17,9 +17,7 @@ vi.mock("../../../store/index.js", () => ({
 import mainStore from '../../../store/index.js';
 import { useSelector, useDispatch } from 'react-redux';
 import ChatNavigation from './ChatNavigation';
-import GlobalChatButton from './chatnavigation-contents/GlobalChatButton';
 import { fireEvent } from '@testing-library/react';
-import { switcherActions } from '../../../store/slices/switchers';
 
 describe ("Chatnavigation testing suite,", () => {
 

@@ -35,7 +35,7 @@ export default function Authentication() {
     return (
         <>
             {!user ? (
-                <div className="auth-form-container">
+                <div aria-label='auth-form-container' className="auth-form-container">
                     <div className="auth-form-bg" />
                     <AuthenticationForm />
                 </div>
@@ -45,6 +45,13 @@ export default function Authentication() {
         </>
     )
 }
+
+export function parseAuthFormData(formData) {
+  return {
+    email: formData.get('email'),
+    password: formData.get('password'),
+    rememberMe: formData.has('rememberMe'),
+  }};
 
 export const action = async ({ request }) => {
     try {
@@ -60,9 +67,8 @@ export const action = async ({ request }) => {
         }
         const data = await request.formData()
 
-        const email = data.get('email')
-        const password = data.get('password')
-        const rememberMe = data.get('rememberMe')
+        const { email, password, rememberMe } = parseAuthFormData(data);
+
         console.log(rememberMe)
 
         if (!isValidText(password, 6)) {
@@ -73,6 +79,7 @@ export const action = async ({ request }) => {
         }
 
         if (mode === 'signup') {
+          
             try {
                 const userCredential = await createUserWithEmailAndPassword(
                     auth,
@@ -88,8 +95,7 @@ export const action = async ({ request }) => {
                         { status: 422 }
                     )
                 }
-                return json({ message: 'Signup failed' }, { status: 500 })
-            }
+                throw new Error('Signup failed');            }
         }
 
         if (mode === 'login') {
@@ -114,7 +120,8 @@ export const action = async ({ request }) => {
                 )
                 console.log('User logged in:', loggedUser.uid, mode)
                 mainStore.dispatch(userActions.setUser(loggedUser.uid))
-                // res.status(200).send("ok")
+            
+           
             } catch (error) {
                 throw new Error('Failed to create session')
             }
@@ -129,6 +136,7 @@ export const action = async ({ request }) => {
             return redirect('/')
         }
     } catch (error) {
+      
         console.error('Error with', error.message)
         throw error
     }
@@ -149,6 +157,7 @@ export async function logoutAction() {
             return redirect('/')
         } catch (error) {
             console.error('Error logging out:', error)
+            throw error;
         }
     }
 }
