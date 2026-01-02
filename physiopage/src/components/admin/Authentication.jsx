@@ -68,7 +68,7 @@ export const action = async ({ request }) => {
         const data = await request.formData()
 
         const { email, password, rememberMe } = parseAuthFormData(data);
-
+        console.log(email, password, rememberMe)
         console.log(rememberMe)
 
         if (!isValidText(password, 6)) {
