@@ -1,7 +1,7 @@
 import { useRouteError } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-function ErrorPage({loggedIn}) {
+function ErrorPage({loggedIn, formEmpty}) {
   const error = useRouteError() || false;
   console.log(error);
 const navigate = useNavigate();
@@ -13,9 +13,14 @@ let routeText = 'home page'
     message = error.data.message;
   }
 
+  if (formEmpty){
+     title = "Looks like you wandered to results page but haven't filled the questionnaire!"
+     message=""
+  }
   if (loggedIn) {
     console.log(loggedIn)
     title = "Looks like you are already logged in, wanderer"
+    message=""
   }
 
 

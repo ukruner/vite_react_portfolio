@@ -1,5 +1,6 @@
 
 import { displayResponseData } from '../../utils/evaluateForm'
+import ErrorPage from '../error/Error'
 import ResponseElement from './customFormElements/responseElement'
 
 export default function FormSummary() {
@@ -7,12 +8,11 @@ export default function FormSummary() {
 
   return (
     <div className='form-summary-container'>
-      <div className='questionnaire-box form-summary'>
-      {displayResponseData.map((entry)=>{
-        return (<ResponseElement entry={entry}/>
-        )
-      })}
-      </div>
+      {displayResponseData.length > 0 ? <div className='questionnaire-box form-summary'>
+       {displayResponseData.map((entry)=> {return (<ResponseElement entry={entry}/>)})}</div> 
+      
+      : <ErrorPage formEmpty={true}></ErrorPage>}
+      
     </div>
   )
 }

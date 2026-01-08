@@ -140,7 +140,7 @@ body {
 }
 
 .form-summary-container {
-    @apply flex flex-col h-auto
+    @apply flex flex-col h-auto text-center
 }
 
 .form-summary {
