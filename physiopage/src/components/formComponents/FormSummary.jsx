@@ -3,7 +3,7 @@ import { displayResponseData } from '../../utils/evaluateForm'
 import ResponseElement from './customFormElements/responseElement'
 
 export default function FormSummary() {
-
+  console.log(displayResponseData)
 
   return (
     <div className='form-summary-container'>
