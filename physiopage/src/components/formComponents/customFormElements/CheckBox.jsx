@@ -1,6 +1,12 @@
-import React from 'react'
 
 export default function CheckBox({ entry, isCheckedObject, setIsCheckedObject }) {
+ 
+    
+    function handleCheckBoxChange(event){
+        {const stateName = event.target.id
+        setIsCheckedObject(prevState =>  ({...prevState, [stateName]: !prevState[stateName]}))
+    }
+    }
     return (
         <div className="m-2 flex gap-2" key={entry.id}>
             <input
@@ -8,8 +14,8 @@ export default function CheckBox({ entry, isCheckedObject, setIsCheckedObject })
                 id={entry.id}
                 name={entry.id}
                 value={isCheckedObject[entry.id] ? 'Yes' : 'No'}
-                onChange={() =>
-                    entry.func(event, setIsCheckedObject, isCheckedObject)
+                onChange={(e) =>
+                    handleCheckBoxChange(e)
                 }
                 checked={isCheckedObject[entry.id]}
             ></input>

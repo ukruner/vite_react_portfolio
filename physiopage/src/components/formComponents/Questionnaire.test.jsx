@@ -37,7 +37,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {} from '../../store/slices/switchers.js'
 import Questionnaire from './Questionnaire.jsx'
 import { Provider } from 'react-redux'
-import { createMemoryRouter, RouterProvider, Navigate } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 describe('Questionnaire form testing suite,', () => {
     const mockReduxSlice = {}
@@ -45,7 +45,6 @@ describe('Questionnaire form testing suite,', () => {
     const mockDispatch = vi.fn()
     useDispatch.mockReturnValue(mockDispatch)
 
-    // console.log(mainStore.dispatch.mock.calls)
 
     useSelector.mockImplementation((selectorFn) => {
         return selectorFn(mockReduxSlice)
@@ -144,7 +143,6 @@ describe('Questionnaire form testing suite,', () => {
             )
         ).not.toBeInTheDocument();
 
-        //role : link, role: button;
     })
     it("renders questionnaire with 'for how long' option visible if user selects they have been off work", () => {
         const router = createMemoryRouter(
@@ -162,6 +160,8 @@ describe('Questionnaire form testing suite,', () => {
         })
         fireEvent.click(offwork)
         expect(screen.getByRole('combobox', {name: 'For how long?'})).toBeInTheDocument()
+                expect(screen.queryByText('Who is it with?')).not.toBeInTheDocument()
+
     });
     it('renders questionnaire with treatment-specific options visible if user selects they have been or have received treatment', () => {
         const router = createMemoryRouter(
@@ -178,34 +178,34 @@ describe('Questionnaire form testing suite,', () => {
             name: /Are you currently receiving or have you received any treatment?/i,
         })
         fireEvent.click(treatment)
-        // expect(screen.getByText('Who is it with?')).toBeInTheDocument()
-                expect(screen.getByRole('combobox', {name: 'For how long?'})).toBeInTheDocument()
+        expect(screen.getByText('Who is it with?')).toBeInTheDocument()
+        expect(screen.queryByRole('combobox', {name: 'For how long?'})).not.toBeInTheDocument()
 
-        // expect(
-        //     screen.getByRole('combobox', {
-        //         name: /How many exercises were you given to do?/i,
-        //     })
-        // ).toBeInTheDocument()
-        // expect(
-        //     screen.getByRole('combobox', {
-        //         name: /How often do you see your therapist?/i,
-        //     })
-        // ).toBeInTheDocument()
-        // expect(screen.getByText(/and who provides it/i)).toBeInTheDocument()
-        // expect(
-        //     screen.getByRole('radio', {
-        //         name: /NHS/i,
-        //     })
-        // ).toBeInTheDocument()
-        // expect(
-        //     screen.getByRole('radio', {
-        //         name: /Private/i,
-        //     })
-        // ).toBeInTheDocument()
-        // expect(
-        //     screen.getByRole('radio', {
-        //         name: /Other/i,
-        //     })
-        // ).toBeInTheDocument()
+        expect(
+            screen.getByRole('combobox', {
+                name: /How many exercises were you given to do?/i,
+            })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('combobox', {
+                name: /How often do you see your therapist?/i,
+            })
+        ).toBeInTheDocument()
+        expect(screen.getByText(/and who provides it/i)).toBeInTheDocument()
+        expect(
+            screen.getByRole('radio', {
+                name: /NHS/i,
+            })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('radio', {
+                name: /Private/i,
+            })
+        ).toBeInTheDocument()
+        expect(
+            screen.getByRole('radio', {
+                name: /Other/i,
+            })
+        ).toBeInTheDocument()
     })
 })

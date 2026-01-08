@@ -24,10 +24,8 @@ export let formEntries = [{
     type: 'checkbox',
     parent: 'offwork',
     label: 'Are you currently off work because of this issue?',
-    func: (event, setIsCheckedObject, isCheckedObject) => {const stateName = event.target.id
-        setIsCheckedObject(prevState =>  ({...prevState, [stateName]: !prevState[stateName]}))
-      
-    }}
+ 
+}
 ,
 {
     id: 'offworkduration',
@@ -40,11 +38,7 @@ export let formEntries = [{
     id: 'treatment',
     type: 'checkbox',
     parent: 'treatment',
-    label: 'Are you currently receiving or have you received any treatment?',
-    func: (event, setIsCheckedObject, isCheckedObject) => {const stateName = event.target.id
-        setIsCheckedObject(prevState =>  ({...prevState, [stateName]: !prevState[stateName]}))
-        console.log('state changed', isCheckedObject)
-    }
+    label: 'Are you currently receiving or have you received any treatment?'
 },
 {
     id: 'caremodality',
