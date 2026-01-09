@@ -58,17 +58,11 @@ export default function Sidebar() {
                 aria-label='sidebar-container'
             >
                 <div className="sidebar-text flex-[0_0_90%]" aria-label='sidebar-text'>
-                    
-                    Want to learn more about your health?
-                    <br></br>
-                    <br></br>
-                    {user ? (
-                        <div aria-label='useful-links'></div>
-                    ) : (
+                
                         <button aria-label='navigate-register' onClick={navigateAuth}>
-                            Press here to log in or register with us
+                            Press here to log in or register with us, to get access to useful, revealing and mythbusting content after you fill the questionnaire.
                         </button>
-                    )}
+                    
                 </div>
                 <div className="sidebar-button-wrapper">
                     <button

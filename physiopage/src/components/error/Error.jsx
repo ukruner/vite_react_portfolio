@@ -14,13 +14,11 @@ let routeText = 'home page'
   }
 
   if (formEmpty){
-     title = "Looks like you wandered to results page but haven't filled the questionnaire!"
-     message=""
+     message = "Looks like you haven't filled the questionnaire yet!"
   }
   if (loggedIn) {
     console.log(loggedIn)
-    title = "Looks like you are already logged in, wanderer"
-    message=""
+    message = "Looks like you are already logged in, wanderer"
   }
 
 

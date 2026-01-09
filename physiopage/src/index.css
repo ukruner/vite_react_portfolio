@@ -280,7 +280,7 @@ html {
 }
 
 .sidebar-text {
-    @apply mt-10 w-[90%] px-2 max-w-[90%] overflow-hidden shrink break-all ~text-xs/lg text-stone-50;
+    @apply mt-10 w-[90%] px-2 max-w-[90%] overflow-hidden shrink ~text-xs/lg text-stone-50;
 }
 
 .sidebar-button-wrapper {
