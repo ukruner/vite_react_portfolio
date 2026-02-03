@@ -12,19 +12,38 @@ export const evaluateForm = (formData) => {
         let chosen = formEntries.find((element) => element.id == key)
         chosen.options = value
 
-      
-        if (responseChoices[key] ) {
-            if (key == "bodypart" && diagnosis){
-            chosen.comment = ''
+        let comment = ''
+        let videos = []
+
+        if (responseChoices[key]) {
+            if (key == "bodypart" && diagnosis) {
+                comment = ''
+            } else {
+                comment = responseChoices[key][value] || ''
             }
-            else{
-        
-            chosen.comment = responseChoices[key][value]}
-        } else {
-            chosen.comment = ''
         }
+
+        // Look up any configured videos by answer text in the top-level videos array
+        if (Array.isArray(responseChoices.videos)) {
+            for (const mapping of responseChoices.videos) {
+                if (Object.prototype.hasOwnProperty.call(mapping, value)) {
+                    const candidate = mapping[value]
+                    if (Array.isArray(candidate)) {
+                        videos = candidate
+                    }
+                }
+            }
+        }
+
+        chosen.comment = comment
+        chosen.videos = videos
      
-        return { id: chosen.label, response: value, comment: chosen.comment }
+        return {
+            id: chosen.label,
+            response: value,
+            comment: chosen.comment,
+            videos: chosen.videos
+        }
     })
 
 }

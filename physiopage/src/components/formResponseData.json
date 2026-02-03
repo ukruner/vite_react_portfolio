@@ -5,7 +5,7 @@
     "Elbow/Forearm": "If not a severe trauma, most classic causes of elbow pain are so-called \"golfer's\" or \"tennis\" elbow, conditions resulting from overuse of forearm muscles.", 
     "Wrist/Hand": "Repetitive strain injuries from extended computer equipment use tends to be the most common cause of wrist/hand pain.",
     "Upper back": "Fairly uncommon area to experience pain in, usually resulting from poor sitting posture or working/exercising techniques.",
-    "Lower back": "Arguably the most common musculoskeletal problem in the world. In vast majority, lower back pain is of muscular origin and would subside on its won with rest. It is important to reflect whether you in addition experience pain/pins&needles/numbness in your legs, or whether there have been changes to the function of your bowel/bladder or sexual function recently. If so, you need to immediately contact your GP or go to urgent care. But don't panic - severe cases of back pain that eventually require urgent surgery - account for less than 1% of back pain sufferers.", 
+    "Lower back": "Arguably the most common musculoskeletal problem in the world. In vast majority, lower back pain is of muscular origin and would subside on its won with rest. It is important to reflect whether you in addition experience pain/pins&needles/numbness in your legs, or whether there have been changes to the function of your bowel/bladder or sexual function recently. If so, you need to immediately contact your GP or go to urgent care. But don't panic - severe cases of back pain that eventually require urgent surgery - account for less than 1% of back pain sufferers. Please scroll to the end to find useful content on Youtube to watch.",
     "Hip/Groin/Thigh": "Causes of hip pain may vary, depending on your age an level of activity. If the pain is very close to the groin area, or outer side of the hip - it is likely the issue to be muscle-related. If the pain is deep exactly in the hip joint - the problem could be related to an impingement or arthritic/degenerative changes.", 
     "Knee/Shin": "If experienced an injury - most likely cause of your knee pain is due to a ligament sprain or a tear to a meniscus structure. Otherwise, pain in the knee could be related to overuse, age-related changes or poor posture of the leg during movement (walking, running, stairs).", 
     "Foot/Ankle": "Most common cause of pain in this region is an ankle sprain. Did you know - that if sprained once, the ankle is inreasingly likely to get sprained again? Therefore, it is incredibly important to get it assessed and follow the advice on treatment till full recovery!" 
@@ -52,4 +52,19 @@
 "radioeducation": 
     {"No": "Communication between you and your therapist, as well as full awareness of your issue are 2 cornerstones of successful treatment and recovery. If your appointment was fairly short, ideally your therapist should have sent you additional reading content to get a better understanding of your health issue. If that did not happen - make sure to either make yourself a note with all the questions for your next appointment, or ask them to send something over to you."
     , "Yes": ""
-    }}
+    },
+"videos": [
+    {
+        "Lower back": [
+            {
+                "id": "abc123DEF",
+                "title": "Understanding common causes of lower back pain"
+            },
+            {
+                "id": "xyz789GHI",
+                "title": "Gentle lower back mobility routine"
+            }
+        ]
+    }
+]
+}
