@@ -1,9 +1,8 @@
 import React from 'react'
 
-export default function RadioCircle({ entry }) {
+export default function RadioCircle({ entry, onChange }) {
     return (
-        <fieldset key={entry.label} className='mt-2'>
-            {' '}
+        <fieldset key={entry.label} className="mt-2">
             <div className="grid gap-2">
                 <legend>{entry.label}</legend>
                 <div className="flex gap-2 ">
@@ -16,7 +15,8 @@ export default function RadioCircle({ entry }) {
                                     id={entry.id}
                                     name={entry.id}
                                     value={option}
-                                ></input>
+                                    onChange={onChange}
+                                />
                                 {' ' + option}
                             </label>
                         )

@@ -155,11 +155,11 @@ body {
 }
 
 .video-card {
-    @apply flex flex-col rounded-lg overflow-hidden bg-white/5 border border-white/10 transition ease-out;
+    @apply flex flex-col rounded-lg overflow-hidden bg-white border border-slate-200 shadow-sm transition ease-out;
 }
 
 .video-card:hover {
-    @apply border-sky-300 shadow-lg;
+    @apply border-blue-2 shadow-md;
     transform: translateY(-2px);
 }
 
@@ -181,7 +181,7 @@ body {
 }
 
 .video-title {
-    @apply text-[0.85rem] font-medium text-slate-100 text-left;
+    @apply text-[0.9rem] font-semibold text-black text-left;
 }
 .header-container {
     @apply flex w-screen;

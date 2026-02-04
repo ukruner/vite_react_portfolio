@@ -4,6 +4,7 @@ import ErrorPage from '../error/Error'
 import ResponseElement from './customFormElements/responseElement'
 
 export default function FormSummary() {
+  const links = displayResponseData.flatMap((entry) => entry.links || [])
   const videos = displayResponseData.flatMap((entry) => entry.videos || [])
 
   return (
@@ -14,12 +15,19 @@ export default function FormSummary() {
             <ResponseElement key={entry.id} entry={entry} />
           ))}
 
-          {videos.length > 0 && (
+          {(links.length > 0 || videos.length > 0) && (
             <div className='mt-6'>
               <h2 className='text-lg font-semibold mb-2'>
-                Helpful video resources
+                Helpful resources
               </h2>
-              <VideoPreviewList videos={videos} />
+              {links.length > 0 && (
+                <LinksList links={links} />
+              )}
+              {videos.length > 0 && (
+                <div className='mt-4'>
+                  <VideoPreviewList videos={videos} />
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -27,6 +35,25 @@ export default function FormSummary() {
         <ErrorPage formEmpty={true} />
       )}
     </div>
+  )
+}
+
+function LinksList({ links }) {
+  return (
+    <ul className="space-y-1 text-left">
+      {links.map((link, index) => (
+        <li key={index}>
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline hover:text-blue-800"
+          >
+            {link.title}
+          </a>
+        </li>
+      ))}
+    </ul>
   )
 }
 

@@ -17,9 +17,13 @@ export default function Questionnaire() {
         duration: true,
         diagnosis: true,
         bodypart: true,
+        pregnancy: true,
+        menopause: true
     })
 
     const [submitted, setSubmitted] = useState(false)
+    const [selectedBodypart, setSelectedBodypart] = useState('')
+    const [diagnosisAnswer, setDiagnosisAnswer] = useState('')
 
     // const user = getUserObject();
     const user = 'user'
@@ -63,13 +67,76 @@ export default function Questionnaire() {
                         switch (entry.type) {
                             case 'text':
                                 if (isCheckedObject[String(entry.parent)]) {
-                                    return <TextSelection entry={entry} />
+                                    const extraProps =
+                                        entry.id === 'bodypart'
+                                            ? {
+                                                  value: selectedBodypart,
+                                                  onChange: (event) =>
+                                                      setSelectedBodypart(
+                                                          event.target.value
+                                                      ),
+                                              }
+                                            : {}
+
+                                    return (
+                                        <TextSelection
+                                            entry={entry}
+                                            {...extraProps}
+                                        />
+                                    )
                                 } else {
                                     break
                                 }
                             case 'radio':
+                                if (entry.id === 'radiodiagnosis') {
+                                    return (
+                                        <>
+                                            <RadioCircle
+                                                entry={entry}
+                                                onChange={(event) =>
+                                                    setDiagnosisAnswer(
+                                                        event.target.value
+                                                    )
+                                                }
+                                            />
+                                            {diagnosisAnswer === 'Yes' && (
+                                                <div className="mt-2 text-left">
+                                                    <label
+                                                        htmlFor="diagnosisdetail"
+                                                        className="block mb-1"
+                                                    >
+                                                        If yes, what is the
+                                                        diagnosis?
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="diagnosisdetail"
+                                                        name="diagnosisdetail"
+                                                        className="auth-input-field w-1/2"
+                                                    />
+                                                </div>
+                                            )}
+                                        </>
+                                    )
+                                }
+
+                                if (entry.id === 'radioneck') {
+                                    if (selectedBodypart === 'Neck') {
+                                        return (
+                                            <RadioCircle
+                                                entry={entry}
+                                            ></RadioCircle>
+                                        )
+                                    }
+                                    break
+                                }
+
                                 if (isCheckedObject[String(entry.parent)]) {
-                                    return <RadioCircle entry={entry} />
+                                    return (
+                                        <RadioCircle
+                                            entry={entry}
+                                        ></RadioCircle>
+                                    )
                                 } else {
                                     break
                                 }

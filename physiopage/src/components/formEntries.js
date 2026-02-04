@@ -3,7 +3,14 @@ export let formEntries = [{
     type: 'text',
     parent: 'bodypart',
     label: 'What is the body part affected?',
-    options: ['Head/Neck', 'Shoulder', 'Elbow/Forearm', 'Wrist/Hand', 'Upper back', 'Lower back', 'Hip/Groin/Thigh', 'Knee/Shin', 'Foot/Ankle']
+    options: ['Neck', 'Shoulder', 'Elbow/Forearm', 'Wrist/Hand', 'Upper back', 'Lower back', 'Hip/Groin/Thigh', 'Knee/Shin', 'Foot/Ankle']
+},
+{
+    id: 'duration',
+    type: 'text',
+    parent: 'duration',
+    label: 'How long have you had your problem for?',
+    options: ['1-2 weeks', '3-12 weeks', '3-6 months', 'Over 6 months']
 },
 {
     id: 'radiodiagnosis',
@@ -13,12 +20,27 @@ export let formEntries = [{
     options: ['Yes', 'No']
 },
 {
-    id: 'duration',
-    type: 'text',
-    parent: 'duration',
-    label: 'How long have you had your problem for?',
-    options: ['1-2 weeks', '3-12 weeks', '3-6 months', 'Over 6 months']
+    id: 'radioneck',
+    type: 'radio',
+    parent: 'Neck',
+    label: 'Do you experience any headaches?',
+    options: ['Yes', 'No']
 },
+{
+    id: 'radiopregnancy',
+    type: 'radio',
+    parent: 'pregnancy',
+    label: 'Are you pregnant?',
+    options: ['Yes', 'No']
+},
+{
+    id: 'radiomenopause',
+    type: 'radio',
+    parent: 'menopause',
+    label: 'Are you going through menopause?',
+    options: ['Yes', 'No']
+},
+
 {
     id: 'offwork', 
     type: 'checkbox',
@@ -47,6 +69,7 @@ export let formEntries = [{
     label: 'Who is it with?',
     options: ['Osteopath', 'Chiropractor', 'Physiotherapist', 'Massage', 'Alternative']
 },
+
 {
     id: 'careprovider',
     parent: 'treatment',

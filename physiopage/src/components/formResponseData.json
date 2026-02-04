@@ -1,6 +1,6 @@
 {
 "bodypart": {
-    "Head/Neck": "Most commonly, people who get affected ny neck pain tend to be office workers. 2nd most common cause of neck pain are road traffic collisions resulting in whiplash injuries.", 
+    "Neck": "Most commonly, people who get affected ny neck pain tend to be office workers. 2nd most common cause of neck pain are road traffic collisions resulting in whiplash injuries.", 
     "Shoulder": "If not a trauma or dislocation, most likely cause of shoulder pain is related to rotator cuff muscles. If shoulder's range of movement is severely limited - possibility of having a 'frozen shoulder' condition needs to be evaluated.", 
     "Elbow/Forearm": "If not a severe trauma, most classic causes of elbow pain are so-called \"golfer's\" or \"tennis\" elbow, conditions resulting from overuse of forearm muscles.", 
     "Wrist/Hand": "Repetitive strain injuries from extended computer equipment use tends to be the most common cause of wrist/hand pain.",
@@ -10,6 +10,8 @@
     "Knee/Shin": "If experienced an injury - most likely cause of your knee pain is due to a ligament sprain or a tear to a meniscus structure. Otherwise, pain in the knee could be related to overuse, age-related changes or poor posture of the leg during movement (walking, running, stairs).", 
     "Foot/Ankle": "Most common cause of pain in this region is an ankle sprain. Did you know - that if sprained once, the ankle is inreasingly likely to get sprained again? Therefore, it is incredibly important to get it assessed and follow the advice on treatment till full recovery!" 
 },
+
+
 
 "duration": {
     "1-2 weeks": "",
@@ -55,14 +57,128 @@
     },
 "videos": [
     {
-        "Lower back": [
+        "when": {
+            "bodypart": "Lower back"
+        },
+        "attachTo": "bodypart",
+        "videos": [
             {
-                "id": "abc123DEF",
-                "title": "Understanding common causes of lower back pain"
+                "id": "AlWxPkkBiBU",
+                "title": "The Truth About Back Pain Most People Don`t Know"
             },
             {
-                "id": "xyz789GHI",
-                "title": "Gentle lower back mobility routine"
+                "id": "ush3Md9G3f8",
+                "title": "Are Bulging Discs Bad? Spine Surgeon Explains MRI Findings"
+            }
+        ]
+    },
+    {
+        "when": {
+            "bodypart": "Foot/Ankle",
+            "duration": "Over 6 months"
+        },
+        "attachTo": "bodypart",
+        "videos": [
+            {
+                "id": "cm0oGeEWDOg",
+                "title": "Recurring Ankle Sprain Treatment"
+            }
+        ]
+    },
+    {
+        "when": {
+            "bodypart": "Neck",
+            "duration": "Over 6 months"
+        },
+        "attachTo": "bodypart",
+        "videos": [
+            {
+                "id": "cm0oGeEWDOg",
+                "title": "Recurring Ankle Sprain Treatment"
+            }
+        ]
+    }
+],
+"links": [
+    {
+        "when": {
+            "bodypart": "Neck",
+            "radioneck": "Yes"
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Cervicogenic Headache: A New Perspective",
+                "url": "https://crimsonpublishers.com/nrs/fulltext/NRS.000713.php"
+            }
+        ]
+    },
+    {"when": {
+            "radiopregnancy": "Yes"
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Pelvic Girdle Pain and other common conditions in pregnancy",
+                "url": "https://elht.nhs.uk/services/physiotherapy-pelvic-obstetric-and-gynaecological/physiotherapy-pelvic-obstetric-and-gynaecological-4"
+            }
+        ]},
+
+     {
+        "when": {
+            "bodypart": "Shoulder",
+            "diagnosisdetail": {
+                "containsAny": ["frozen", "capsulitis"]
+            }
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Frozen Shoulder, Information for patients",
+                "url": "https://www.sfh-tr.nhs.uk/media/el0fbomj/kmh_000689_msk_frozen-shoulder_leaflet-v3ea_a5_2020.pdf"
+            }
+        ]
+    },
+    {
+        "when": {
+            "bodypart": "Shoulder",
+            "radiomenopause": "Yes",
+             "diagnosisdetail": {
+                "containsAny": ["frozen", "capsulitis"]
+            }
+        },
+        "attachTo": "bodypart",
+        "links": [
+            
+            {"title": "Frozen Shoulder During Menopause",
+            "url": "https://www.joinmidi.com/post/frozen-shoulder-menopause"}
+        ]
+    },
+    {
+        "when": {
+          
+             "diagnosisdetail": {
+                "containsAny": ["osteo arthritis", "osteoarthritis", "OA", "Osteoarthritis", "arthritis"]
+            }
+        },
+        "attachTo": "bodypart",
+        "links": [
+            
+            {"title": "Osteoarthritis pain and x-rays",
+            "url": "https://myoa.org.au/video/tests-treatments-imaging/osteoarthritis-pain-and-x-rays"}
+        ]
+    },
+    {
+        "when": {
+          
+            "radiomenopause": "Yes"
+        
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Menopause and Musculoskeletal Health: Why it matters",
+                "url": "https://dralisongrimaldi.com/blog/menopause-and-musculoskeletal-health/"
             }
         ]
     }

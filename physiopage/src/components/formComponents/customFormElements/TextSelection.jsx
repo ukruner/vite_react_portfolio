@@ -1,6 +1,8 @@
 import React from 'react'
 
-export default function TextSelection({ entry }) {
+export default function TextSelection({ entry, value, onChange }) {
+    const isControlled = typeof value !== 'undefined'
+
     return (
         <div key={entry.id} className="mt-2">
             <label htmlFor={entry.id} key={entry.id}>
@@ -11,8 +13,10 @@ export default function TextSelection({ entry }) {
                 name={entry.id}
                 id={entry.id}
                 className="questionnaire-form-select"
+                value={isControlled ? value : undefined}
+                onChange={onChange}
             >
-                <option key={entry.id + 'option'} ></option>
+                <option key={entry.id + 'option'}></option>
                 {entry.options.map((option) => {
                     return (
                         <option key={option}>
