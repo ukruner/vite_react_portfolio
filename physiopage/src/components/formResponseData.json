@@ -74,6 +74,54 @@
     },
     {
         "when": {
+            "bodypart": "Elbow",
+            "radiodiagnosis": "No"
+        },
+        "attachTo": "bodypart",
+        "videos": [
+            {
+                "id": "9Ajfmx7qXvE",
+                "title": "Golfers elbow"
+            },
+            {
+                "id": "4Cb6JK3-co4",
+                "title": "Tennis elbow"
+            }
+        ]
+    },
+    {
+        "when": {
+            "bodypart": "Elbow",
+            "diagnosisdetail": {
+                "containsAny": ["medial", "golf", "golfers", "golfer's"]
+            }
+        },
+        "attachTo": "bodypart",
+        "videos": [
+            {
+                "id": "9Ajfmx7qXvE",
+                "title": "Golfers elbow"
+            }
+        ]
+    },
+     {
+        "when": {
+            "bodypart": "Elbow",
+            "diagnosisdetail": {
+                "containsAny": ["lateral", "tennis"]
+            }
+        },
+        "attachTo": "bodypart",
+        "videos": [
+            
+            {
+                "id": "4Cb6JK3-co4",
+                "title": "Tennis elbow"
+            }
+        ]
+    },
+    {
+        "when": {
             "bodypart": "Foot/Ankle",
             "duration": "Over 6 months"
         },
@@ -113,6 +161,62 @@
             }
         ]
     },
+     {
+        "when": {
+            "bodypart": "Neck"
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Neck pain leaflet",
+                "url": "https://www.arthritis-uk.org/media/21788/neckpain-exercise-sheet.pdf"
+            }
+        ]
+    },
+    {
+        "when": {
+            "bodypart": "Shoulder",
+            "diagnosisdetail": {
+                "containsAny": ["rotator", "cuff", "RC", "impingement", "tendinosis", "tendinopathy", "tendinits","tendonitis"]
+            }
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Rotator cuff related shoulder pain",
+                "url": "https://www.leicspart.nhs.uk/wp-content/uploads/2024/08/589-Rotator-cuff-related-shoulder-pain.pdf"
+            }
+        ]
+    },
+    {
+        "when": {
+            "bodypart": "Shoulder",
+            "radiodiagnosis": "No"
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Shoulder pain leaflet",
+                "url": "https://www.arthritis-uk.org/media/1923/shoulder-pain-exercise-pamphlet.pdf"
+            }
+        ]
+    },
+    {
+        "when": {
+            "bodypart": "Wrist/Hand"
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Wrist exercises",
+                "url": "https://www.uhd.nhs.uk/uploads/about/docs/our_publications/patient_information_leaflets/Hand_therapy/Wrist_Injuries.pdf"
+            },
+            {
+                "title": "Repetitive strain of the wrist",
+                "url": "https://wphphysio.com.au/repetitive-strain-injuries-of-the-wrist-and-hand/"
+            }
+        ]
+    },
     {"when": {
             "radiopregnancy": "Yes"
         },
@@ -123,7 +227,20 @@
                 "url": "https://elht.nhs.uk/services/physiotherapy-pelvic-obstetric-and-gynaecological/physiotherapy-pelvic-obstetric-and-gynaecological-4"
             }
         ]},
-
+ {
+        "when": {
+            "diagnosisdetail": {
+                "containsAny": ["repetitive"]
+            }
+        },
+        "attachTo": "bodypart",
+        "links": [
+            {
+                "title": "Repetitive strain",
+                "url": "https://www.nhs.uk/conditions/repetitive-strain-injury-rsi/"
+            }
+        ]
+    },
      {
         "when": {
             "bodypart": "Shoulder",
