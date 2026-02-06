@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { vi } from 'vitest'
 import { fireEvent, cleanup } from '@testing-library/react'
 import * as storeModule from '../../store/index.js'
@@ -206,6 +206,98 @@ describe('Questionnaire form testing suite,', () => {
             screen.getByRole('radio', {
                 name: /Other/i,
             })
+        ).toBeInTheDocument()
+    })
+
+    it("renders neck-specific follow-up question only when 'Neck' is selected as body part", () => {
+        const router = createMemoryRouter(
+            [{ path: '/', element: <Questionnaire /> }],
+            { initialEntries: ['/'] }
+        )
+
+        render(
+            <Provider store={mainStore}>
+                <RouterProvider router={router} />
+            </Provider>
+        )
+
+        // Initially, the neck-specific question should not be visible
+        expect(
+            screen.queryByText(/Do you experience any headaches\?/i)
+        ).not.toBeInTheDocument()
+
+        const bodypart = screen.getByRole('combobox', {
+            name: /What is the body part affected\?/i,
+        })
+
+        // Select Neck → question should appear
+        fireEvent.change(bodypart, { target: { value: 'Neck' } })
+        expect(
+            screen.getByText(/Do you experience any headaches\?/i)
+        ).toBeInTheDocument()
+
+        // Change to another body part → question should disappear again
+        fireEvent.change(bodypart, { target: { value: 'Shoulder' } })
+        expect(
+            screen.queryByText(/Do you experience any headaches\?/i)
+        ).not.toBeInTheDocument()
+    })
+
+    it("renders diagnosis detail text field only when user answers 'Yes' to knowing the diagnosis", () => {
+        const router = createMemoryRouter(
+            [{ path: '/', element: <Questionnaire /> }],
+            { initialEntries: ['/'] }
+        )
+
+        render(
+            <Provider store={mainStore}>
+                <RouterProvider router={router} />
+            </Provider>
+        )
+
+        // Initially the free-text diagnosis field should not be present
+        expect(
+            screen.queryByLabelText(/If yes, what is the diagnosis\?/i)
+        ).not.toBeInTheDocument()
+
+        // Find the diagnosis radio group
+        const diagnosisLegend = screen.getByText(/Do you know the diagnosis\?/i)
+        const diagnosisFieldset = diagnosisLegend.closest('fieldset')
+        const withinDiagnosis = within(diagnosisFieldset)
+
+        const yesRadio = withinDiagnosis.getByLabelText(/Yes/i)
+        const noRadio = withinDiagnosis.getByLabelText(/No/i)
+
+        // Selecting Yes should reveal the text input
+        fireEvent.click(yesRadio)
+        expect(
+            screen.getByLabelText(/If yes, what is the diagnosis\?/i)
+        ).toBeInTheDocument()
+
+        // Selecting No should hide it again
+        fireEvent.click(noRadio)
+        expect(
+            screen.queryByLabelText(/If yes, what is the diagnosis\?/i)
+        ).not.toBeInTheDocument()
+    })
+
+    it('renders hormone-related questions for pregnancy and menopause', () => {
+        const router = createMemoryRouter(
+            [{ path: '/', element: <Questionnaire /> }],
+            { initialEntries: ['/'] }
+        )
+
+        render(
+            <Provider store={mainStore}>
+                <RouterProvider router={router} />
+            </Provider>
+        )
+
+        expect(
+            screen.getByText(/Are you pregnant\?/i)
+        ).toBeInTheDocument()
+        expect(
+            screen.getByText(/Are you going through menopause\?/i)
         ).toBeInTheDocument()
     })
 })
