@@ -57,245 +57,407 @@
     },
 "videos": [
     {
-        "when": {
-            "bodypart": "Lower back"
-        },
-        "attachTo": "bodypart",
-        "videos": [
+        "Neck": [
             {
-                "id": "AlWxPkkBiBU",
-                "title": "The Truth About Back Pain Most People Don`t Know"
+                "when": {
+                    "bodypart": "Neck",
+                    "duration": "Over 6 months"
+                },
+                "attachTo": "bodypart",
+                "videos": [
+                    {
+                        "id": "cm0oGeEWDOg",
+                        "title": "Recurring Ankle Sprain Treatment"
+                    }
+                ]
+            }
+        ],
+        "Shoulder": [],
+        "Elbow/Forearm": [
+            {
+                "when": {
+                    "bodypart": "Elbow/Forearm",
+                    "radiodiagnosis": "No"
+                },
+                "attachTo": "bodypart",
+                "videos": [
+                    {
+                        "id": "9Ajfmx7qXvE",
+                        "title": "Golfers elbow"
+                    },
+                    {
+                        "id": "4Cb6JK3-co4",
+                        "title": "Tennis elbow"
+                    }
+                ]
             },
             {
-                "id": "ush3Md9G3f8",
-                "title": "Are Bulging Discs Bad? Spine Surgeon Explains MRI Findings"
-            }
-        ]
-    },
-    {
-        "when": {
-            "bodypart": "Elbow",
-            "radiodiagnosis": "No"
-        },
-        "attachTo": "bodypart",
-        "videos": [
-            {
-                "id": "9Ajfmx7qXvE",
-                "title": "Golfers elbow"
+                "when": {
+                    "bodypart": "Elbow/Forearm",
+                    "diagnosisdetail": {
+                        "containsAny": ["medial", "golf", "golfers", "golfer's"]
+                    }
+                },
+                "attachTo": "bodypart",
+                "videos": [
+                    {
+                        "id": "9Ajfmx7qXvE",
+                        "title": "Golfers elbow"
+                    }
+                ]
             },
             {
-                "id": "4Cb6JK3-co4",
-                "title": "Tennis elbow"
+                "when": {
+                    "bodypart": "Elbow/Forearm",
+                    "diagnosisdetail": {
+                        "containsAny": ["lateral", "tennis"]
+                    }
+                },
+                "attachTo": "bodypart",
+                "videos": [
+                    {
+                        "id": "4Cb6JK3-co4",
+                        "title": "Tennis elbow"
+                    }
+                ]
             }
-        ]
-    },
-    {
-        "when": {
-            "bodypart": "Elbow",
-            "diagnosisdetail": {
-                "containsAny": ["medial", "golf", "golfers", "golfer's"]
-            }
-        },
-        "attachTo": "bodypart",
-        "videos": [
+        ],
+        "Wrist/Hand": [],
+        "Upper back": [],
+        "Lower back": [
             {
-                "id": "9Ajfmx7qXvE",
-                "title": "Golfers elbow"
+                "when": {
+                    "bodypart": "Lower back"
+                },
+                "attachTo": "bodypart",
+                "videos": [
+                    {
+                        "id": "AlWxPkkBiBU",
+                        "title": "The Truth About Back Pain Most People Don`t Know"
+                    },
+                    {
+                        "id": "ush3Md9G3f8",
+                        "title": "Are Bulging Discs Bad? Spine Surgeon Explains MRI Findings"
+                    }
+                ]
             }
-        ]
-    },
-     {
-        "when": {
-            "bodypart": "Elbow",
-            "diagnosisdetail": {
-                "containsAny": ["lateral", "tennis"]
-            }
-        },
-        "attachTo": "bodypart",
-        "videos": [
-            
+        ],
+        "Hip/Groin/Thigh": [],
+        "Knee/Shin": [],
+        "Foot/Ankle": [
             {
-                "id": "4Cb6JK3-co4",
-                "title": "Tennis elbow"
+                "when": {
+                    "bodypart": "Foot/Ankle",
+                    "duration": "Over 6 months"
+                },
+                "attachTo": "bodypart",
+                "videos": [
+                    {
+                        "id": "cm0oGeEWDOg",
+                        "title": "Recurring Ankle Sprain Treatment"
+                    }
+                ]
             }
-        ]
-    },
-    {
-        "when": {
-            "bodypart": "Foot/Ankle",
-            "duration": "Over 6 months"
-        },
-        "attachTo": "bodypart",
-        "videos": [
+        ],
+        "_global": [
             {
-                "id": "cm0oGeEWDOg",
-                "title": "Recurring Ankle Sprain Treatment"
-            }
-        ]
-    },
-    {
-        "when": {
-            "bodypart": "Neck",
-            "duration": "Over 6 months"
-        },
-        "attachTo": "bodypart",
-        "videos": [
-            {
-                "id": "cm0oGeEWDOg",
-                "title": "Recurring Ankle Sprain Treatment"
+                "when": {
+                    "duration": "Over 6 months"
+                },
+                "attachTo": "bodypart",
+                "videos": [
+                    {
+                        "id": "ikUzvSph7Z4",
+                       "title": "Tame the beast"
+                    }
+                ]
             }
         ]
     }
 ],
 "links": [
     {
-        "when": {
-            "bodypart": "Neck",
-            "radioneck": "Yes"
-        },
-        "attachTo": "bodypart",
-        "links": [
+        "Neck": [
             {
-                "title": "Cervicogenic Headache: A New Perspective",
-                "url": "https://crimsonpublishers.com/nrs/fulltext/NRS.000713.php"
-            }
-        ]
-    },
-     {
-        "when": {
-            "bodypart": "Neck"
-        },
-        "attachTo": "bodypart",
-        "links": [
-            {
-                "title": "Neck pain leaflet",
-                "url": "https://www.arthritis-uk.org/media/21788/neckpain-exercise-sheet.pdf"
-            }
-        ]
-    },
-    {
-        "when": {
-            "bodypart": "Shoulder",
-            "diagnosisdetail": {
-                "containsAny": ["rotator", "cuff", "RC", "impingement", "tendinosis", "tendinopathy", "tendinits","tendonitis"]
-            }
-        },
-        "attachTo": "bodypart",
-        "links": [
-            {
-                "title": "Rotator cuff related shoulder pain",
-                "url": "https://www.leicspart.nhs.uk/wp-content/uploads/2024/08/589-Rotator-cuff-related-shoulder-pain.pdf"
-            }
-        ]
-    },
-    {
-        "when": {
-            "bodypart": "Shoulder",
-            "radiodiagnosis": "No"
-        },
-        "attachTo": "bodypart",
-        "links": [
-            {
-                "title": "Shoulder pain leaflet",
-                "url": "https://www.arthritis-uk.org/media/1923/shoulder-pain-exercise-pamphlet.pdf"
-            }
-        ]
-    },
-    {
-        "when": {
-            "bodypart": "Wrist/Hand"
-        },
-        "attachTo": "bodypart",
-        "links": [
-            {
-                "title": "Wrist exercises",
-                "url": "https://www.uhd.nhs.uk/uploads/about/docs/our_publications/patient_information_leaflets/Hand_therapy/Wrist_Injuries.pdf"
+                "when": {
+                    "bodypart": "Neck",
+                    "radioneck": "Yes"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Cervicogenic Headache: A New Perspective",
+                        "url": "https://crimsonpublishers.com/nrs/fulltext/NRS.000713.php"
+                    }
+                ]
             },
             {
-                "title": "Repetitive strain of the wrist",
-                "url": "https://wphphysio.com.au/repetitive-strain-injuries-of-the-wrist-and-hand/"
+                "when": {
+                    "bodypart": "Neck"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Neck pain leaflet",
+                        "url": "https://www.arthritis-uk.org/media/21788/neckpain-exercise-sheet.pdf"
+                    }
+                ]
             }
-        ]
-    },
-    {"when": {
-            "radiopregnancy": "Yes"
-        },
-        "attachTo": "bodypart",
-        "links": [
+        ],
+        "Shoulder": [
             {
-                "title": "Pelvic Girdle Pain and other common conditions in pregnancy",
-                "url": "https://elht.nhs.uk/services/physiotherapy-pelvic-obstetric-and-gynaecological/physiotherapy-pelvic-obstetric-and-gynaecological-4"
-            }
-        ]},
- {
-        "when": {
-            "diagnosisdetail": {
-                "containsAny": ["repetitive"]
-            }
-        },
-        "attachTo": "bodypart",
-        "links": [
+                "when": {
+                    "bodypart": "Shoulder",
+                    "diagnosisdetail": {
+                        "containsAny": [
+                            "rotator",
+                            "cuff",
+                            "RC",
+                            "impingement",
+                            "tendinosis",
+                            "tendinopathy",
+                            "tendinits",
+                            "tendonitis"
+                        ]
+                    }
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Rotator cuff related shoulder pain",
+                        "url": "https://www.leicspart.nhs.uk/wp-content/uploads/2024/08/589-Rotator-cuff-related-shoulder-pain.pdf"
+                    }
+                ]
+            },
             {
-                "title": "Repetitive strain",
-                "url": "https://www.nhs.uk/conditions/repetitive-strain-injury-rsi/"
-            }
-        ]
-    },
-     {
-        "when": {
-            "bodypart": "Shoulder",
-            "diagnosisdetail": {
-                "containsAny": ["frozen", "capsulitis"]
-            }
-        },
-        "attachTo": "bodypart",
-        "links": [
+                "when": {
+                    "bodypart": "Shoulder",
+                    "radiodiagnosis": "No"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Shoulder pain leaflet",
+                        "url": "https://www.arthritis-uk.org/media/1923/shoulder-pain-exercise-pamphlet.pdf"
+                    },
+                    {"title": "Looking after a painful shoulder",
+                "url": "https://shoulderdoc.co.uk/pages/simple-shoulder-care"}
+                ]
+            },
             {
-                "title": "Frozen Shoulder, Information for patients",
-                "url": "https://www.sfh-tr.nhs.uk/media/el0fbomj/kmh_000689_msk_frozen-shoulder_leaflet-v3ea_a5_2020.pdf"
-            }
-        ]
-    },
-    {
-        "when": {
-            "bodypart": "Shoulder",
-            "radiomenopause": "Yes",
-             "diagnosisdetail": {
-                "containsAny": ["frozen", "capsulitis"]
-            }
-        },
-        "attachTo": "bodypart",
-        "links": [
-            
-            {"title": "Frozen Shoulder During Menopause",
-            "url": "https://www.joinmidi.com/post/frozen-shoulder-menopause"}
-        ]
-    },
-    {
-        "when": {
-          
-             "diagnosisdetail": {
-                "containsAny": ["osteo arthritis", "osteoarthritis", "OA", "Osteoarthritis", "arthritis"]
-            }
-        },
-        "attachTo": "bodypart",
-        "links": [
-            
-            {"title": "Osteoarthritis pain and x-rays",
-            "url": "https://myoa.org.au/video/tests-treatments-imaging/osteoarthritis-pain-and-x-rays"}
-        ]
-    },
-    {
-        "when": {
-          
-            "radiomenopause": "Yes"
-        
-        },
-        "attachTo": "bodypart",
-        "links": [
+                "when": {
+                    "bodypart": "Shoulder",
+                    "diagnosisdetail": {
+                        "containsAny": ["frozen", "capsulitis"]
+                    }
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Frozen Shoulder, Information for patients",
+                        "url": "https://www.sfh-tr.nhs.uk/media/el0fbomj/kmh_000689_msk_frozen-shoulder_leaflet-v3ea_a5_2020.pdf"
+                    }
+                ]
+            },
             {
-                "title": "Menopause and Musculoskeletal Health: Why it matters",
-                "url": "https://dralisongrimaldi.com/blog/menopause-and-musculoskeletal-health/"
+                "when": {
+                    "bodypart": "Shoulder",
+                    "radiomenopause": "Yes",
+                    "diagnosisdetail": {
+                        "containsAny": ["frozen", "capsulitis"]
+                    }
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Frozen Shoulder During Menopause",
+                        "url": "https://www.joinmidi.com/post/frozen-shoulder-menopause"
+                    }
+                ]
+            }
+        ],
+        "Elbow/Forearm": [],
+        "Wrist/Hand": [
+            {
+                "when": {
+                    "bodypart": "Wrist/Hand"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Wrist exercises",
+                        "url": "https://www.uhd.nhs.uk/uploads/about/docs/our_publications/patient_information_leaflets/Hand_therapy/Wrist_Injuries.pdf"
+                    },
+                    {
+                        "title": "Repetitive strain of the wrist",
+                        "url": "https://wphphysio.com.au/repetitive-strain-injuries-of-the-wrist-and-hand/"
+                    }
+                ]
+            }
+        ],
+        "Lower back": [{
+            "when": {"bodypart": {"containsAny": ["Lower back", "Upper back"]}}
+        }, {
+            "attachTo": "bodypart"
+        },
+        {"links": [{
+            "title": "10 facts about back pain",
+            "url": "https://lafisioterapia.net/10-facts-about-back-pain/"
+        },{
+            "title": "10 facts about exercise and back pain",
+            "url": "https://lafisioterapia.net/10-facts-about-exercise-and-back-pain/"
+        },{
+            "title": "10 facts about sleep patterns back pain",
+            "url": "https://lafisioterapia.net/wp-content/uploads/2017/02/10-FACTS-ABOUT-YOUR-SLEEP-PATTERNS-AND-BACK-PAIN.pdf"
+        }
+        ]}
+    ],
+        "Hip/Groin/Thigh": [{
+                "when": {
+                    "bodypart": "Hip/Groin/Thigh",
+                    "radiodiagnosis": "No"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Hip exercises",
+                        "url": "https://www.arthritis-uk.org/media/23179/hip-pain-exercise-section.pdf"
+                    },
+                    {
+                        "title": "Hip pain leaflet",
+                        "url": "https://www.tims.nhs.uk/wp-content/uploads/2020/06/HIP-PAIN.pdf"
+                    }
+                ]
+            }],
+        "Knee/Shin": [{
+                "when": {
+                    "bodypart": "Knee/Shin",
+                    "radiodiagnosis": "No"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    
+                    {
+                        "title": "Knee pain leaflet",
+                        "url": "https://www.tims.nhs.uk/wp-content/uploads/2020/06/6.7-TIMS-Knee-Pain.pdf"
+                    }
+                ]
+            }, {
+                "when": {
+                    "bodypart": "Knee/Shin",
+                    "diagnosisdetail": {"containsAny": ["ACL", "anterior cruciate"]}
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    
+                    {
+                        "title": "Why ACL rehab takes long",
+                        "url": "https://kineticsmp.com/blog/acl-rehab"
+                    }
+                ]
+            }],
+        "Foot/Ankle": [{
+                "when": {
+                    "bodypart": "Foot/Ankle",
+                    "radiodiagnosis": "No",
+                    "duration": {"containsAny": ["1-2 weeks",
+    "3-12 weeks"]}
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Ankle sprain exercise",
+                        "url": "https://www.arthritis-uk.org/media/21785/anklesprains-exercise-sheet.pdf"
+                    }
+                ]
+            }],
+        "_global": [
+            {
+                "when": {
+                    "radiopregnancy": "Yes"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Pelvic Girdle Pain and other common conditions in pregnancy",
+                        "url": "https://elht.nhs.uk/services/physiotherapy-pelvic-obstetric-and-gynaecological/physiotherapy-pelvic-obstetric-and-gynaecological-4"
+                    }
+                ]
+            },
+            {
+                "when": {
+                    "duration": "Over 6 months"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Chronic pain document",
+                        "url": "https://bnssg.icb.nhs.uk/wp-content/uploads/2022/08/FINAL-Chronic-Pain-self-help-summaryv9.pdf"
+                    }
+                ]
+            },
+            {
+                "when": {
+                    "diagnosisdetail": {
+                        "containsAny": ["repetitive"]
+                    }
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Repetitive strain",
+                        "url": "https://www.nhs.uk/conditions/repetitive-strain-injury-rsi/"
+                    }
+                ]
+            },
+            {
+                "when": {
+                    "diagnosisdetail": {
+                        "containsAny": [
+                            "osteo arthritis",
+                            "osteoarthritis",
+                            "OA",
+                            "Osteoarthritis",
+                            "arthritis"
+                        ]
+                    }
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Osteoarthritis pain and x-rays",
+                        "url": "https://myoa.org.au/video/tests-treatments-imaging/osteoarthritis-pain-and-x-rays"
+                    }
+                ]
+            },
+            {
+                "when": {
+                    "radiomenopause": "Yes"
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "Menopause and Musculoskeletal Health: Why it matters",
+                        "url": "https://dralisongrimaldi.com/blog/menopause-and-musculoskeletal-health/"
+                    }
+                ]
+            },
+            {
+                "when": {
+                    "bodypart": {"containsAny": ["Knee/Shin", "Foot/Ankle"]},
+                    "diagnosisdetail": {"containsAny": ["tendon", "tendonitis", "tendinopathy", "tendinitis", "TP", "jumper", "runner"]}
+                },
+                "attachTo": "bodypart",
+                "links": [
+                    {
+                        "title": "10 things not to do with lower limb tendon",
+                        "url": "https://semrc.blogs.latrobe.edu.au/10-things-not-to-do-if-you-have-lower-limb-tendon-pain/"
+                    },
+                    {
+                        "title": "9 Tendinopathy Truths you MUST know",
+                        "url": "https://www.physio-network.com/blog/9-tendinopathy-truths-you-must-know/"
+                    }
+                ]
             }
         ]
     }

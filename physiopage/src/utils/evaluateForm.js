@@ -52,11 +52,47 @@ export const evaluateForm = (formData) => {
         displayResponseData.map((entry) => [entry.key, entry])
     );
 
-    // Generic helper to apply rule sets (videos, links) based on answers
+    // Generic helper to apply rule sets (videos, links) based on answers.
+    // Supports both flat arrays of rules and objects grouped by bodypart, e.g.:
+    // [{ "Neck": [ { when, videos: [...] }, ... ], "Shoulder": [ ... ] }]
     function applyRules(ruleArray, fieldName) {
         if (!Array.isArray(ruleArray)) return;
 
-        ruleArray.forEach((rule) => {
+        const normalizedRules = [];
+
+        ruleArray.forEach((entry) => {
+            if (!entry) return;
+
+            // Flat rule object: { when, attachTo, [fieldName]: [...] }
+            if (entry.when && Array.isArray(entry[fieldName])) {
+                normalizedRules.push(entry);
+                return;
+            }
+
+            // Grouped rules: { "Neck": [rules...], "Shoulder": [rules...] }
+            if (typeof entry === 'object') {
+                Object.entries(entry).forEach(([groupKey, rules]) => {
+                    if (!Array.isArray(rules)) return;
+
+                    rules.forEach((rule) => {
+                        if (!rule || !Array.isArray(rule[fieldName])) return;
+
+                        const baseWhen = rule.when || {};
+                        const withBodypart =
+                            groupKey === '_global'
+                                ? baseWhen
+                                : { bodypart: groupKey, ...baseWhen };
+
+                        normalizedRules.push({
+                            ...rule,
+                            when: withBodypart,
+                        });
+                    });
+                });
+            }
+        });
+
+        normalizedRules.forEach((rule) => {
             const { when, attachTo } = rule;
             const items = rule[fieldName];
 
@@ -65,8 +101,8 @@ export const evaluateForm = (formData) => {
             }
 
             const matches = Object.entries(when).every(
-                ([key, expected]) => {
-                    const actual = answersByKey[key];
+                ([answerKey, expected]) => {
+                    const actual = answersByKey[answerKey];
 
                     // Support simple equality (existing behaviour)
                     if (
