@@ -12,6 +12,7 @@ export default function TextSelection({ entry, value, onChange }) {
                 key={entry.id + 'select'}
                 name={entry.id}
                 id={entry.id}
+                data-testid={entry.id}
                 className="questionnaire-form-select"
                 value={isControlled ? value : undefined}
                 onChange={onChange}

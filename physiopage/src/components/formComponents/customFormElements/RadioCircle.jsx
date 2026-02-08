@@ -13,6 +13,7 @@ export default function RadioCircle({ entry, onChange }) {
                                     type={entry.type}
                                     key={entry.options.indexOf(option)}
                                     id={entry.id}
+                                    data-testid={entry.id+option}
                                     name={entry.id}
                                     value={option}
                                     onChange={onChange}

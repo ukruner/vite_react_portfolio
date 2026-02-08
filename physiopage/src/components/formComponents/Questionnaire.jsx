@@ -43,11 +43,12 @@ export default function Questionnaire() {
         dictFromData = { ...dictFromData, user }
         const auth = getAuth()
         const loggedInUser = auth.currentUser
-        console.log(loggedInUser)
+        // console.log(loggedInUser)
         // const token = await loggedInUser.getIdToken(true);
         const spreadEntriesData = arrayData.map(([key, value]) => ({
             [key]: value,
         }))
+        console.log(spreadEntriesData)
         evaluateForm(spreadEntriesData)
         postData2(dictFromData)
         setSubmitted(true)
@@ -157,7 +158,7 @@ export default function Questionnaire() {
                         }
                     })}
                     <div>
-                        <button className="submit-button mt-4" type="submit">
+                        <button className="submit-button mt-4" type="submit" data-testid={'submitbutton'}>
                             Submit your form
                         </button>
                     </div>

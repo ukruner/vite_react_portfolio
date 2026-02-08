@@ -12,6 +12,7 @@ export default function CheckBox({ entry, isCheckedObject, setIsCheckedObject })
             <input
                 type={entry.type}
                 id={entry.id}
+                data-testid={entry.id}
                 name={entry.id}
                 value={isCheckedObject[entry.id] ? 'Yes' : 'No'}
                 onChange={(e) =>

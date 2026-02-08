@@ -6,7 +6,7 @@ import ResponseElement from './customFormElements/responseElement'
 export default function FormSummary() {
   const links = displayResponseData.flatMap((entry) => entry.links || [])
   const videos = displayResponseData.flatMap((entry) => entry.videos || [])
-
+  // console.log(displayResponseData);
   return (
     <div className='form-summary-container'>
       {displayResponseData.length > 0 ? (

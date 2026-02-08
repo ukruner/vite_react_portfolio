@@ -12,10 +12,11 @@ export const evaluateForm = (formData) => {
         const [[key, value]] = Object.entries(obj);
         answersByKey[key] = value;
     });
-
+    // console.log(answersByKey);
     displayResponseData = formData
         .map((entry) => {
             const [[key, value]] = Object.entries(entry)
+
             const chosen = formEntries.find((element) => element.id == key)
 
             // Ignore fields that are not defined in formEntries (e.g. free-text helpers)
