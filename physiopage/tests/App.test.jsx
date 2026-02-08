@@ -27,6 +27,7 @@ describe('App', () => {
         fireEvent.click(elementToChange);
         return;
       }
+
       else{
       fireEvent.change(elementToChange, {target: {value: value}})};
       // console.log(key)
@@ -67,9 +68,7 @@ describe('App', () => {
         {radiodiagnosisNo: "No", type: "radio"},
         {radiopregnancyYes: "Yes", type: "radio"},
         {radiomenopauseYes: "Yes", type: "radio"},
-        {offwork: "Yes"},
         {offworkduration: "Over 6 months"},
-        {treatment: "Yes"},
         {caremodality: "Osteopath"},
         {careproviderPrivate: "Private"},
         {exercisecount: "3-6"},
