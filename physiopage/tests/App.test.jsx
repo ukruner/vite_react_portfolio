@@ -1,4 +1,4 @@
-import { render, screen, fireEvent} from '@testing-library/react'
+import { render, screen, fireEvent, waitFor} from '@testing-library/react'
 import App from '../src/App'
 import { Provider } from 'react-redux'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
@@ -7,9 +7,15 @@ import userSlice from '../src/store/slices/userSlice'
 import switcherSlice from '../src/store/slices/switchers'
 import chatSlice from '../src/store/slices/chatSlice'
 
+import {vi} from 'vitest';
+import { postData2 } from '../src/utils/postMongo'
 import {routes} from '../src/router'
 
 describe('App testing suite, integration tests', () => {
+
+  vi.mock('../src/utils/postMongo', () => ({
+  postData2: vi.fn().mockResolvedValue(undefined),
+}));
 
   const formDataPopulate = (elementArray) => {
     elementArray.forEach(obj => { 
@@ -49,7 +55,7 @@ describe('App testing suite, integration tests', () => {
       initialEntries: ["/questionnaire"],
     });
 
-  it('submits the form with comprehensive dummy data - and in formSummary renders all of the text/links/videos needed', () => {
+  it('submits the form with comprehensive dummy data - and in formSummary renders all of the text/links/videos needed', async () => {
     render(<Provider store={store}>
       <RouterProvider router={testRouter}>
       <App />
@@ -108,5 +114,9 @@ describe('App testing suite, integration tests', () => {
       expect(chronicPainVideo).toBeInTheDocument();
       const backPainVideo = screen.getByText(/the truth about back pain most people don`t know/i)
       expect(backPainVideo).toBeInTheDocument();
+
+      await waitFor(() => {
+  expect(postData2).toHaveBeenCalledTimes(1);
+});
   })
 })
