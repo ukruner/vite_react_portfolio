@@ -42,7 +42,7 @@ export default function Questionnaire() {
         let dictFromData = Object.fromEntries(arrayData)
         dictFromData = { ...dictFromData, user }
         const auth = getAuth()
-        const loggedInUser = auth.currentUser
+        // const loggedInUser = auth.currentUser
         // console.log(loggedInUser)
         // const token = await loggedInUser.getIdToken(true);
         const spreadEntriesData = arrayData.map(([key, value]) => ({

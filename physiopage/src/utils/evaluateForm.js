@@ -12,7 +12,6 @@ export const evaluateForm = (formData) => {
         const [[key, value]] = Object.entries(obj);
         answersByKey[key] = value;
     });
-    // console.log(answersByKey);
     displayResponseData = formData
         .map((entry) => {
             const [[key, value]] = Object.entries(entry)

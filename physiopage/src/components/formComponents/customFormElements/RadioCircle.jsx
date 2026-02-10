@@ -7,6 +7,7 @@ export default function RadioCircle({ entry, onChange }) {
                 <legend>{entry.label}</legend>
                 <div className="flex gap-2 ">
                     {entry.options.map((option) => {
+
                         return (
                             <label key={option}>
                                 <input

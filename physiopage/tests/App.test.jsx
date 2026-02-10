@@ -1,7 +1,6 @@
 import { render, screen, fireEvent} from '@testing-library/react'
 import App from '../src/App'
 import { Provider } from 'react-redux'
-import mainStore from '../src/store'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '../src/store/slices/userSlice'
@@ -10,7 +9,7 @@ import chatSlice from '../src/store/slices/chatSlice'
 
 import {routes} from '../src/router'
 
-describe('App', () => {
+describe('App testing suite, integration tests', () => {
 
   const formDataPopulate = (elementArray) => {
     elementArray.forEach(obj => { 
@@ -21,7 +20,6 @@ describe('App', () => {
     );
 
       const elementToChange = screen.getByTestId(key)
-      // console.log(elementToChange)
 
       if (type === 'radio'){
         fireEvent.click(elementToChange);
@@ -30,7 +28,7 @@ describe('App', () => {
 
       else{
       fireEvent.change(elementToChange, {target: {value: value}})};
-      // console.log(key)
+   
     })
   }
   const store = configureStore({
@@ -51,7 +49,7 @@ describe('App', () => {
       initialEntries: ["/questionnaire"],
     });
 
-  it('renders text on home page', () => {
+  it('submits the form with comprehensive dummy data - and in formSummary renders all of the text/links/videos needed', () => {
     render(<Provider store={store}>
       <RouterProvider router={testRouter}>
       <App />
@@ -70,19 +68,45 @@ describe('App', () => {
         {radiomenopauseYes: "Yes", type: "radio"},
         {offworkduration: "Over 6 months"},
         {caremodality: "Osteopath"},
-        {careproviderPrivate: "Private"},
+        {careproviderPrivate: "Yes", type: "radio"},
         {exercisecount: "3-6"},
         {apptfrequency: "Once every 2-3 weeks"},
-        {radioeducationYes: "Yes", type: "radio"}
+        {radioeducationNo: "No", type: "radio"}
       ]) 
 
-      // const educationPart = screen.getByLabelText(/Have you been given/i)
-      // console.log(educationPart)
+
       const submitButton = screen.getByTestId('submitbutton');
       fireEvent.click(submitButton);
-      const education = screen.getByText(/any educational content/i)
-      expect(education).toBeInTheDocument();
-      
-      
+      const bodypartFeedback = screen.getByText(/arguably the most common musculoskeletal problem in the world/i)
+      expect(bodypartFeedback).toBeInTheDocument();
+      const durationFeedback = screen.getByText(/If the treatment you have been receiving has not led you to full recovery/i)
+      expect(durationFeedback).toBeInTheDocument();
+
+      const offworkdurationFeedback = screen.getByText(/at this stage, if your mental health is affected /i)
+      expect(offworkdurationFeedback).toBeInTheDocument();
+      const modalityFeedback = screen.getByText(/typically a great blend of treatment knowledge of so called hands-on /i)
+      expect(modalityFeedback).toBeInTheDocument();
+      const providerFeedback = screen.getByText(/arguably most accessible way to get seen and assessed as quickly as possible/i)
+      expect(providerFeedback).toBeInTheDocument();
+      const exercisecountFeedback = screen.getByText(/your therapist either trusts your dedication, memory and level your body awareness/i)
+      expect(exercisecountFeedback).toBeInTheDocument();
+      const apptfrequencyFeedback = screen.getByText(/A reasonable approach with regular reviews, which private clinics and NHS/i)
+      expect(apptfrequencyFeedback).toBeInTheDocument();
+      const educationFeedback = screen.getByText(/communication between you and your therapist, as well as full awareness of your issue are 2 cornerstones of successful treatment and recovery./i)
+      expect(educationFeedback).toBeInTheDocument();
+      const helpfulResourceHeading = screen.getByText(/helpful resources/i)
+      expect(helpfulResourceHeading).toBeInTheDocument();
+      const tenFactsBackPain = screen.getByText(/10 facts about back pain/i)
+      expect(tenFactsBackPain).toBeInTheDocument();
+      const pregnancyInfo = screen.getByText(/pelvic girdle pain and other common conditions in pregnancy/i)
+      expect(pregnancyInfo).toBeInTheDocument();
+      const menopauseInfo = screen.getByText(/menopause and musculoskeletal health: why it matters/i)
+      expect(menopauseInfo).toBeInTheDocument();
+      const chronicPainInfo = screen.getByText(/chronic pain document/i)
+      expect(chronicPainInfo).toBeInTheDocument();
+      const chronicPainVideo = screen.getByText(/tame the beast/i)
+      expect(chronicPainVideo).toBeInTheDocument();
+      const backPainVideo = screen.getByText(/the truth about back pain most people don`t know/i)
+      expect(backPainVideo).toBeInTheDocument();
   })
 })
