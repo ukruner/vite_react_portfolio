@@ -136,7 +136,7 @@ describe('Sidebar testing suite,', () => {
         const sidebarCloseButton = screen.getByLabelText('sidebar-button')
         expect(sidebarCloseButton).toBeVisible()
     })
-    it('does display useful content links if the user is logged in and sidebar is open', () => {
+    it('does display navigate to questionnaire if the user is logged in and sidebar is open', () => {
         const mockReduxSliceTrue = {
             switcherSlice: { isSidebarOpen: true, isRouteSidebar: false },
             userSlice: { user: 'user' },
@@ -156,8 +156,8 @@ describe('Sidebar testing suite,', () => {
                 <RouterProvider router={router} />
             </Provider>
         )
-        const usefulLinksDiv = screen.getByLabelText('useful-links')
-        expect(usefulLinksDiv).toBeVisible()
+        const questionnaireNavButton = screen.getByText('Press here to navigate to the questionnaire.')
+        expect(questionnaireNavButton).toBeVisible()
     })
 
     it('does send a dispatch call to close the sidebar if cross button is pressed.', () => {
@@ -187,7 +187,7 @@ describe('Sidebar testing suite,', () => {
             payload: false,
         })
     })
-    it('does send a dispatch call to close the sidebar if cross button is pressed, and navigates to /auth', () => {
+    it('does send a dispatch call to close the sidebar if navigation to register is pressed, and navigates to /auth', () => {
         const mockReduxSliceTrue = {
             switcherSlice: { isSidebarOpen: true, isRouteSidebar: false },
             userSlice: { user: '' },

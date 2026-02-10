@@ -108,7 +108,6 @@ export const action = async ({ request }) => {
                 )
                 const loggedUser = userCredential.user
                 const token = await loggedUser.getIdToken(true)
-                console.log('Sending token:', token)
                 const res = await fetch(
                     'http://localhost:5000/api/backend/sessionLogin',
                     {
@@ -118,7 +117,6 @@ export const action = async ({ request }) => {
                         credentials: 'include', // ensures cookie is set
                     }
                 )
-                console.log('User logged in:', loggedUser.uid, mode)
                 mainStore.dispatch(userActions.setUser(loggedUser.uid))
             
            

@@ -37,6 +37,13 @@ export default function Sidebar() {
         navigate('/auth')
     }
 
+    function navigateQuestionnaire() {
+        mainStore.dispatch(switcherActions.setIsSidebarOpen(false))
+        navigate('/questionnaire')
+    }
+
+
+
     return (
         <div
             id="container"
@@ -58,10 +65,14 @@ export default function Sidebar() {
                 aria-label='sidebar-container'
             >
                 <div className="sidebar-text flex-[0_0_90%]" aria-label='sidebar-text'>
-                
+                {user ?
+<button onClick={navigateQuestionnaire}>
+                            Press here to navigate to the questionnaire.
+                        </button> :
+
                         <button aria-label='navigate-register' onClick={navigateAuth}>
                             Press here to log in or register with us, to get access to useful, revealing and mythbusting content after you fill the questionnaire.
-                        </button>
+                        </button>}
                     
                 </div>
                 <div className="sidebar-button-wrapper">
