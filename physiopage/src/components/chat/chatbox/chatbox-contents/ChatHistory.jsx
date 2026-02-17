@@ -20,7 +20,7 @@ export default function ChatHistory({mockScrollRef}) {
     
       return <>
         <div ref={!mockScrollRef ? chatScrollRef : null} className='chat-history-container'>
-          {chatSlice.history.map((message, index)=> <p key={index} className={'message ' + message.sender}>{message.text}</p>)}
+          {chatSlice.history.map((message, index)=> <p key={index} className={'message message-' + message.sender}>{message.text}</p>)}
           
         </div>
         {isChatThinking && <ChatBounceLoader data-testid="bounceloader"/>}

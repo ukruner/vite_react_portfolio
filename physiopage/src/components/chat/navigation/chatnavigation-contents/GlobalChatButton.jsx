@@ -4,6 +4,8 @@ import mainStore from '../../../../store'
 import { switcherActions } from '../../../../store/slices/switchers'
 import { useSelector } from 'react-redux'
 
+
+
 export default function GlobalChatButton() {
 
 const chatOpen = useSelector((state) => state.switcherSlice.isChatBoxOpen)
@@ -11,7 +13,8 @@ const chatOpen = useSelector((state) => state.switcherSlice.isChatBoxOpen)
     function openChat() {
         
         if (!chatOpen){
-        mainStore.dispatch(switcherActions.setChatBoxOpen(true))}
+        mainStore.dispatch(switcherActions.setChatBoxOpen(true))
+    console.log("I HAVE EXECUTED")}
         else {
          mainStore.dispatch(switcherActions.setChatBoxOpen(false))   
         }

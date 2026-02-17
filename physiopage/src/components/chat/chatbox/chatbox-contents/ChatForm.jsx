@@ -4,19 +4,8 @@ import { useSelector } from 'react-redux'
 import mainStore from '../../../../store'
 import { switcherActions } from '../../../../store/slices/switchers'
 import { chatActions } from '../../../../store/slices/chatSlice'
+import { fetchGemini } from './geminiApi'
 
-export async function fetchGemini(message) {
-    const res = await fetch('http://localhost:5000/api/backend/gemini', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            message: message,
-        }),
-    })
-    return res.json()
-}
 
 export default function ChatForm({ mockString, handleSubmitMock }) {
     const textRef = useRef(null)
@@ -43,7 +32,7 @@ export default function ChatForm({ mockString, handleSubmitMock }) {
             try {
                
                 textRef.current.value = ''
-
+                console.log("executing logic")
                 const response = await fetchGemini(messageText)
                 
                 // console.log(response)
@@ -75,13 +64,16 @@ export default function ChatForm({ mockString, handleSubmitMock }) {
     }
 
     const handleKeyDown = (event) => {
+        
         if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault()
+            
             if (handleSubmitMock){
                 handleSubmitMock(event);
             }
             else{
-            handleSubmit(event)}
+            handleSubmit(event)
+        }
         }
     }
 
@@ -92,6 +84,7 @@ export default function ChatForm({ mockString, handleSubmitMock }) {
                     ref={textRef}
                     id="chatInput"
                     aria-label="chat-textarea"
+                    data-testid='chat-textarea'
                     onKeyDown={handleKeyDown}
                     className="chat-textarea"
                     type="text"

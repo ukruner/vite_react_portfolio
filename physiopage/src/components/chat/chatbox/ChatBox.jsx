@@ -8,7 +8,7 @@ export default function ChatBox() {
       
   return (
     <div className='chat-box-gp'>
-    <div className='chat-box'>
+    <div className='chat-box' data-testid="chatboxparent">
         <ChatHeader/>
         <ChatHistory/>
         <ChatForm/>

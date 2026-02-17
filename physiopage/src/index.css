@@ -244,11 +244,11 @@ html {
     @apply my-2 rounded-lg p-2;
 }
 
-.message.ai {
+.message-ai {
     @apply bg-slate-300;
 }
 
-.message.user {
+.message-user {
     @apply ml-[2rem] bg-blue-1 text-white;
 }
 

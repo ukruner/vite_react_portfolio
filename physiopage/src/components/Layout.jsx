@@ -17,7 +17,7 @@ function Layout({ children }) {
                 {children}
                 <div>
                     {chatOpen && (
-                        <div className="chat-window-container">
+                        <div className="chat-window-container" data-testid='chatwindow'>
                             <ChatWindow />
                         </div>
                     )}

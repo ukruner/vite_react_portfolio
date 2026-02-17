@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor} from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, getByLabelText} from '@testing-library/react'
 import App from '../src/App'
 import { Provider } from 'react-redux'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
@@ -6,16 +6,34 @@ import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '../src/store/slices/userSlice'
 import switcherSlice from '../src/store/slices/switchers'
 import chatSlice from '../src/store/slices/chatSlice'
+vi.mock('../src/components/chat/chatbox/chatbox-contents/geminiApi', () => ({
+    fetchGemini: vi.fn(),
+}));
 
+import { fetchGemini } from '../src/components/chat/chatbox/chatbox-contents/geminiApi'
 import {vi} from 'vitest';
 import { postData2 } from '../src/utils/postMongo'
 import {routes} from '../src/router'
+import mainStore from '../src/store'
+
+vi.mock('../src/components/chat/chatbox/chatbox-contents/geminiApi', () => ({
+    fetchGemini: vi.fn(),
+}));
+
 
 describe('App testing suite, integration tests', () => {
 
   vi.mock('../src/utils/postMongo', () => ({
   postData2: vi.fn().mockResolvedValue(undefined),
 }));
+
+afterEach(()=>{
+  vi.clearAllMocks();
+})
+
+
+
+
 
   const formDataPopulate = (elementArray) => {
     elementArray.forEach(obj => { 
@@ -46,18 +64,21 @@ describe('App testing suite, integration tests', () => {
   preloadedState: {
     userSlice: {
       user: "Patrick",
-    },
-    switcherSlice: undefined, chatSlice: undefined
+    }
   },
 });
 
- const testRouter = createMemoryRouter(routes, {
+ const questionnaireRouter = createMemoryRouter(routes, {
       initialEntries: ["/questionnaire"],
+    });
+
+    const baseRouter = createMemoryRouter(routes, {
+      initialEntries: ["/"],
     });
 
   it('submits the form with comprehensive dummy data - and in formSummary renders all of the text/links/videos needed', async () => {
     render(<Provider store={store}>
-      <RouterProvider router={testRouter}>
+      <RouterProvider router={questionnaireRouter}>
       <App />
       </RouterProvider>
       </Provider>);
@@ -118,5 +139,51 @@ describe('App testing suite, integration tests', () => {
       await waitFor(() => {
   expect(postData2).toHaveBeenCalledTimes(1);
 });
+  });
+
+  it("presses on global chat button to open it, the whole component displays well, message is typed in and sent > response is received and visible", async () => {
+
+fetchGemini.mockResolvedValue("Mocked Gemini response"
+  );
+render(<Provider store={mainStore}>
+      <RouterProvider router={baseRouter}>
+      <App />
+      </RouterProvider>
+      </Provider>);
+
+  const globalChatButton = screen.getByLabelText("globalchatbutton");
+  expect(globalChatButton).toBeInTheDocument();
+  const chatBoxParent = screen.queryByTestId("chatboxparent")
+  expect(chatBoxParent).not.toBeInTheDocument();
+  fireEvent.click(globalChatButton);
+
+    const chatBoxParent2 = screen.getByTestId("chatwindow")
+
+  expect(chatBoxParent2).toBeInTheDocument();
+
+  const inputElement = screen.getByLabelText('chat-textarea')
+  expect(inputElement).toBeInTheDocument();
+
+  fireEvent.change(inputElement, {target: {value: 'Hello Gemini'}})
+
+
+  fireEvent.keyDown(inputElement, {key: "Enter"})
+    const chatHistory = mainStore.getState().chatSlice.history
+
+await waitFor(() => {
+  expect(fetchGemini).toHaveBeenCalledTimes(1);
+});  
+
+  await waitFor(()=>{expect(chatHistory.length).toBe(1)})
+
+console.log(chatHistory, 'CHATHISTORY')
+  const userMessage = screen.getByText("Hello Gemini");
+  expect(userMessage).toHaveClass('message-user')
+  const aiMessage = screen.getByText('Mocked Gemini response')
+  expect(aiMessage).toHaveClass("message-ai");
+      const chatHistory1 = mainStore.getState().chatSlice.history
+console.log(chatHistory1)
+  expect(chatHistory1.length).toBe(2);
+
   })
 })

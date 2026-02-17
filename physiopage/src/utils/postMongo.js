@@ -5,7 +5,6 @@ export const postData2 = async(dataObj, token) => {
 
   
     
-    console.log("completing data post")
     await fetch('http://localhost:5000/api/backend/mongodb', {
           method: 'POST',
           headers: {

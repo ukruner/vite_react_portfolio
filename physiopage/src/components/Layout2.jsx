@@ -18,7 +18,7 @@ function Layout2({children}) {
                 <div className={`sm:flex justify-center ${chatOpen ? 'flex-[3_3_0%] hidden' : 'flex-[4_4_0%]'}`}>
                 {children}</div>
                
-                {chatOpen && <div className='chat-window-container'><ChatWindow /></div>}
+                {chatOpen && <div className='chat-window-container' data-testid='chatwindow'><ChatWindow /></div>}
 
             </div>
              
