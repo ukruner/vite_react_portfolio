@@ -17,7 +17,6 @@ let routeText = 'home page'
      message = "Looks like you haven't filled the questionnaire yet!"
   }
   if (loggedIn) {
-    console.log(loggedIn)
     message = "Looks like you are already logged in, wanderer"
   }
 

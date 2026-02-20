@@ -90,13 +90,5 @@ describe ("Chatnavigation testing suite,", () => {
 
     })
 
-
-//   render(<GlobalChatButton/>);
-
-//   const button = screen.getByLabelText("globalchatbutton")
-//   fireEvent.click(button);
-// console.log(mainStore.dispatch.mock.calls);
-// expect(mainStore.dispatch).toHaveBeenCalledWith({ type: 'switchers/setChatBoxOpen', payload: true });
-
     })
 

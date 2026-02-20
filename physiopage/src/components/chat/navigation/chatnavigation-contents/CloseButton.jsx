@@ -13,9 +13,8 @@ export default function CloseButton({changeChatLayout}) {
     mainStore.dispatch(chatActions.clearState());
     mainStore.dispatch(switcherActions.setSessionTerminated(true));
       
-          console.log("Scheduling timeout!");
 setTimeout(
-      () => {console.log("Timeout fired!");
+      () => {
         mainStore.dispatch(switcherActions.setChatBotOnline(false))}, 1000)
   }
   else{

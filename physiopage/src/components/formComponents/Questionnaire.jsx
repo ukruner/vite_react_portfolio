@@ -1,5 +1,5 @@
 import { Link, Navigate } from 'react-router-dom'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { evaluateForm } from '../../utils/evaluateForm'
 import { formEntries } from '../formEntries'
 
@@ -34,7 +34,6 @@ export default function Questionnaire() {
 
     async function handleSubmit(event) {
         event.preventDefault()
-        console.log('submitting')
         const form = event.target
         const fd = new FormData(form)
 
@@ -42,13 +41,10 @@ export default function Questionnaire() {
         let dictFromData = Object.fromEntries(arrayData)
         dictFromData = { ...dictFromData, user }
         const auth = getAuth()
-        // const loggedInUser = auth.currentUser
-        // console.log(loggedInUser)
-        // const token = await loggedInUser.getIdToken(true);
+       
         const spreadEntriesData = arrayData.map(([key, value]) => ({
             [key]: value,
         }))
-        console.log(spreadEntriesData)
         evaluateForm(spreadEntriesData)
         postData2(dictFromData)
         setSubmitted(true)
@@ -81,6 +77,7 @@ export default function Questionnaire() {
 
                                     return (
                                         <TextSelection
+                                            key={entry.id}
                                             entry={entry}
                                             {...extraProps}
                                         />
@@ -91,7 +88,7 @@ export default function Questionnaire() {
                             case 'radio':
                                 if (entry.id === 'radiodiagnosis') {
                                     return (
-                                        <>
+                                        <React.Fragment key={entry.id}>
                                             <RadioCircle
                                                 entry={entry}
                                                 onChange={(event) =>
@@ -117,7 +114,7 @@ export default function Questionnaire() {
                                                     />
                                                 </div>
                                             )}
-                                        </>
+                                        </React.Fragment>
                                     )
                                 }
 
@@ -125,6 +122,7 @@ export default function Questionnaire() {
                                     if (selectedBodypart === 'Neck') {
                                         return (
                                             <RadioCircle
+                                                key={entry.id}
                                                 entry={entry}
                                             ></RadioCircle>
                                         )
@@ -135,6 +133,7 @@ export default function Questionnaire() {
                                 if (isCheckedObject[String(entry.parent)]) {
                                     return (
                                         <RadioCircle
+                                            key={entry.id}
                                             entry={entry}
                                         ></RadioCircle>
                                     )
@@ -145,6 +144,7 @@ export default function Questionnaire() {
                                 if (entry.parent) {
                                     return (
                                         <CheckBox
+                                            key={entry.id}
                                             entry={entry}
                                             isCheckedObject={isCheckedObject}
                                             setIsCheckedObject={

@@ -3,7 +3,6 @@ import admin from 'firebase-admin';
 export async function validateToken(req, res, next){
 
 const sessionCookie = req.cookies.session || "";
-console.log("middleware trying to execute");
 
 if (!sessionCookie) {
     console.log("no session cookie")

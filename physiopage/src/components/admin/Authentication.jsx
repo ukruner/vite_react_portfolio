@@ -61,15 +61,13 @@ export const action = async ({ request }) => {
         const state = mainStore.getState()
         const routeParallax = state.switcherSlice.routeParallax
         const routeSidebar = state.switcherSlice.routeSidebar
-        console.log(mode)
         if (mode !== 'login' && mode !== 'signup') {
             throw json({ message: 'Unsupported mode.' }, { status: 422 })
         }
         const data = await request.formData()
 
         const { email, password, rememberMe } = parseAuthFormData(data);
-        console.log(email, password, rememberMe)
-        console.log(rememberMe)
+   
 
         if (!isValidText(password, 6)) {
             return json(

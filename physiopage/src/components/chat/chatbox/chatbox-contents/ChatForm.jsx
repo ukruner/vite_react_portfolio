@@ -32,10 +32,8 @@ export default function ChatForm({ mockString, handleSubmitMock }) {
             try {
                
                 textRef.current.value = ''
-                console.log("executing logic")
                 const response = await fetchGemini(messageText)
                 
-                // console.log(response)
 
                 if (!response.error) {
                     mainStore.dispatch(
@@ -46,7 +44,6 @@ export default function ChatForm({ mockString, handleSubmitMock }) {
                     )
                     mainStore.dispatch(switcherActions.setIsAiThinking(false))
                 } else {
-                  console.log(response)
                     setTimeout(() => {
                         mainStore.dispatch(
                             chatActions.updateHistory({

@@ -186,7 +186,6 @@ describe('action function testing suite', () => {
         const response = await action({ request })
         const body = await response.json()
         expect(response.status).toBe(422)
-        console.log(response.message)
         expect(body.message).toBe(
             'Password must be at least 6 characters long.'
         )

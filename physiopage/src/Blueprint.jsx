@@ -25,7 +25,6 @@ describe (" testing suite,", () => {
     const mockDispatch = vi.fn()
     useDispatch.mockReturnValue(mockDispatch)
 
-    console.log(mainStore.dispatch.mock.calls)
 
     useSelector.mockImplementation((selectorFn) => {
         return selectorFn(mockReduxSlice)

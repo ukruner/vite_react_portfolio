@@ -43,7 +43,6 @@ async function runGemini(chatId, prompt) {
 
     const result = await chat.sendMessage(prompt);
     const response = await result.response;
-    console.log(response.text())
     return response;
 }
 
@@ -64,7 +63,6 @@ router.post('/gemini', async (req, res) => {
 
         const geminiResponse = await runGemini(currentChatId, userMessage); 
         const geminiText = geminiResponse.text()
-        console.log(geminiText)
         res.json(geminiText)
         
     } catch (error) {
@@ -74,7 +72,6 @@ router.post('/gemini', async (req, res) => {
 });
 
 router.post("/sessionLogin", async (req, res) => {
-    console.log(req.body);
     const idToken = req.body.token;
     const rememberMe = req.body.rememberMe;
   const expiresIn = rememberMe ? 3600000 : 300000;
@@ -90,7 +87,6 @@ router.post("/sessionLogin", async (req, res) => {
     if (rememberMe){
         options.maxAge = expiresIn
     };
-    console.log(options);
     res.cookie("session", sessionCookie, options);
     res.status(200).json({ message: "Session created" });
   } catch (err) {
@@ -114,11 +110,9 @@ router.get("/sessionStatus", async (req, res) => {
   
   try {
     const decoded = await admin.auth().verifySessionCookie(sessionCookie, true);
-    console.log(decoded)
     res.json({ uid: decoded.uid, email: decoded.email })
    
   } catch (err) {
-    console.log("wtf")
     res.json({ uid: '' });
   }
 });
@@ -138,8 +132,7 @@ router.post('/mongodb', async (req, res) => {
     const docs = [combinedData];
     const result = await coll.insertMany(docs);
     // display the results of your operation
-    console.log(docs)
-    console.log(result);
+  
     res.status(200).json({ message: "ok"});
   } finally {
     // Ensures that the client will close when you finish/error

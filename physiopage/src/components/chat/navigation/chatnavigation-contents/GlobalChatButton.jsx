@@ -13,8 +13,7 @@ const chatOpen = useSelector((state) => state.switcherSlice.isChatBoxOpen)
     function openChat() {
         
         if (!chatOpen){
-        mainStore.dispatch(switcherActions.setChatBoxOpen(true))
-    console.log("I HAVE EXECUTED")}
+        mainStore.dispatch(switcherActions.setChatBoxOpen(true))}
         else {
          mainStore.dispatch(switcherActions.setChatBoxOpen(false))   
         }

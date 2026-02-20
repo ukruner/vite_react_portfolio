@@ -55,7 +55,6 @@ expect(mainStore.dispatch).toHaveBeenCalledWith({ type: 'switchers/setChatBoxOpe
 
   const button = screen.getByLabelText("globalchatbutton")
   fireEvent.click(button);
-console.log(mainStore.dispatch.mock.calls);
 expect(mainStore.dispatch).toHaveBeenCalledWith({ type: 'switchers/setChatBoxOpen', payload: false });
  
     });
@@ -64,7 +63,6 @@ expect(mainStore.dispatch).toHaveBeenCalledWith({ type: 'switchers/setChatBoxOpe
 
   const button = screen.getByLabelText("globalchatbutton")
   fireEvent.click(button);
-console.log(mainStore.dispatch.mock.calls);
 expect(mainStore.dispatch).toHaveBeenCalledWith({ type: 'switchers/setChatBoxOpen', payload: true });
 
     });

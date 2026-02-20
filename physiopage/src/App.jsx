@@ -20,7 +20,6 @@ const dispatch = useDispatch();
         }
 
         const data = await res.json();
-        console.log(data)
         dispatch(userActions.setUser(data.uid)); // update Redux with backend user info
       } catch (err) {
         dispatch(userActions.clearUser()); // clear if no session
