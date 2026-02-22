@@ -1,13 +1,12 @@
 
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import backendRoutes from './routes.js';
 import admin from 'firebase-admin'
 import dotenv from "dotenv";
 import cookieParser from 'cookie-parser';
 // import serviceAccount from "./serviceAccountKey.json" assert { type: "json" };
-
+import { initDb, closeDb } from './db.js';
 dotenv.config({ path: "../../.env" });
 
 
@@ -32,10 +31,23 @@ admin.initializeApp({
 
 app.use('/api/backend', backendRoutes);
 
+(async () => {
+    await initDb();
 
-app.listen(5000, () => {
-    console.log(`Server listening on port 5000`);
-});
+
+const server = app.listen(5000, () => {
+  console.log("Server listening on port 5000");
+    });
+ 
+
+  const shutdown = async () => {
+    console.log("Shutting down...");
+    await closeDb();
+    server.close(() => process.exit(0));
+  };
+
+  process.on("SIGINT", shutdown);
+  process.on("SIGTERM", shutdown)})();
 
 
 
