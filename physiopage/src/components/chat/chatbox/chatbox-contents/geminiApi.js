@@ -4,6 +4,7 @@ export async function fetchGemini(message) {
         headers: {
             'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
             message: message,
         }),

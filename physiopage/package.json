@@ -17,6 +17,8 @@
     "@react-spring/parallax": "^9.7.5",
     "@reduxjs/toolkit": "^2.3.0",
     "@uidotdev/usehooks": "^2.4.1",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.36.2",
     "babel-install": "^2.1.0",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",

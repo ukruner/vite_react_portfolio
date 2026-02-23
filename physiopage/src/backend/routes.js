@@ -2,9 +2,10 @@
 import { response, Router } from 'express';
 
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { validateToken } from './authMiddleware.js';
+import { validateToken, authRateLimit, resetAuthAttempts} from './authMiddleware.js';
 import admin from 'firebase-admin';
 import { getDb } from './db.js';
+
 
 
 const router = Router();
@@ -25,24 +26,11 @@ async function runGemini(prompt) {
     return response;
 }
 
-router.post('/gemini', async (req, res) => {
-    try {
-        const userMessage = req.body.message;
+import { geminiRateLimit } from './rateLimitGemini.js';
 
-        if (!userMessage) {
-            return res.status(400).json({ error: 'Missing message in request body' });
-        }
-        const geminiResponse = await runGemini(userMessage); 
-        const geminiText = geminiResponse.text()
-        res.json(geminiText)
-        
-    } catch (error) {
-        console.error("Error stack:", error.stack)
-        res.status(500).json({ error: 'Failed to get response from Gemini' });
-    }
-});
 
-router.post("/sessionLogin", async (req, res) => {
+
+router.post("/sessionLogin", authRateLimit, async (req, res) => {
     const idToken = req.body.token;
     const rememberMe = req.body.rememberMe;
   const expiresIn = rememberMe ? 3600000 : 300000;
@@ -59,6 +47,8 @@ router.post("/sessionLogin", async (req, res) => {
         options.maxAge = expiresIn
     };
     res.cookie("session", sessionCookie, options);
+    resetAuthAttempts(req);
+
     res.status(200).json({ message: "Session created" });
   } catch (err) {
     console.error("Session login failed", err);
@@ -90,6 +80,22 @@ router.get("/sessionStatus", async (req, res) => {
 
 router.use(validateToken);
 
+router.post('/gemini', geminiRateLimit, async (req, res) => {
+    try {
+        const userMessage = req.body.message;
+
+        if (!userMessage) {
+            return res.status(400).json({ error: 'Missing message in request body' });
+        }
+        const geminiResponse = await runGemini(userMessage); 
+        const geminiText = geminiResponse.text()
+        res.json(geminiText)
+        
+    } catch (error) {
+        console.error("Error stack:", error.stack)
+        res.status(500).json({ error: 'Failed to get response from Gemini' });
+    }
+});
 router.post('/mongodb', async (req, res) => {
     try {
         const db =  getDb();

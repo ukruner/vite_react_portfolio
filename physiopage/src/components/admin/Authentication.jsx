@@ -61,6 +61,7 @@ export const action = async ({ request }) => {
         const state = mainStore.getState()
         const routeParallax = state.switcherSlice.routeParallax
         const routeSidebar = state.switcherSlice.routeSidebar
+        let loggedUser;
         if (mode !== 'login' && mode !== 'signup') {
             throw json({ message: 'Unsupported mode.' }, { status: 422 })
         }
@@ -77,7 +78,13 @@ export const action = async ({ request }) => {
         }
 
         if (mode === 'signup') {
-          
+            const createdFlag = sessionStorage.getItem('signupCreated') === 'true';
+            if (createdFlag) {
+                return json(
+                    { message: 'Signup limit reached for this session.' },
+                    { status: 429 }
+                );
+            }
             try {
                 const userCredential = await createUserWithEmailAndPassword(
                     auth,
@@ -85,6 +92,7 @@ export const action = async ({ request }) => {
                     password
                 )
                 console.log('User registered with uid:', userCredential.user)
+                sessionStorage.setItem('signupCreated', 'true');
                 return redirect('/auth?mode=login')
             } catch (error) {
                 if (error.code === 'auth/email-already-in-use') {
@@ -97,6 +105,21 @@ export const action = async ({ request }) => {
         }
 
         if (mode === 'login') {
+            const LIMIT_WINDOW_MS = 60_000;
+            const now = Date.now();
+            const lastTs = Number(sessionStorage.getItem('loginAttemptsTs') || '0');
+            if (lastTs && now - lastTs > LIMIT_WINDOW_MS) {
+                sessionStorage.setItem('loginAttempts', '0');
+                sessionStorage.setItem('loginAttemptsTs', '0');
+            }
+            const attempts = Number(sessionStorage.getItem('loginAttempts') || '0');
+            const withinWindow = lastTs && now - lastTs <= LIMIT_WINDOW_MS;
+            if (withinWindow && attempts >= 3) {
+                return json(
+                    { message: 'Login limit reached. Please wait and try again.' },
+                    { status: 429 }
+                );
+            }
             try {
                 const userCredential = await signInWithEmailAndPassword(
                     auth,
@@ -104,7 +127,9 @@ export const action = async ({ request }) => {
                     password,
                     rememberMe
                 )
-                const loggedUser = userCredential.user
+                loggedUser = userCredential.user
+                sessionStorage.setItem('loginAttempts', '0');
+                sessionStorage.setItem('loginAttemptsTs', '0');
                 const token = await loggedUser.getIdToken(true)
                 const res = await fetch(
                     'http://localhost:5000/api/backend/sessionLogin',
@@ -115,11 +140,47 @@ export const action = async ({ request }) => {
                         credentials: 'include', // ensures cookie is set
                     }
                 )
+                if (!res.ok) {
+                    if (res.status === 429) {
+                        return json(
+                            { message: 'Login limit reached. Please wait and try again.' },
+                            { status: 429 }
+                        );
+                    }
+                    return json(
+                        { message: 'Failed to create session.' },
+                        { status: res.status }
+                    );
+                }
                 mainStore.dispatch(userActions.setUser(loggedUser.uid))
             
-           
             } catch (error) {
-                throw new Error('Failed to create session')
+                console.log(error.message, error.code)
+                if (error?.code === 'auth/too-many-requests') {
+                    return json(
+                        { message: 'Too many attempts from this device. Please wait and try again later.' },
+                        { status: 429 }
+                    );
+                }
+                if (error?.code === 'auth/network-request-failed') {
+                    return json(
+                        { message: 'Please check your connection' },
+                        { status: 503 }
+                    );
+                }
+                const nextAttempts = attempts + 1;
+                sessionStorage.setItem('loginAttempts', String(nextAttempts));
+                sessionStorage.setItem('loginAttemptsTs', String(now));
+                if (nextAttempts >= 3) {
+                    return json(
+                        { message: 'Login limit reached. Please wait and try again.' },
+                        { status: 429 }
+                    );
+                }
+                return json(
+                    { message: 'Invalid email or password.' },
+                    { status: 401 }
+                );
             }
         }
 
@@ -127,13 +188,15 @@ export const action = async ({ request }) => {
             return redirect('/questionnaire')
         } else {
             if (routeSidebar) {
-                mainStore.dispatch(userActions.setUser(loggedUser.uid))
+                if (loggedUser) {
+                    mainStore.dispatch(userActions.setUser(loggedUser.uid))
+                }
             }
             return redirect('/')
         }
     } catch (error) {
       
-        console.error('Error with', error.message)
+        console.log('Error with', error.message, error.code)
         throw error
     }
 }

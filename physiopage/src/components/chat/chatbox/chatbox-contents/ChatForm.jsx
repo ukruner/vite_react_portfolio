@@ -43,16 +43,40 @@ export default function ChatForm({ mockString, handleSubmitMock }) {
                         })
                     )
                     mainStore.dispatch(switcherActions.setIsAiThinking(false))
-                } else {
+                }
+             
+                else {
+                    
                     setTimeout(() => {
+                        console.log(response.error)
+
+                        if (response.status === 429) {
+                            mainStore.dispatch(
+                            chatActions.updateHistory({
+                                sender: 'ai',
+                                text: 
+                                    response.error
+                            })
+                        )}
+                        else if (response.status === 401){
+                             mainStore.dispatch(
+                            chatActions.updateHistory({
+                                sender: 'ai',
+                                text: 
+                                response.error
+                            })
+                        )
+                        }
+                        else{
                         mainStore.dispatch(
                             chatActions.updateHistory({
                                 sender: 'ai',
-                                text: 'Failed to get a response from Gemini, check your connection or settings',
+                                text: 
+                                'Failed to get a response from Gemini, check your connection or settings'
                             })
                         )
-                        mainStore.dispatch(switcherActions.setIsAiThinking(false))
-                    }, 1000)
+                        
+                    }   mainStore.dispatch(switcherActions.setIsAiThinking(false))}, 1000)
                 }
             } catch (error) {
                 throw error
