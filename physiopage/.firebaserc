@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "storechatdata"
-  }
+    "physiohelp-page": "physiohelp-page"
+  },
+  "targets": {},
+  "etags": {}
 }
