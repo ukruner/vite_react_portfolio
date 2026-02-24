@@ -5,6 +5,7 @@ import { userActions } from '../../store/slices/userSlice'
 import ErrorPage from '../error/Error'
 import { getUserObject } from '../../utils/auth'
 import { isValidText } from '../../utils/validation'
+import API_BASE from '../../utils/apiBase'
 import { initializeApp } from 'firebase/app'
 import {
     getAuth,
@@ -131,7 +132,7 @@ export const action = async ({ request }) => {
                 sessionStorage.setItem('loginAttemptsTs', '0');
                 const token = await loggedUser.getIdToken(true)
                 const res = await fetch(
-                    'http://localhost:5000/api/backend/sessionLogin',
+                    `${API_BASE}/api/backend/sessionLogin`,
                     {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -205,7 +206,7 @@ export async function logoutAction() {
     const user = state.userSlice.user
     if (user) {
         try {
-            await fetch('http://localhost:5000/api/backend/logout', {
+            await fetch(`${API_BASE}/api/backend/logout`, {
                 method: 'POST',
                 credentials: 'include',
             })

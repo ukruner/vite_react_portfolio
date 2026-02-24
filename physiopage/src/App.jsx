@@ -4,6 +4,7 @@
 import { userActions } from './store/slices/userSlice.js'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
+import API_BASE from './utils/apiBase'
 
 function App() {
 const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const dispatch = useDispatch();
   useEffect(() => {
     async function checkSession() {
       try {
-        const res = await fetch("http://localhost:5000/api/backend/sessionStatus", {
+        const res = await fetch(`${API_BASE}/api/backend/sessionStatus`, {
           credentials: "include", // send cookies
         });
 

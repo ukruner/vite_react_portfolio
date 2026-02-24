@@ -17,7 +17,7 @@ const app = express();
  
 app.use(
   cors({
-    origin: "http://localhost:5173",// your frontend origin
+    origin: "https://physiohelp-page.web.app",// your frontend origin
     credentials: true,               // allow cookies
   })
 );
@@ -34,9 +34,10 @@ app.use('/api/backend', backendRoutes);
 (async () => {
     await initDb();
 
-
-const server = app.listen(5000, () => {
-  console.log("Server listening on port 5000");
+const PORT = process.env.PORT || 5000;
+ 
+const server = app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
     });
  
 

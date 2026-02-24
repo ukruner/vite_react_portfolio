@@ -1,11 +1,13 @@
 
 
+import API_BASE from './apiBase'
+
 export const postData2 = async(dataObj, token) => {
   try {
 
   
     
-    await fetch('http://localhost:5000/api/backend/mongodb', {
+    await fetch(`${API_BASE}/api/backend/mongodb`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

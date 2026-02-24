@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
+import API_BASE from './utils/apiBase'
 
 
 import Layout from './components/Layout'
@@ -12,7 +13,7 @@ import ErrorPage from './components/error/Error'
 import { logoutAction } from './components/admin/Authentication'
 
 async function requireAuth() {
-    const res = await fetch('http://localhost:5000/api/backend/sessionStatus', {
+    const res = await fetch(`${API_BASE}/api/backend/sessionStatus`, {
         credentials: 'include',
     });
     if (!res.ok) {
