@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 
 
 import Layout from './components/Layout'
@@ -11,6 +11,20 @@ import Authentication, {action as authAction} from './components/admin/Authentic
 import ErrorPage from './components/error/Error'
 import { logoutAction } from './components/admin/Authentication'
 
+async function requireAuth() {
+    const res = await fetch('http://localhost:5000/api/backend/sessionStatus', {
+        credentials: 'include',
+    });
+    if (!res.ok) {
+        return redirect('/auth');
+    }
+    const data = await res.json();
+    if (!data?.uid) {
+        return redirect('/auth');
+    }
+    return null;
+}
+
 export const routes = [ {
             path: '/',
             element: (
@@ -21,6 +35,7 @@ export const routes = [ {
 
         {
           path: '/questionnaire',
+          loader: requireAuth,
           element: (
              <Layout2><Questionnaire></Questionnaire></Layout2>
           ),
@@ -60,6 +75,7 @@ export const router = createBrowserRouter([
 
         {
           path: '/questionnaire',
+          loader: requireAuth,
           element: (
              <Layout2><Questionnaire></Questionnaire></Layout2>
           ),

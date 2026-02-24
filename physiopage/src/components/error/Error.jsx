@@ -15,6 +15,7 @@ let routeText = 'home page'
 
   if (formEmpty){
      message = "Looks like you haven't filled the questionnaire yet!"
+     routeText = 'questionnaire'
   }
   if (loggedIn) {
     message = "Looks like you are already logged in, wanderer"
@@ -34,6 +35,11 @@ let routeText = 'home page'
   }
 
   function routeToEscape(){
+
+    if(routeText == 'questionnaire'){
+          navigate('/questionnaire')
+          return
+        }
     if (error.status === 401 || loggedIn === "noToken"){
         
         navigate("/auth")

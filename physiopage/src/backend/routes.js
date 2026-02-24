@@ -26,7 +26,7 @@ async function runGemini(prompt) {
     return response;
 }
 
-import { geminiRateLimit } from './rateLimitGemini.js';
+import { geminiRateLimit } from './ratelimit.js';
 
 
 

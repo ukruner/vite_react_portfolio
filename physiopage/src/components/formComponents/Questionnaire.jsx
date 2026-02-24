@@ -2,7 +2,7 @@ import { Link, Navigate } from 'react-router-dom'
 import React, { useState } from 'react'
 import { evaluateForm } from '../../utils/evaluateForm'
 import { formEntries } from '../formEntries'
-
+import { getUserObject } from '../../utils/auth'
 import ErrorPage from '../error/Error'
 import { postData2 } from '../../utils/postMongo'
 import { getAuth } from 'firebase/auth'
@@ -25,8 +25,7 @@ export default function Questionnaire() {
     const [selectedBodypart, setSelectedBodypart] = useState('')
     const [diagnosisAnswer, setDiagnosisAnswer] = useState('')
 
-    // const user = getUserObject();
-    const user = 'user'
+    const user = getUserObject();
 
     // data-no-intersection-state-observed pop up in DOM tree Inspect?
 
