@@ -15,12 +15,24 @@ const serviceAccount = JSON.parse(process.env.ADMIN_SDK_CREDENTIALS_JSON)
 const app = express();
 
  
-app.use(
-  cors({
-    origin: "https://physiohelp-page.web.app",// your frontend origin
-    credentials: true,               // allow cookies
-  })
-);
+const allowedOrigins = [
+  "https://physiohelp-page.web.app",
+  "https://physiohelp-page.firebaseapp.com",
+];
+
+const corsOptions = {
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return cb(null, true);
+    }
+    return cb(new Error("Not allowed by CORS"));
+  },
+  credentials: true, // allow cookies
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+app.options('*', cors());
 app.use(express.json()); 
 app.use(cookieParser());
 
@@ -49,7 +61,5 @@ const server = app.listen(PORT, () => {
 
   process.on("SIGINT", shutdown);
   process.on("SIGTERM", shutdown)})();
-
-
 
 

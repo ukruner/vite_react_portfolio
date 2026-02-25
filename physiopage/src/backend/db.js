@@ -1,6 +1,16 @@
 import { MongoClient } from 'mongodb';
+import dotenv from "dotenv";
 
-  const uri = "mongodb://127.0.0.1:27017";
+
+dotenv.config({ path: "../../.env" });
+
+const MONGOPW = process.env.MONGO_DB_PASSWORD
+  const uri = `mongodb+srv://urmaskryner_db_user:${MONGOPW}@cluster0.pegzfwv.mongodb.net/?appName=Cluster0`;
+   if (!uri) {
+    throw new Error("MONGODB_URI is missing");
+  }
+
+
   const client = new MongoClient(uri);
   const dbName = "physiodb";
   const collectionName = "QuestionnaireData";
