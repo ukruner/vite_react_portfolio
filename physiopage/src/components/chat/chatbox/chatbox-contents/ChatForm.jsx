@@ -25,9 +25,7 @@ export default function ChatForm({ mockString, handleSubmitMock }) {
             mainStore.dispatch(
                 chatActions.updateHistory({ sender: 'user', text: messageText })
             )
-            setTimeout(() => {
-                mainStore.dispatch(switcherActions.setChatBotOnline(true))
-            }, 1000)
+            
 
             try {
                
@@ -36,6 +34,9 @@ export default function ChatForm({ mockString, handleSubmitMock }) {
                 
 
                 if (!response.error) {
+                    setTimeout(() => {
+                mainStore.dispatch(switcherActions.setChatBotOnline(true))
+            }, 1000);
                     mainStore.dispatch(
                         chatActions.updateHistory({
                             sender: 'ai',

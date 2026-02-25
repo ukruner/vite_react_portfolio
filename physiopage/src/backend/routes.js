@@ -42,7 +42,12 @@ router.post("/sessionLogin", authRateLimit, async (req, res) => {
       .auth()
       .createSessionCookie(idToken, { expiresIn });
 
-    const options = { sameSite: "strict", httpOnly: true, secure: process.env.NODE_ENV === "production"}
+    const isProd = process.env.NODE_ENV === "production";
+    const options = {
+      sameSite: isProd ? "none" : "lax",
+      httpOnly: true,
+      secure: isProd,
+    };
     if (rememberMe){
         options.maxAge = expiresIn
     };
@@ -57,7 +62,12 @@ router.post("/sessionLogin", authRateLimit, async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  res.clearCookie("session");
+  const isProd = process.env.NODE_ENV === "production";
+  res.clearCookie("session", {
+    sameSite: isProd ? "none" : "lax",
+    httpOnly: true,
+    secure: isProd,
+  });
   res.status(200).send("Logged out");
 });
 
