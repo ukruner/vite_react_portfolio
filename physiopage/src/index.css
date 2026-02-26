@@ -199,12 +199,16 @@ body {
     @apply flex h-10 basis-[20%] place-items-end bg-blue-4;
 }
 
+.whale-toggle {
+    touch-action: manipulation;
+}
+
 .header-sidebar-whale-button {
-    @apply fixed h-20 w-20 flex-shrink-0 object-scale-down;
+    @apply flex h-20 w-20 flex-shrink-0 object-scale-down;
 }
 
 .header-sidebar-text-button {
-    @apply ml-20 flex flex-shrink-0 text-nowrap px-3 py-3;
+    @apply flex flex-shrink-0 text-nowrap px-3 py-3;
 }
 
 .header-tag-css {
@@ -343,4 +347,58 @@ html {
 
 .wrapper {
     @apply relative flex h-[100%] w-[100%] snap-x snap-mandatory overflow-x-scroll;
+}
+
+@media (max-width: 640px) {
+    html, body {
+        overflow-x: auto;
+    }
+
+    .header-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .header-scroll > * {
+        min-width: max-content;
+    }
+
+    .main-body-container {
+        @apply px-4;
+    }
+
+    .main-body-text {
+        @apply text-3xl;
+    }
+
+    .auth-form-element {
+        @apply px-4 py-4 min-w-0 w-[92vw] max-w-[92vw];
+    }
+
+    .auth-form-container {
+        @apply px-3;
+    }
+
+    .questionnaire-form {
+        @apply px-4 py-4;
+    }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+    .main-body-container {
+        @apply top-0 px-4;
+    }
+
+    .main-body-text {
+        @apply text-2xl leading-snug;
+    }
+
+    .auth-form-element {
+        @apply px-4 py-4;
+    }
+
+    .questionnaire-form {
+        @apply px-4 py-4;
+    }
 }

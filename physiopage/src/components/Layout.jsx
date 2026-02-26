@@ -9,9 +9,11 @@ function Layout({ children }) {
 
     return (
         <main>
-            <header className="fixed z-[200]">
-                <Header />
-                <Sidebar />
+            <header className="fixed z-[200] w-full">
+                <div className="header-scroll">
+                    <Header /></div>
+                    <Sidebar />
+                
             </header>
             <div>
                 {children}

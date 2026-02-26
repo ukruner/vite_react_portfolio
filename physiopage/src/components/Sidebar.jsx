@@ -70,8 +70,8 @@ export default function Sidebar() {
                             Press here to navigate to the questionnaire.
                         </button> :
 
-                        <button aria-label='navigate-register' onClick={navigateAuth}>
-                            Press here to log in or register with us, to get access to useful, revealing and mythbusting content after you fill the questionnaire.
+                        <button className='text-left' aria-label='navigate-register' onClick={navigateAuth}>
+                            Press here to log in or register with us - to get access to useful, revealing and mythbusting content after you fill the questionnaire.
                         </button>}
                     
                 </div>

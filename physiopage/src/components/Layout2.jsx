@@ -9,9 +9,11 @@ function Layout2({children}) {
     
     return (
         <main>
-            <header className="fixed z-[200]">
-                <HeaderBlank/>
-                <Sidebar />
+            <header className="fixed z-[200] w-full">
+                <div className="header-scroll">
+                    <HeaderBlank/>
+                    <Sidebar />
+                </div>
             </header>
             <div className='q-layout-container'>
                 

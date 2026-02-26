@@ -22,19 +22,22 @@ export default function WhaleSidebarButton() {
         freezeRef.current?.stop()
     }
 
+    const toggleSidebar = () => {
+        if (isSidebarOpen) {
+            openSidebar(false)
+        } else {
+            openSidebar(true)
+        }
+        freezeRef.current?.toggle()
+    }
+
     return (
         <button
             id="starterdiv"
             aria-label="grandparent-container"
-            className="header-whale-container"
-            onClick={() => {
-                if (isSidebarOpen) {
-                    openSidebar(false)
-                } else {
-                    openSidebar(true)
-                }
-                freezeRef.current.toggle()
-            }}
+            className="header-whale-container whale-toggle"
+            type="button"
+            onClick={toggleSidebar}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
@@ -48,7 +51,7 @@ export default function WhaleSidebarButton() {
                 <ReactFreezeframe
                     src="/whale2.gif"
                     alt="moving whale"
-                    className="w-[70rem]"
+                    className="w-full h-full object-contain"
                     ref={freezeRef}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}

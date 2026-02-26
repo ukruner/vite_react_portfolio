@@ -6,7 +6,7 @@ import { switcherActions } from '../store/slices/switchers'
 import { useRef, useEffect, useCallback } from 'react'
 import mainStore from '../store'
 import highlightButton from '../utils/highlightButton'
-
+import { parallaxEntries } from './parallaxEntries'
 
 export default function ParallaxContainer() {
   
@@ -73,45 +73,17 @@ export default function ParallaxContainer() {
                         backgroundSize: 'cover', 
                     }}
                 ></ParallaxLayer>
-                <ParallaxLayer speed={0.5} offset={0}>
+                {parallaxEntries.map((entry, index) => {
+                     return <ParallaxLayer speed={0.5} offset={index}>
                     <div className="main-body-container">
                         <h1 className="main-body-text">
-                            Health is the most important thing.
+                            {entry}
+                            {index === 4 && <button aria-label='to-questionnaire' onClick={navigateQuestionnaire} className='main-body-button underline'>Get started</button>}
                         </h1>
                     </div>
                 </ParallaxLayer>
-
-                <ParallaxLayer speed={0.5} offset={1}>
-                    <div className="main-body-container">
-                        <h1 className="main-body-text">
-                            Musculoskeletal issues are extremely prevalent
-                        </h1>
-                    </div>
-                </ParallaxLayer>
-                <ParallaxLayer speed={0.5} offset={2}>
-                    <div className="main-body-container">
-                        <h1 className="main-body-text">
-                            Yet, after seeing a Physio, a lot of people struggle
-                            with consistency of exercising
-                        </h1>
-                    </div>
-                </ParallaxLayer>
-                <ParallaxLayer speed={0.5} offset={3}>
-                    <div className="main-body-container">
-                        <h1 className="main-body-text">
-                            We created a tool that provides a little extra information and guidance.
-                        </h1>
-                    </div>
-                </ParallaxLayer>
-                <ParallaxLayer speed={0.5} offset={4}>
-                    <div className="main-body-container">
-                        <h1 className="main-body-text">
-                            So, you can see how other people perceive it, and
-                            feel you are not alone<br></br>
-                            Press <button aria-label='to-questionnaire' onClick={navigateQuestionnaire} className='main-body-button underline'>here</button> for evaluation form
-                        </h1>
-                    </div>
-                </ParallaxLayer>
+                })}
+               
             </Parallax>
         </div>
     )
