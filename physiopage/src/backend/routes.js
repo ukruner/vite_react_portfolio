@@ -51,7 +51,8 @@ router.post("/sessionLogin", authRateLimit, async (req, res) => {
     if (rememberMe){
         options.maxAge = expiresIn
     };
-    res.cookie("session", sessionCookie, options);
+    // Firebase Hosting forwards only the __session cookie to Cloud Run.
+    res.cookie("__session", sessionCookie, options);
     resetAuthAttempts(req);
 
     res.status(200).json({ message: "Session created" });
@@ -63,7 +64,7 @@ router.post("/sessionLogin", authRateLimit, async (req, res) => {
 
 router.post("/logout", (req, res) => {
   const isProd = process.env.NODE_ENV === "production";
-  res.clearCookie("session", {
+  res.clearCookie("__session", {
     sameSite: isProd ? "none" : "lax",
     httpOnly: true,
     secure: isProd,
@@ -72,10 +73,14 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/sessionStatus", async (req, res) => {
-  const sessionCookie = req.cookies.session || "";
+  res.set("Cache-Control", "no-store");
+  res.set("Pragma", "no-cache");
+  res.set("Vary", "Cookie");
+  const sessionCookie = req.cookies.__session || "";
 
   if (!sessionCookie) {
-    console.log("no session cookie")
+    const cookieHeader = req.headers.cookie ? `len=${req.headers.cookie.length}` : "missing";
+    console.log("no session cookie", cookieHeader);
     return res.json({ uid: '' });
   }
   

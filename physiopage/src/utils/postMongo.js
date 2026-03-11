@@ -7,7 +7,7 @@ export const postData2 = async(dataObj, token) => {
 
   
     
-    await fetch(`${API_BASE}/api/backend/mongodb`, {
+    await fetch(`${API_BASE}/backend/mongodb`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

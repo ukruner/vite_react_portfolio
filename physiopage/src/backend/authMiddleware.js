@@ -3,10 +3,11 @@ import { sessionLoginRateLimit, resetSessionLoginLimit } from './ratelimit.js';
 
 export async function validateToken(req, res, next){
 
-const sessionCookie = req.cookies.session || "";
+// Firebase Hosting forwards only the __session cookie to Cloud Run.
+const sessionCookie = req.cookies.__session || "";
 
 if (!sessionCookie) {
-    console.log("no session cookie")
+    console.log("no session cookie");
     return res.status(401).json({
       
         error: "Action not permitted, please log in",

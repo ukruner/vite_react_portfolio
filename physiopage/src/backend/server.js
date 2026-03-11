@@ -13,6 +13,7 @@ dotenv.config({ path: "../../.env" });
 const serviceAccount = JSON.parse(process.env.ADMIN_SDK_CREDENTIALS_JSON)
 
 const app = express();
+app.set('etag', false);
 
  
 const allowedOrigins = [
@@ -61,5 +62,4 @@ const server = app.listen(PORT, () => {
 
   process.on("SIGINT", shutdown);
   process.on("SIGTERM", shutdown)})();
-
 

@@ -12,8 +12,8 @@ function Layout2({children}) {
             <header className="fixed z-[200] w-full">
                 <div className="header-scroll">
                     <HeaderBlank/>
-                    <Sidebar />
                 </div>
+                <Sidebar />
             </header>
             <div className='q-layout-container'>
                 

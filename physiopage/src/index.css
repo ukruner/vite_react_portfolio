@@ -380,8 +380,20 @@ html {
         @apply px-3;
     }
 
+    .questionnaire-box {
+        @apply px-4;
+    }
+
     .questionnaire-form {
-        @apply px-4 py-4;
+        @apply w-full px-6 py-4;
+    }
+
+    .form-summary-container {
+        @apply px-4;
+    }
+
+    .form-summary {
+        @apply w-full px-6;
     }
 }
 

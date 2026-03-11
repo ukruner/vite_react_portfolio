@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider, redirect } from 'react-router-dom'
 import API_BASE from './utils/apiBase'
+import { readJsonResponse } from './utils/readJsonResponse'
 
 
 import Layout from './components/Layout'
@@ -13,13 +14,13 @@ import ErrorPage from './components/error/Error'
 import { logoutAction } from './components/admin/Authentication'
 
 async function requireAuth() {
-    const res = await fetch(`${API_BASE}/api/backend/sessionStatus`, {
+    const res = await fetch(`${API_BASE}/backend/sessionStatus`, {
         credentials: 'include',
     });
     if (!res.ok) {
         return redirect('/auth');
     }
-    const data = await res.json();
+    const data = await readJsonResponse(res);
     if (!data?.uid) {
         return redirect('/auth');
     }

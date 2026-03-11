@@ -132,7 +132,7 @@ export const action = async ({ request }) => {
                 sessionStorage.setItem('loginAttemptsTs', '0');
                 const token = await loggedUser.getIdToken(true)
                 const res = await fetch(
-                    `${API_BASE}/api/backend/sessionLogin`,
+                    `${API_BASE}/backend/sessionLogin`,
                     {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -206,7 +206,7 @@ export async function logoutAction() {
     const user = state.userSlice.user
     if (user) {
         try {
-            await fetch(`${API_BASE}/api/backend/logout`, {
+            await fetch(`${API_BASE}/backend/logout`, {
                 method: 'POST',
                 credentials: 'include',
             })
