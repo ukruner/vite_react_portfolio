@@ -4,14 +4,14 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: "../../.env" });
 
-const MONGOPW = process.env.MONGO_DB_PASSWORD
-  const uri = `mongodb+srv://urmaskryner_db_user:${MONGOPW}@cluster0.pegzfwv.mongodb.net/?appName=Cluster0`;
-   if (!uri) {
+const M_URI= process.env.MONGO_DB_URI
+ 
+   if (!M_URI) {
     throw new Error("MONGODB_URI is missing");
   }
 
 
-  const client = new MongoClient(uri);
+  const client = new MongoClient(M_URI);
   const dbName = "physiodb";
   const collectionName = "QuestionnaireData";
 const schemaValidator = {

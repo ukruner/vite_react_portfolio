@@ -23,8 +23,6 @@ export const evaluateForm = (formData) => {
                 return null
             }
 
-            chosen.options = value
-
             let comment = ''
 
             if (responseChoices[key]) {
@@ -35,13 +33,11 @@ export const evaluateForm = (formData) => {
                 }
             }
 
-            chosen.comment = comment
-
             return {
                 id: chosen.label,
                 key,
                 response: value,
-                comment: chosen.comment,
+                comment,
                 videos: [],
                 links: [],
             }
