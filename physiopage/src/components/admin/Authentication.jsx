@@ -3,7 +3,7 @@ import AuthenticationForm from './AuthenticationForm'
 import mainStore from '../../store'
 import { userActions } from '../../store/slices/userSlice'
 import ErrorPage from '../error/Error'
-import { getUserObject } from '../../utils/auth'
+import { useAuthState } from '../../utils/auth'
 import { isValidText } from '../../utils/validation'
 import API_BASE from '../../utils/apiBase'
 import { initializeApp } from 'firebase/app'
@@ -30,7 +30,11 @@ const app2 = initializeApp(firebaseConfig)
 const auth = getAuth(app2)
 
 export default function Authentication() {
-    const user = getUserObject()
+    const { user, authResolved } = useAuthState()
+
+    if (!authResolved) {
+        return null
+    }
 
     return (
         <>

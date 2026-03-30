@@ -74,7 +74,21 @@ describe('action function testing suite', () => {
     )
     beforeEach(() => {
         vi.clearAllMocks()
-
+        sessionStorage.clear()
+        mainStore.getState.mockReturnValue({
+            marqueeSign: {},
+            switcherSlice: {
+                routeSidebar: false,
+                routeParallax: false,
+                routeHeader: false,
+            },
+            chatSlice: {},
+            userSlice: {},
+        })
+        global.fetch.mockResolvedValue({
+            ok: true,
+            json: () => Promise.resolve({}),
+        })
     })
     
     
@@ -108,9 +122,17 @@ describe('action function testing suite', () => {
             payload: 'mock-id',
         })
     })
-    it('throws an error if the login has been unsuccessful, in case ok response is not returned', async () => {
-        signInWithEmailAndPassword.mockRejectedValue({
-            error: 'Failed to create session',
+    it('returns an error response if session creation fails after login succeeds', async () => {
+        signInWithEmailAndPassword.mockResolvedValue({
+            user: {
+                uid: 'mock-id',
+                getIdToken: vi.fn().mockResolvedValue('fake-token'),
+            },
+        })
+        global.fetch.mockResolvedValue({
+            ok: false,
+            status: 500,
+            json: () => Promise.resolve({}),
         })
         const formData = new FormData()
         formData.append('email', 'test@example.com')
@@ -125,13 +147,11 @@ describe('action function testing suite', () => {
             }
         )
 
-        try {
-            await action({ request })
-            throw new Error('Action did not throw an error')
-        } catch (error) {
-            expect(error).toBeInstanceOf(Error)
-            expect(error.message).toBe('Failed to create session')
-        }
+        const response = await action({ request })
+        const body = await response.json()
+
+        expect(response.status).toBe(500)
+        expect(body.message).toBe('Failed to create session.')
     })
 
     it('redirects to /questionnaire if the response comes back fine, meaning that log in was successful', async () => {
@@ -237,6 +257,7 @@ describe('action function testing suite', () => {
         expect(response.headers.get('Location')).toBe('/auth?mode=login')
     })
     it('returns an error if email trying to be registered is already in use', async () => {
+        sessionStorage.removeItem('signupCreated')
         createUserWithEmailAndPassword.mockRejectedValue({
             code: 'auth/email-already-in-use',
         })
@@ -259,6 +280,7 @@ describe('action function testing suite', () => {
         expect(body.message).toBe('Email already exists')
     })
     it('returns an error if there is an unspecified error during registering', async () => {
+        sessionStorage.removeItem('signupCreated')
         createUserWithEmailAndPassword.mockRejectedValue({
             error: 'Signup failed',
         })
@@ -287,6 +309,7 @@ describe('action function testing suite', () => {
     it('action function rethrows unexpected errors', async () => {
 
           vi.spyOn(console, 'error').mockImplementation(() => {});
+        sessionStorage.removeItem('signupCreated')
 
         createUserWithEmailAndPassword.mockRejectedValue({
             code: 'auth/unexpected-error',

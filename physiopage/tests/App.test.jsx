@@ -3,7 +3,6 @@ import {
     screen,
     fireEvent,
     waitFor,
-    getByLabelText,
 } from '@testing-library/react'
 import App from '../src/App'
 import { Provider } from 'react-redux'
@@ -12,27 +11,25 @@ import { configureStore } from '@reduxjs/toolkit'
 import userSlice from '../src/store/slices/userSlice'
 import switcherSlice from '../src/store/slices/switchers'
 import chatSlice from '../src/store/slices/chatSlice'
+import { vi } from 'vitest'
+
+vi.mock('../src/utils/postMongo', () => ({
+    postData2: vi.fn().mockResolvedValue(undefined),
+}))
+
 vi.mock('../src/components/chat/chatbox/chatbox-contents/geminiApi', () => ({
     fetchGemini: vi.fn(),
 }))
 
 import { fetchGemini } from '../src/components/chat/chatbox/chatbox-contents/geminiApi'
-import { vi } from 'vitest'
 import { postData2 } from '../src/utils/postMongo'
 import { routes } from '../src/router'
 import mainStore from '../src/store'
 
-vi.mock('../src/components/chat/chatbox/chatbox-contents/geminiApi', () => ({
-    fetchGemini: vi.fn(),
-}))
-
 describe('App testing suite, integration tests', () => {
-    vi.mock('../src/utils/postMongo', () => ({
-        postData2: vi.fn().mockResolvedValue(undefined),
-    }))
-
     afterEach(() => {
         vi.clearAllMocks()
+        sessionStorage.clear()
     })
 
     const formDataPopulate = (elementArray) => {
@@ -53,45 +50,64 @@ describe('App testing suite, integration tests', () => {
             }
         })
     }
-    const store = configureStore({
-        reducer: {
-            userSlice,
-            chatSlice,
-            switcherSlice,
-        },
-        preloadedState: {
-            userSlice: {
-                user: 'Patrick',
+    beforeEach(() => {
+        global.fetch = vi.fn((input) => {
+            const url = typeof input === 'string' ? input : input?.url ?? ''
+            const jsonResponse = (body) => ({
+                ok: true,
+                status: 200,
+                headers: {
+                    get: (name) =>
+                        name === 'content-type'
+                            ? 'application/json; charset=utf-8'
+                            : null,
+                },
+                json: () => Promise.resolve(body),
+            })
+
+            if (url.includes('/backend/sessionStatus')) {
+                return Promise.resolve(jsonResponse({ uid: 'Patrick' }))
+            }
+
+            return Promise.resolve(jsonResponse({}))
+        })
+    })
+
+    const createTestStore = () =>
+        configureStore({
+            reducer: {
+                userSlice,
+                chatSlice,
+                switcherSlice,
             },
-        },
-    })
-
-    const questionnaireRouter = createMemoryRouter(routes, {
-        initialEntries: ['/questionnaire'],
-        future: {
-            v7_startTransition: true,
-            v7_relativeSplatPath: true,
-        },
-    })
-
-    const baseRouter = createMemoryRouter(routes, {
-        initialEntries: ['/'],
-        future: {
-            v7_startTransition: true,
-            v7_relativeSplatPath: true,
-        },
+            preloadedState: {
+                userSlice: {
+                    user: 'Patrick',
+                    authResolved: true,
+                },
+            },
     })
 
     it('submits the form with comprehensive dummy data - and in formSummary renders all of the text/links/videos needed', async () => {
+        const store = createTestStore()
+        const questionnaireRouter = createMemoryRouter(routes, {
+            initialEntries: ['/questionnaire'],
+            future: {
+                v7_startTransition: true,
+                v7_relativeSplatPath: true,
+            },
+        })
+
         render(
             <Provider store={store}>
-                <RouterProvider router={questionnaireRouter}>
+                <>
                     <App />
-                </RouterProvider>
+                    <RouterProvider router={questionnaireRouter} />
+                </>
             </Provider>
         )
 
-        const offwork = screen.getByTestId('offwork')
+        const offwork = await screen.findByTestId('offwork')
         fireEvent.click(offwork)
         const treatment = screen.getByTestId('treatment')
         fireEvent.click(treatment)
@@ -173,11 +189,20 @@ describe('App testing suite, integration tests', () => {
 
     it('presses on global chat button to open it, the whole component displays well, message is typed in and sent > response is received and visible', async () => {
         fetchGemini.mockResolvedValue('Mocked Gemini response')
+        const baseRouter = createMemoryRouter(routes, {
+            initialEntries: ['/'],
+            future: {
+                v7_startTransition: true,
+                v7_relativeSplatPath: true,
+            },
+        })
+
         render(
             <Provider store={mainStore}>
-                <RouterProvider router={baseRouter}>
+                <>
                     <App />
-                </RouterProvider>
+                    <RouterProvider router={baseRouter} />
+                </>
             </Provider>
         )
 

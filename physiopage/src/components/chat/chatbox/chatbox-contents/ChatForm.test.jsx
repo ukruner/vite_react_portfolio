@@ -21,7 +21,8 @@ window.fetch = vi.fn()
 import mainStore from '../../../../store/index.js'
 import { useSelector } from 'react-redux'
 import ChatForm from './ChatForm'
-import { fetchGemini } from './ChatForm'
+import { fetchGemini } from './geminiApi'
+import API_BASE from '../../../../utils/apiBase.js'
 import { fireEvent } from '@testing-library/react'
 
 describe('ChatForm test suite', () => {
@@ -125,12 +126,13 @@ describe('ChatForm test suite', () => {
 
         expect(result).toEqual('airesponse')
         expect(global.fetch).toHaveBeenCalledWith(
-            'http://localhost:5000/api/backend/gemini',
+            `${API_BASE}/backend/gemini`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     message: message,
                 }),

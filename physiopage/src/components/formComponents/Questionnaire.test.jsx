@@ -40,7 +40,12 @@ import { Provider } from 'react-redux'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 describe('Questionnaire form testing suite,', () => {
-    const mockReduxSlice = {}
+    const mockReduxSlice = {
+        userSlice: {
+            user: 'user-123',
+            authResolved: true,
+        },
+    }
 
     const mockDispatch = vi.fn()
     useDispatch.mockReturnValue(mockDispatch)
@@ -299,5 +304,29 @@ describe('Questionnaire form testing suite,', () => {
         expect(
             screen.getByText(/Are you going through menopause\?/i)
         ).toBeInTheDocument()
+    })
+
+    it('renders nothing while auth status is still resolving', () => {
+        useSelector.mockImplementation((selectorFn) => {
+            return selectorFn({
+                userSlice: {
+                    user: '',
+                    authResolved: false,
+                },
+            })
+        })
+
+        const router = createMemoryRouter(
+            [{ path: '/', element: <Questionnaire /> }],
+            { initialEntries: ['/'] }
+        )
+
+        const { container } = render(
+            <Provider store={mainStore}>
+                <RouterProvider router={router} />
+            </Provider>
+        )
+
+        expect(container).toBeEmptyDOMElement()
     })
 })

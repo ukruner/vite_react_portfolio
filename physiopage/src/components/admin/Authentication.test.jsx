@@ -51,7 +51,8 @@ import {
 describe('Authentication form testing suite,', () => {
     const mockReduxUserSlice = {
         userSlice: {
-            user: ''
+            user: '',
+            authResolved: true,
         },
         switcherSlice: {
             routeSidebar: false,
@@ -115,5 +116,24 @@ describe('Authentication form testing suite,', () => {
         expect(screen.queryByLabelText('auth-form-container')).not.toBeInTheDocument();
         expect(screen.queryByLabelText('error-container')).toBeInTheDocument();
 
+    });
+
+    it('renders nothing while auth status is still resolving', () => {
+         useSelector.mockImplementation((selectorFn) => {
+                    return selectorFn({...mockReduxUserSlice, userSlice: {user: '', authResolved: false}})
+                })
+                const router = createMemoryRouter(
+            [{ path: '/', element: <Authentication /> }],
+            { initialEntries: ['/'] }
+        )
+
+        render(
+            <Provider store={mainStore}>
+                <RouterProvider router={router} />
+            </Provider>
+        )
+
+        expect(screen.queryByLabelText('auth-form-container')).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('error-container')).not.toBeInTheDocument();
     });
     });
