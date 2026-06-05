@@ -8,7 +8,7 @@ export default function CheckBox({ entry, isCheckedObject, setIsCheckedObject })
     }
     }
     return (
-        <div className="m-2 flex gap-2" key={entry.id}>
+        <div className="questionnaire-checkbox-card" key={entry.id}>
             <input
                 type={entry.type}
                 id={entry.id}

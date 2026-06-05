@@ -36,7 +36,14 @@ function getClientKey(req) {
 
 async function applyLimiter(limiter, req, res, next) {
   const key = getClientKey(req);
-  const result = await limiter.limit(key);
+  let result;
+
+  try {
+    result = await limiter.limit(key);
+  } catch (error) {
+    console.error("Rate limiter unavailable; allowing request", error);
+    return next();
+  }
 
   if (!result.success) {
     const retryAfter = Math.max(1, Math.ceil((result.reset - Date.now()) / 1000));
@@ -65,13 +72,24 @@ export function geminiRateLimit(req, res, next) {
 
 export async function resetSessionLoginLimit(req) {
   const key = getClientKey(req);
-  await redis.del(`${LOGIN_PREFIX}:${key}`);
+  try {
+    await redis.del(`${LOGIN_PREFIX}:${key}`);
+  } catch (error) {
+    console.error("Failed to reset login rate limit", error);
+  }
 }
 
 async function applyGeminiSessionLimit(req, res, next) {
   const key = getClientKey(req);
   const redisKey = `${GEMINI_PREFIX}:${key}`;
-  const count = await redis.incr(redisKey);
+  let count;
+
+  try {
+    count = await redis.incr(redisKey);
+  } catch (error) {
+    console.error("Gemini rate limiter unavailable; allowing request", error);
+    return next();
+  }
 
   const limit = 10;
   if (count > limit) {

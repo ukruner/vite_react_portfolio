@@ -54,8 +54,17 @@ export default function Questionnaire() {
     return submitted ? (
         <Navigate to="/results" />
     ) : user ? (
-        <div className="rounded-3xl">
-            <div className="questionnaire-box ">
+        <section className="questionnaire-page-shell">
+            <div className="questionnaire-hero">
+                <p className="questionnaire-kicker">Personalised guidance</p>
+                <h1>Tell us what is going on</h1>
+                <p>
+                    A short assessment helps us shape your education, resources,
+                    and next steps around your symptoms and current care.
+                </p>
+            </div>
+
+            <div className="questionnaire-box">
                 <form
                     key="23w5e4"
                     className="questionnaire-form"
@@ -99,10 +108,10 @@ export default function Questionnaire() {
                                                 }
                                             />
                                             {diagnosisAnswer === 'Yes' && (
-                                                <div className="mt-2 text-left">
+                                                <div className="questionnaire-field mt-2">
                                                     <label
                                                         htmlFor="diagnosisdetail"
-                                                        className="block mb-1"
+                                                        className="questionnaire-label"
                                                     >
                                                         If yes, what is the
                                                         diagnosis?
@@ -111,7 +120,7 @@ export default function Questionnaire() {
                                                         type="text"
                                                         id="diagnosisdetail"
                                                         name="diagnosisdetail"
-                                                        className="auth-input-field w-1/2"
+                                                        className="questionnaire-text-input"
                                                     />
                                                 </div>
                                             )}
@@ -158,18 +167,18 @@ export default function Questionnaire() {
                                 }
                         }
                     })}
-                    <div>
-                        <button className="submit-button mt-4" type="submit" data-testid={'submitbutton'}>
+                    <div className="questionnaire-actions">
+                        <button className="submit-button" type="submit" data-testid={'submitbutton'}>
                             Submit your form
                         </button>
-                    </div>
 
-                    <Link to="/" className="mt-2">
-                        Back to root
-                    </Link>
+                        <Link to="/" className="questionnaire-secondary-link">
+                            Back to home
+                        </Link>
+                    </div>
                 </form>
             </div>
-        </div>
+        </section>
     ) : (
         <ErrorPage></ErrorPage>
     )

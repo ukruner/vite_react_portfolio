@@ -4,8 +4,8 @@ export default function TextSelection({ entry, value, onChange }) {
     const isControlled = typeof value !== 'undefined'
 
     return (
-        <div key={entry.id} className="mt-2">
-            <label htmlFor={entry.id} key={entry.id}>
+        <div key={entry.id} className="questionnaire-field">
+            <label htmlFor={entry.id} key={entry.id} className="questionnaire-label">
                 {entry.label}
             </label>
             <select

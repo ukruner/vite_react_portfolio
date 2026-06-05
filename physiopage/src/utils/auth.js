@@ -1,5 +1,5 @@
 
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 
 export function getUserObject(){
@@ -11,5 +11,5 @@ export function useAuthState() {
     return useSelector((state) => ({
         user: state.userSlice?.user ?? '',
         authResolved: state.userSlice?.authResolved ?? true,
-    }));
+    }), shallowEqual);
 }

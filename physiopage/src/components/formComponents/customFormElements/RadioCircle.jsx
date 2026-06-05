@@ -2,14 +2,14 @@ import React from 'react'
 
 export default function RadioCircle({ entry, onChange }) {
     return (
-        <fieldset key={entry.label} className="mt-2">
-            <div className="grid gap-2">
-                <legend>{entry.label}</legend>
-                <div className="flex gap-2 ">
+        <fieldset key={entry.label} className="questionnaire-field">
+            <div className="grid gap-3">
+                <legend className="questionnaire-label">{entry.label}</legend>
+                <div className="questionnaire-radio-row">
                     {entry.options.map((option) => {
 
                         return (
-                            <label key={option}>
+                            <label key={option} className="questionnaire-choice">
                                 <input
                                     type={entry.type}
                                     key={entry.options.indexOf(option)}
@@ -19,7 +19,7 @@ export default function RadioCircle({ entry, onChange }) {
                                     value={option}
                                     onChange={onChange}
                                 />
-                                {' ' + option}
+                                <span>{option}</span>
                             </label>
                         )
                     })}
