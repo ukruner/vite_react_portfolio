@@ -284,6 +284,11 @@ html {
     @apply flex justify-end;
 }
 
+.navbar-updating .navbar-button,
+.navbar-updating .side-button {
+    transition: none !important;
+}
+
 .navbar-right-button {
     @apply rounded-bl-[1.25rem] bg-blue-4 text-black ;
 }

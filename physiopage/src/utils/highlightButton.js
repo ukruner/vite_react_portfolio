@@ -1,4 +1,8 @@
 export default function highlightButton (index) {
+    const navbar = document.querySelector('.navbar-container');
+
+    navbar?.classList.add('navbar-updating');
+
     document.querySelectorAll('.navbar-active-button, .navbar-left-button, .navbar-right-button').forEach(btn => {
         btn.classList.remove('navbar-active-button', 'navbar-left-button', 'navbar-right-button');
       });
@@ -43,4 +47,8 @@ export default function highlightButton (index) {
   
   
     };
+
+    requestAnimationFrame(() => {
+      navbar?.classList.remove('navbar-updating');
+    });
 }
