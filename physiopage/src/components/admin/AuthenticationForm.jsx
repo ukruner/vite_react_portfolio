@@ -21,13 +21,13 @@ export default function AuthenticationForm() {
   return (
     <>
         <Form method='post' className='auth-form-element'>
-           <div>{mode === 'login' && <h1 className='text-3xl'>
+           <div>{mode === 'login' && <h1 className='auth-route-prompt text-3xl'>
             {routeParallax && <div aria-label='route-parallax-text'>To access the form, please</div>}
            {routeHeader && <div aria-label='route-header-text'>To access useful content, please</div>}
            {routeSidebar && <div aria-label='route-sidebar-text'>To access links on health related content, please</div>}
            </h1>}
      
-           <h1 className='text-3xl' aria-label='header-form-text'>{mode === 'signup' ? 'Press Save to register your user': 'Log in or create new user' }</h1>
+           <h1 className='auth-form-title text-3xl' aria-label='header-form-text'>{mode === 'signup' ? 'Press Save to register your user': 'Log in or create new user' }</h1>
             {data && data.errors && (
                 <ul>
                     {Object.values(data.errors).map((err)=> (

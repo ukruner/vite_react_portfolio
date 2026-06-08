@@ -120,7 +120,18 @@ router.post('/mongodb', async (req, res) => {
         res.status(200).json({ message: "ok"});
     } 
     catch(err){
-            res.status(400).json({ error: "Insert failed", detail: err.message });
+            console.error("Mongo insert failed:", err);
+            const isConnectionError =
+              err?.name === "MongoServerSelectionError" ||
+              err?.name === "MongoNetworkError" ||
+              err?.name === "MongoTopologyClosedError";
+
+            res.status(isConnectionError ? 503 : 400).json({
+              error: isConnectionError
+                ? "Database connection failed"
+                : "Insert failed",
+              detail: err.message,
+            });
 
     }
 

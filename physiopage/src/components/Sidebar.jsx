@@ -64,14 +64,14 @@ export default function Sidebar() {
                 }}
                 aria-label='sidebar-container'
             >
-                <div className="sidebar-text flex-[0_0_90%]" aria-label='sidebar-text'>
+                <div className="sidebar-text flex-[0_0_90%]" aria-label='sidebar-text' lang="en">
                 {user ?
 <button onClick={navigateQuestionnaire}>
                             Press here to navigate to the questionnaire.
                         </button> :
 
-                        <button className='text-left' aria-label='navigate-register' onClick={navigateAuth}>
-                            Press here to log in or register with us - to get access to useful, revealing and mythbusting content after you fill the questionnaire.
+                        <button aria-label='navigate-register' onClick={navigateAuth}>
+                            Log in or register for useful and revealing mythbusting content after completing the questionnaire.
                         </button>}
                     
                 </div>

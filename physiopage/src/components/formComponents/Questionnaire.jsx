@@ -5,7 +5,6 @@ import { formEntries } from '../formEntries'
 import { useAuthState } from '../../utils/auth'
 import ErrorPage from '../error/Error'
 import { postData2 } from '../../utils/postMongo'
-import { getAuth } from 'firebase/auth'
 import TextSelection from './customFormElements/textSelection'
 import RadioCircle from './customFormElements/radioCircle'
 import CheckBox from './customFormElements/checkBox'
@@ -22,6 +21,7 @@ export default function Questionnaire() {
     })
 
     const [submitted, setSubmitted] = useState(false)
+    const [submissionError, setSubmissionError] = useState('')
     const [selectedBodypart, setSelectedBodypart] = useState('')
     const [diagnosisAnswer, setDiagnosisAnswer] = useState('')
 
@@ -41,14 +41,20 @@ export default function Questionnaire() {
         const arrayData = Array.from(fd.entries())
         let dictFromData = Object.fromEntries(arrayData)
         dictFromData = { ...dictFromData, user }
-        const auth = getAuth()
        
         const spreadEntriesData = arrayData.map(([key, value]) => ({
             [key]: value,
         }))
         evaluateForm(spreadEntriesData)
-        postData2(dictFromData)
-        setSubmitted(true)
+        setSubmissionError('')
+        try {
+            await postData2(dictFromData)
+            setSubmitted(true)
+        } catch (error) {
+            setSubmissionError(
+                error?.message || 'Failed to submit questionnaire.'
+            )
+        }
     }
 
     return submitted ? (
@@ -167,6 +173,11 @@ export default function Questionnaire() {
                                 }
                         }
                     })}
+                    {submissionError && (
+                        <p className="data-errors" role="alert">
+                            {submissionError}
+                        </p>
+                    )}
                     <div className="questionnaire-actions">
                         <button className="submit-button" type="submit" data-testid={'submitbutton'}>
                             Submit your form

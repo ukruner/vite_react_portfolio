@@ -24,12 +24,12 @@ module.exports = {
         xs: '20rem', 
       },
       colors: {
-        'blue-1': '#67c7ff',
-        'blue-2': '#80d0ff',
-        'blue-3': '#9adaff',
-        'blue-4': '#b3e3ff',
-        'blue-5': '#cdecff',
-        'blue-6': '#e6f6ff',
+        'blue-1': '#5bbde7',
+        'blue-2': '#83cdea',
+        'blue-3': '#a8dcf0',
+        'blue-4': '#c7eaf5',
+        'blue-5': '#ddf4f8',
+        'blue-6': '#f0fbfd',
       },
       textShadow: {
         outline:
@@ -66,4 +66,3 @@ module.exports = {
   ],
   safelist: ['isolate'],
 };
-

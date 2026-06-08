@@ -128,7 +128,7 @@ describe('App testing suite, integration tests', () => {
 
         const submitButton = screen.getByTestId('submitbutton')
         fireEvent.click(submitButton)
-        const bodypartFeedback = screen.getByText(
+        const bodypartFeedback = await screen.findByText(
             /arguably the most common musculoskeletal problem in the world/i
         )
         expect(bodypartFeedback).toBeInTheDocument()

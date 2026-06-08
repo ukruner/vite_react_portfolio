@@ -73,8 +73,13 @@ app.use((error, req, res, next) => {
 
   const shutdown = async () => {
     console.log("Shutting down...");
-    await closeDb();
-    server.close(() => process.exit(0));
+    try {
+      await closeDb();
+    } catch (error) {
+      console.error("Database shutdown failed:", error);
+    } finally {
+      server.close(() => process.exit(0));
+    }
   };
 
   process.on("SIGINT", shutdown);
