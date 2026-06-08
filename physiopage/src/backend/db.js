@@ -15,9 +15,11 @@ const M_URI= process.env.MONGO_DB_URI
   }
 
 
-  const client = new MongoClient(M_URI);
   const dbName = "physiodb";
   const collectionName = "QuestionnaireData";
+  let client;
+  let db;
+  let connectionPromise;
 const schemaValidator = {
   "$jsonSchema": {
     "bsonType": "object",
@@ -79,9 +81,37 @@ const schemaValidator = {
         "bsonType": "string"
       }}}};
 
+async function connectDb() {
+  if (db) {
+    return db;
+  }
+
+  if (!connectionPromise) {
+    client = new MongoClient(M_URI);
+    connectionPromise = client.connect()
+      .then((connectedClient) => {
+        db = connectedClient.db(dbName);
+        return db;
+      })
+      .catch(async (error) => {
+        try {
+          await client?.close();
+        } catch (closeError) {
+          console.error("Mongo cleanup after failed connect failed:", closeError);
+        } finally {
+          client = undefined;
+          db = undefined;
+          connectionPromise = undefined;
+        }
+        throw error;
+      });
+  }
+
+  return connectionPromise;
+}
+
 export async function initDb(){
-  await client.connect();
-  const db = client.db("physiodb");
+  const db = await connectDb();
   try{
   await db.command({collMod: "QuestionnaireData", 
     validator: schemaValidator
@@ -102,10 +132,13 @@ export async function initDb(){
 
 }
 
-export function getDb() {
-    return client.db(dbName);
+export async function getDb() {
+    return connectDb();
   };
 
    export async function closeDb() {
-    await client.close();
+    await client?.close();
+    client = undefined;
+    db = undefined;
+    connectionPromise = undefined;
   }

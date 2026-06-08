@@ -113,7 +113,7 @@ router.post('/gemini', geminiRateLimit, async (req, res) => {
 });
 router.post('/mongodb', async (req, res) => {
     try {
-        const db =  getDb();
+        const db =  await getDb();
         const coll = db.collection("QuestionnaireData");
         const combinedData = req.body;
         await coll.insertOne(combinedData);
