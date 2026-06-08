@@ -11,11 +11,18 @@ const redis = Redis.fromEnv();
 
 const LOGIN_PREFIX = "rl:login";
 const GEMINI_PREFIX = "rl:gemini";
+const MONGODB_PREFIX = "rl:mongodb";
 
 const loginLimiter = new Ratelimit({
   redis,
   limiter: Ratelimit.fixedWindow(2, "1 m"),
   prefix: LOGIN_PREFIX,
+});
+
+const mongodbLimiter = new Ratelimit({
+  redis,
+  limiter: Ratelimit.fixedWindow(3, "10 m"),
+  prefix: MONGODB_PREFIX,
 });
 
 function getClientKey(req) {
@@ -68,6 +75,10 @@ export function sessionLoginRateLimit(req, res, next) {
 
 export function geminiRateLimit(req, res, next) {
   return applyGeminiSessionLimit(req, res, next);
+}
+
+export function mongodbRateLimit(req, res, next) {
+  return applyLimiter(mongodbLimiter, req, res, next);
 }
 
 export async function resetSessionLoginLimit(req) {

@@ -26,7 +26,7 @@ async function runGemini(prompt) {
     return response;
 }
 
-import { geminiRateLimit } from './ratelimit.js';
+import { geminiRateLimit, mongodbRateLimit } from './ratelimit.js';
 
 
 
@@ -111,7 +111,7 @@ router.post('/gemini', geminiRateLimit, async (req, res) => {
         res.status(500).json({ error: 'Failed to get response from Gemini' });
     }
 });
-router.post('/mongodb', async (req, res) => {
+router.post('/mongodb', mongodbRateLimit, async (req, res) => {
     try {
         const db =  await getDb();
         const coll = db.collection("QuestionnaireData");
